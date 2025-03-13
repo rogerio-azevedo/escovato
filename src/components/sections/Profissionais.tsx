@@ -52,7 +52,7 @@ const Profissionais = () => {
   };
 
   return (
-    <section id="profissionais" className="py-20 bg-gray-50">
+    <section id="profissionais" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionTitle
           title="Nossa Equipe"
@@ -63,7 +63,7 @@ const Profissionais = () => {
           {profissionais.map((profissional, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105"
+              className="bg-gray-50 rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105"
             >
               <div className="relative h-80">
                 <Image

@@ -100,7 +100,7 @@ const Header = () => {
             Serviços
           </button>
           <button
-            onClick={() => scrollToSection("localizacao")}
+            onClick={() => scrollToSection("footer")}
             className={`${topMenuTextStyle} hover:text-pink-400 font-medium transition-colors nav-link ${
               activeSection === "localizacao" ? "active" : ""
             }`}
@@ -179,7 +179,7 @@ const Header = () => {
               Serviços
             </button>
             <button
-              onClick={() => scrollToSection("localizacao")}
+              onClick={() => scrollToSection("footer")}
               className={`text-gray-800 hover:text-pink-600 font-medium transition-colors text-left ${
                 activeSection === "localizacao" ? "text-pink-600" : ""
               }`}
