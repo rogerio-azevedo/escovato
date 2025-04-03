@@ -8,7 +8,7 @@ const Profissionais = () => {
     {
       nome: "Ana Silva",
       cargo: "Cabeleireira Master",
-      foto: "/images/profissionais/ana.jpg",
+      foto: "/images/profissionais/ana.png",
       descricao:
         "Especialista em cortes modernos e coloração, com mais de 10 anos de experiência no mercado.",
       instagram: "anasilva_hair",
@@ -16,7 +16,7 @@ const Profissionais = () => {
     {
       nome: "Carlos Oliveira",
       cargo: "Barbeiro",
-      foto: "/images/profissionais/carlos.jpg",
+      foto: "/images/profissionais/carlos.png",
       descricao:
         "Expert em cortes masculinos, barba e tratamentos capilares para homens.",
       instagram: "carlos.barber",
@@ -24,7 +24,7 @@ const Profissionais = () => {
     {
       nome: "Juliana Santos",
       cargo: "Manicure & Pedicure",
-      foto: "/images/profissionais/juliana.jpg",
+      foto: "/images/profissionais/juliana.png",
       descricao:
         "Especializada em unhas em gel, alongamentos e nail art com técnicas inovadoras.",
       instagram: "ju_nailartist",
@@ -32,7 +32,7 @@ const Profissionais = () => {
     {
       nome: "Mariana Costa",
       cargo: "Maquiadora",
-      foto: "/images/profissionais/mariana.jpg",
+      foto: "/images/profissionais/mariana.png",
       descricao:
         "Maquiadora profissional com experiência em maquiagens para eventos, editoriais e noivas.",
       instagram: "mari_makeup",

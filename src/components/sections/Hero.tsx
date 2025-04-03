@@ -9,13 +9,13 @@ const Hero = () => {
 
   const slides = [
     {
-      image: "/images/hero/hero-1.jpg",
+      image: "/images/hero/hero-1.png",
       title: "Ambiente Moderno",
       description:
         "Um espaço pensado para proporcionar conforto e sofisticação",
     },
     {
-      image: "/images/hero/hero-2.jpg",
+      image: "/images/hero/hero-2.png",
       title: "Profissionais Qualificados",
       description: "Nossa equipe está pronta para realçar sua beleza natural",
     },
