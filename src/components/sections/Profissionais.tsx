@@ -78,7 +78,7 @@ const Profissionais = () => {
                 <h3 className="text-xl font-bold text-gray-800 mb-1">
                   {profissional.nome}
                 </h3>
-                <p className="text-pink-500 font-medium mb-3">
+                <p className="text-orange-700 font-medium mb-3">
                   {profissional.cargo}
                 </p>
                 <p className="text-gray-700 mb-4">{profissional.descricao}</p>
@@ -86,7 +86,7 @@ const Profissionais = () => {
                   href={`https://instagram.com/${profissional.instagram}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-pink-500 hover:text-pink-600 transition-colors"
+                  className="inline-flex items-center text-orange-700 hover:text-orange-800 transition-colors"
                 >
                   <svg
                     className="w-5 h-5 mr-2"
@@ -111,7 +111,7 @@ const Profissionais = () => {
           </p>
           <button
             onClick={() => scrollToSection("servicos")}
-            className="inline-block bg-pink-500 hover:bg-pink-600 text-white font-medium py-3 px-6 rounded-full transition-colors"
+            className="inline-block bg-orange-700 hover:bg-orange-800 text-white font-medium py-3 px-6 rounded-full transition-colors"
           >
             Conheça Nossos Serviços
           </button>

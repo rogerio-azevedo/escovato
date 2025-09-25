@@ -239,8 +239,8 @@ const Servicos = () => {
               onClick={() => setCategoriaAtiva(categoria.id)}
               className={`flex items-center px-6 py-3 m-2 rounded-full transition-colors ${
                 categoriaAtiva === categoria.id
-                  ? "bg-pink-500 text-white"
-                  : "bg-white text-gray-700 hover:bg-pink-100"
+                  ? "bg-orange-700 text-white"
+                  : "bg-white text-gray-700 hover:bg-orange-100"
               }`}
             >
               <span className="mr-2">{categoria.icone}</span>
@@ -259,7 +259,7 @@ const Servicos = () => {
                 {servico.nome}
               </h3>
               <p className="text-gray-600 mb-4">{servico.descricao}</p>
-              <p className="text-pink-500 font-bold">{servico.preco}</p>
+              <p className="text-orange-700 font-bold">{servico.preco}</p>
             </div>
           ))}
         </div>
@@ -274,7 +274,7 @@ const Servicos = () => {
             href="https://wa.me/5565998135353"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-pink-500 hover:bg-pink-600 text-white font-medium py-3 px-6 rounded-full transition-colors"
+            className="inline-block bg-orange-700 hover:bg-orange-800 text-white font-medium py-3 px-6 rounded-full transition-colors"
           >
             Agendar Horário
           </a>

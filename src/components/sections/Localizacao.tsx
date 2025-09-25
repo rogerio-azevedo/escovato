@@ -28,7 +28,7 @@ const Localizacao = () => {
                 href="https://www.google.com/maps/dir//-15.603707,+-56.058788/@-15.6038987,-56.0583062,18.92z/data=!4m4!4m3!1m0!1m1!4e1?entry=ttu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-pink-500 hover:text-pink-600 transition-colors"
+                className="inline-flex items-center text-orange-700 hover:text-orange-800 transition-colors"
               >
                 <svg
                   className="w-5 h-5 mr-2"

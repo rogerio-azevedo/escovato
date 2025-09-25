@@ -34,7 +34,7 @@ const Footer = () => {
                 href="https://instagram.com/escovato.oficial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-pink-500 transition-colors"
+                className="text-gray-400 hover:text-orange-400 transition-colors"
                 aria-label="Instagram"
               >
                 <svg
@@ -50,7 +50,7 @@ const Footer = () => {
                 href="https://facebook.com/escovato"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-pink-500 transition-colors"
+                className="text-gray-400 hover:text-orange-400 transition-colors"
                 aria-label="Facebook"
               >
                 <svg
@@ -79,7 +79,7 @@ const Footer = () => {
                 href="https://www.google.com/maps/dir//-15.603707,+-56.058788/@-15.6038987,-56.0583062,18.92z/data=!4m4!4m3!1m0!1m1!4e1?entry=ttu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-pink-400 hover:text-pink-300 transition-colors inline-flex items-center"
+                className="text-orange-400 hover:text-orange-300 transition-colors inline-flex items-center"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -112,7 +112,7 @@ const Footer = () => {
               <span className="block">Telefone:</span>
               <a
                 href="tel:+556599813535"
-                className="text-pink-400 hover:text-pink-300 transition-colors"
+                className="text-orange-400 hover:text-orange-300 transition-colors"
               >
                 (65) 99813-5353
               </a>
@@ -123,7 +123,7 @@ const Footer = () => {
                 href="https://wa.me/5565998135353"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-pink-400 hover:text-pink-300 transition-colors"
+                className="text-orange-400 hover:text-orange-300 transition-colors"
               >
                 (65) 99813-5353
               </a>
@@ -132,7 +132,7 @@ const Footer = () => {
               <span className="block">Email:</span>
               <a
                 href="mailto:contato@escovato.com.br"
-                className="text-pink-400 hover:text-pink-300 transition-colors"
+                className="text-orange-400 hover:text-orange-300 transition-colors"
               >
                 contato@escovato.com.br
               </a>
@@ -163,7 +163,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-gray-800 text-center">
           <button
             onClick={scrollToTop}
-            className="bg-pink-500 hover:bg-pink-600 text-white rounded-full p-3 mb-6 inline-block transition-colors"
+            className="bg-orange-700 hover:bg-orange-800 text-white rounded-full p-3 mb-6 inline-block transition-colors"
             aria-label="Voltar ao topo"
           >
             <svg

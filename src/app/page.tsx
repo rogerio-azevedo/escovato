@@ -7,7 +7,7 @@ import Hero from "@/components/sections/Hero";
 import Features from "@/components/sections/Features";
 import NossoEspaco from "@/components/sections/NossoEspaco";
 import Profissionais from "@/components/sections/Profissionais";
-import Servicos from "@/components/sections/Servicos";
+// import Servicos from "@/components/sections/Servicos";
 import Localizacao from "@/components/sections/Localizacao";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
       <Features />
       <NossoEspaco />
       <Profissionais />
-      <Servicos />
+      {/* <Servicos /> */}
       <Localizacao />
       <Footer />
       <WhatsAppButton />

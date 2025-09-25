@@ -20,7 +20,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
       >
         {title}
       </h2>
-      <div className="w-24 h-1.5 bg-pink-500 mx-auto mb-6 rounded-full"></div>
+      <div className="w-24 h-1.5 bg-orange-700 mx-auto mb-6 rounded-full"></div>
       {subtitle && (
         <p
           className={`max-w-2xl mx-auto text-lg ${

@@ -77,7 +77,7 @@ const Header = () => {
         <nav className="hidden md:flex space-x-8">
           <button
             onClick={() => scrollToSection("nosso-espaco")}
-            className={`${topMenuTextStyle} hover:text-pink-400 font-medium transition-colors nav-link ${
+            className={`${topMenuTextStyle} hover:text-orange-300 font-medium transition-colors nav-link ${
               activeSection === "nosso-espaco" ? "active" : ""
             }`}
           >
@@ -85,7 +85,7 @@ const Header = () => {
           </button>
           <button
             onClick={() => scrollToSection("profissionais")}
-            className={`${topMenuTextStyle} hover:text-pink-400 font-medium transition-colors nav-link ${
+            className={`${topMenuTextStyle} hover:text-orange-300 font-medium transition-colors nav-link ${
               activeSection === "profissionais" ? "active" : ""
             }`}
           >
@@ -93,7 +93,7 @@ const Header = () => {
           </button>
           <button
             onClick={() => scrollToSection("servicos")}
-            className={`${topMenuTextStyle} hover:text-pink-400 font-medium transition-colors nav-link ${
+            className={`${topMenuTextStyle} hover:text-orange-300 font-medium transition-colors nav-link ${
               activeSection === "servicos" ? "active" : ""
             }`}
           >
@@ -101,7 +101,7 @@ const Header = () => {
           </button>
           <button
             onClick={() => scrollToSection("footer")}
-            className={`${topMenuTextStyle} hover:text-pink-400 font-medium transition-colors nav-link ${
+            className={`${topMenuTextStyle} hover:text-orange-300 font-medium transition-colors nav-link ${
               activeSection === "localizacao" ? "active" : ""
             }`}
           >
@@ -156,32 +156,32 @@ const Header = () => {
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             <button
               onClick={() => scrollToSection("nosso-espaco")}
-              className={`text-gray-800 hover:text-pink-600 font-medium transition-colors text-left ${
-                activeSection === "nosso-espaco" ? "text-pink-600" : ""
+              className={`text-gray-800 hover:text-orange-600 font-medium transition-colors text-left ${
+                activeSection === "nosso-espaco" ? "text-orange-600" : ""
               }`}
             >
               Nosso Espaço
             </button>
             <button
               onClick={() => scrollToSection("profissionais")}
-              className={`text-gray-800 hover:text-pink-600 font-medium transition-colors text-left ${
-                activeSection === "profissionais" ? "text-pink-600" : ""
+              className={`text-gray-800 hover:text-orange-600 font-medium transition-colors text-left ${
+                activeSection === "profissionais" ? "text-orange-600" : ""
               }`}
             >
               Profissionais
             </button>
             <button
               onClick={() => scrollToSection("servicos")}
-              className={`text-gray-800 hover:text-pink-600 font-medium transition-colors text-left ${
-                activeSection === "servicos" ? "text-pink-600" : ""
+              className={`text-gray-800 hover:text-orange-600 font-medium transition-colors text-left ${
+                activeSection === "servicos" ? "text-orange-600" : ""
               }`}
             >
               Serviços
             </button>
             <button
               onClick={() => scrollToSection("footer")}
-              className={`text-gray-800 hover:text-pink-600 font-medium transition-colors text-left ${
-                activeSection === "localizacao" ? "text-pink-600" : ""
+              className={`text-gray-800 hover:text-orange-600 font-medium transition-colors text-left ${
+                activeSection === "localizacao" ? "text-orange-600" : ""
               }`}
             >
               Localização

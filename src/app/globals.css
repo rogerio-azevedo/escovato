@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #FCF3E6;
   --foreground: #171717;
-  --primary: #D53F8C;
-  --primary-light: #F8B4D9;
-  --primary-dark: #97266D;
-  --secondary: #4A5568;
-  --secondary-light: #A0AEC0;
-  --secondary-dark: #2D3748;
+  --primary: #903A19;
+  --primary-light: #EFDECE;
+  --primary-dark: #561A07;
+  --secondary: #AF7751;
+  --secondary-light: #EFDECE;
+  --secondary-dark: #561A07;
   --scroll-duration: 800ms;
   --scroll-timing: cubic-bezier(0.22, 1, 0.36, 1);
 }

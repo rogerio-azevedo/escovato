@@ -8,10 +8,10 @@ const NossoEspaco = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    "/images/espaco/espaco1.jpg",
-    "/images/espaco/espaco2.jpg",
-    "/images/espaco/espaco3.jpg",
-    "/images/espaco/espaco4.jpg",
+    "/images/espaco/espaco1.png",
+    "/images/espaco/espaco2.png",
+    "/images/espaco/espaco3.png",
+    "/images/espaco/espaco4.png",
   ];
 
   const nextSlide = () => {
@@ -106,7 +106,7 @@ const NossoEspaco = () => {
                   onClick={() => goToSlide(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
                     index === currentIndex
-                      ? "bg-pink-500"
+                      ? "bg-orange-700"
                       : "bg-slate-200/90 hover:bg-white"
                   }`}
                   aria-label={`Ir para slide ${index + 1}`}
@@ -117,7 +117,7 @@ const NossoEspaco = () => {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-pink-500">
+            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-700">
               <h3 className="text-xl font-bold text-gray-800 mb-3">
                 Ambiente Exclusivo
               </h3>
@@ -129,7 +129,7 @@ const NossoEspaco = () => {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-pink-500">
+            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-700">
               <h3 className="text-xl font-bold text-gray-800 mb-3">
                 Equipamentos Modernos
               </h3>
@@ -140,7 +140,7 @@ const NossoEspaco = () => {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-pink-500">
+            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-700">
               <h3 className="text-xl font-bold text-gray-800 mb-3">
                 Conforto e Bem-estar
               </h3>

@@ -21,7 +21,7 @@ const ScrollIndicator = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-1 z-50">
       <div
-        className="h-full bg-pink-500 transition-all duration-300 ease-out"
+        className="h-full bg-orange-700 transition-all duration-300 ease-out"
         style={{ width: `${scrollProgress}%` }}
       ></div>
     </div>

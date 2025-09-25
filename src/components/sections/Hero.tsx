@@ -85,7 +85,7 @@ const Hero = () => {
                 href="https://wa.me/5565998135353?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20do%20Escovato."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-pink-500 hover:bg-pink-600 text-white font-medium py-3 px-8 rounded-full transition-colors inline-flex items-center justify-center"
+                className="bg-orange-700 hover:bg-orange-800 text-white font-medium py-3 px-8 rounded-full transition-colors inline-flex items-center justify-center"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -116,7 +116,7 @@ const Hero = () => {
             onClick={() => setCurrentSlide(index)}
             className={`w-3 h-3 rounded-full transition-colors ${
               index === currentSlide
-                ? "bg-pink-500"
+                ? "bg-orange-700"
                 : "bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Ir para slide ${index + 1}`}
@@ -132,7 +132,7 @@ const Hero = () => {
       >
         <button
           onClick={scrollToNextSection}
-          className="flex flex-col items-center bg-pink-500/80 hover:bg-pink-500 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl"
+          className="flex flex-col items-center bg-orange-700/80 hover:bg-orange-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl"
           aria-label="Rolar para baixo"
         >
           <span className="text-xs font-medium mb-1">Rolar</span>
