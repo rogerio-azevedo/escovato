@@ -68,7 +68,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-white">Endereço</h3>
             <p className="text-gray-400 mb-2">
-              Av. Erico Preza Filho, 362 Sala 01
+              Av. Erico Gonçalves Preza Filho, 362 Sala 01
               <br />
               Galeria Napoli - Jardim Itália
               <br />

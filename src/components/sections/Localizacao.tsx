@@ -17,8 +17,8 @@ const Localizacao = () => {
               Como Chegar
             </h3>
             <p className="text-gray-700 mb-6">
-              Estamos localizados na Av. Erico Preza Filho, 362 Sala 01, na
-              Galeria Napoli, no bairro Jardim Itália em Cuiabá. Nossa
+              Estamos localizados na Av. Erico Gonçalves Preza Filho, 362 Sala
+              01, na Galeria Napoli, no bairro Jardim Itália em Cuiabá. Nossa
               localização é de fácil acesso, próxima a diversos estabelecimentos
               comerciais e com estacionamento disponível.
             </p>
