@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Escovato | Salão de Beleza Express",
+  title: "Escovato - Salão de Beleza",
   description:
-    "Escovato - Serviços de beleza rápidos e de alta qualidade, sem necessidade de agendamento.",
+    "Escovato - Serviços de beleza rápidos e de alta qualidade, com e sem agendamento.",
   keywords:
-    "salão de beleza, cabelo, unhas, depilação, micropigmentação, beleza express",
+    "salão de beleza, cabelo, unhas, depilação, maquiagem, sobrancelhas",
 };
 
 export default function RootLayout({

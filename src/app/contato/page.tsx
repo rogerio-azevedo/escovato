@@ -19,8 +19,8 @@ export default function ContatoPage() {
     pixKey: "contato@escovato.com.br", // Substitua pela chave PIX real
     catalogoUrl: "/servicos", // ou link externo
     wifi: {
-      ssid: "Escovato_5G",
-      password: "escovato2025",
+      ssid: "Escovato_Clientes",
+      password: "Cliente10",
     },
   };
 
@@ -44,23 +44,56 @@ export default function ContatoPage() {
     }
   };
 
-  const handleSaveContact = () => {
-    // Gera vCard
-    const vcard = `BEGIN:VCARD
-    VERSION:3.0
-    FN:${config.nome}
-    TEL;TYPE=WORK,VOICE:${config.telefone}
-    EMAIL:${config.email}
-    URL:https://instagram.com/${config.instagram}
-    END:VCARD`;
+  const handleSaveContact = async () => {
+    try {
+      // Busca a imagem e converte para base64
+      const response = await fetch("/images/hero/hero-2.png");
+      const blob = await response.blob();
+      const reader = new FileReader();
 
-    const blob = new Blob([vcard], { type: "text/vcard" });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "escovato-contato.vcf";
-    link.click();
-    window.URL.revokeObjectURL(url);
+      reader.onloadend = () => {
+        const base64data = reader.result as string;
+        const base64Image = base64data.split(",")[1]; // Remove o prefixo data:image/png;base64,
+
+        // Gera vCard com foto
+        const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${config.nome}
+TEL;TYPE=WORK,VOICE:${config.telefone}
+EMAIL:${config.email}
+URL:https://instagram.com/${config.instagram}
+PHOTO;ENCODING=b;TYPE=PNG:${base64Image}
+END:VCARD`;
+
+        const vcardBlob = new Blob([vcard], { type: "text/vcard" });
+        const url = window.URL.createObjectURL(vcardBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "escovato-contato.vcf";
+        link.click();
+        window.URL.revokeObjectURL(url);
+      };
+
+      reader.readAsDataURL(blob);
+    } catch (err) {
+      console.error("Erro ao salvar contato:", err);
+      // Fallback sem imagem em caso de erro
+      const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${config.nome}
+TEL;TYPE=WORK,VOICE:${config.telefone}
+EMAIL:${config.email}
+URL:https://instagram.com/${config.instagram}
+END:VCARD`;
+
+      const vcardBlob = new Blob([vcard], { type: "text/vcard" });
+      const url = window.URL.createObjectURL(vcardBlob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "escovato-contato.vcf";
+      link.click();
+      window.URL.revokeObjectURL(url);
+    }
   };
 
   return (
