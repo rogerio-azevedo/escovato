@@ -10,12 +10,12 @@ export default function ContatoPage() {
   // Configurações do estabelecimento
   const config = {
     nome: "Escovato - Salão de Beleza",
-    telefone: "+5531999999999", // Substitua pelo número real
+    telefone: "+5565998135353",
     email: "contato@escovato.com.br",
-    instagram: "escovato",
-    facebook: "escovato",
+    instagram: "escovato.oficial",
+    facebookUrl: "https://web.facebook.com/profile.php?id=61581144957772",
     googleMapsUrl: "https://maps.google.com/?q=Escovato+Salão",
-    googleReviewUrl: "https://g.page/r/...", // Substitua pela URL real do Google Reviews
+    googleReviewUrl: "https://g.page/r/CV7oSqbrRMHcEAI/review", // Substitua pela URL real do Google Reviews
     pixKey: "contato@escovato.com.br", // Substitua pela chave PIX real
     catalogoUrl: "/servicos", // ou link externo
     wifi: {
@@ -47,12 +47,12 @@ export default function ContatoPage() {
   const handleSaveContact = () => {
     // Gera vCard
     const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:${config.nome}
-TEL;TYPE=WORK,VOICE:${config.telefone}
-EMAIL:${config.email}
-URL:https://instagram.com/${config.instagram}
-END:VCARD`;
+    VERSION:3.0
+    FN:${config.nome}
+    TEL;TYPE=WORK,VOICE:${config.telefone}
+    EMAIL:${config.email}
+    URL:https://instagram.com/${config.instagram}
+    END:VCARD`;
 
     const blob = new Blob([vcard], { type: "text/vcard" });
     const url = window.URL.createObjectURL(blob);
@@ -226,7 +226,7 @@ END:VCARD`;
 
             {/* Facebook */}
             <a
-              href={`https://facebook.com/${config.facebook}`}
+              href={config.facebookUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 bg-[#1877F2] text-white rounded-2xl p-4 hover:shadow-lg transition-all active:scale-95"
