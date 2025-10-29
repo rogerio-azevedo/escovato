@@ -6,50 +6,50 @@ import SectionTitle from "../SectionTitle";
 const Profissionais = () => {
   const profissionais = [
     {
-      nome: "Ana Silva",
-      cargo: "Cabeleireira Master",
+      nome: "Ana Vasconcelos",
+      cargo: "Maquiadora e Designer de Sobrancelhas",
       foto: "/images/profissionais/ana.png",
       descricao:
-        "Especialista em cortes modernos e coloração, com mais de 10 anos de experiência no mercado.",
-      instagram: "anasilva_hair",
+        "Especialista em maquiagem e design de sobrancelhas, com mais de 7 anos de experiência.",
+      instagram: "anavasconcelossbeauty",
     },
     {
-      nome: "Carlos Oliveira",
-      cargo: "Barbeiro",
-      foto: "/images/profissionais/carlos.png",
+      nome: "Luciana Felix",
+      cargo: "Cabeleireira e Terapeuta Capilar",
+      foto: "/images/profissionais/luciana.png",
       descricao:
-        "Expert em cortes masculinos, barba e tratamentos capilares para homens.",
-      instagram: "carlos.barber",
+        "Especialista em cortes, coloração e tratamentos capilares, com mais de 10 anos de experiência.",
+      instagram: "lucianafelixcoiffeur",
     },
     {
-      nome: "Juliana Santos",
-      cargo: "Manicure & Pedicure",
-      foto: "/images/profissionais/juliana.png",
+      nome: "Vanessa Gonçalo",
+      cargo: "Cabeleireira Especialista em Mechas",
+      foto: "/images/profissionais/vanessa.png",
       descricao:
-        "Especializada em unhas em gel, alongamentos e nail art com técnicas inovadoras.",
-      instagram: "ju_nailartist",
+        "Especialista em loiros de alto padrão e design de cortes personalizados, com mais de 25 anos de experiência.",
+      instagram: "vanessagoncalofc",
     },
     {
-      nome: "Mariana Costa",
-      cargo: "Maquiadora",
-      foto: "/images/profissionais/mariana.png",
+      nome: "Claudineia Martins",
+      cargo: "Depiladora",
+      foto: "/images/profissionais/claudineia.png",
       descricao:
-        "Maquiadora profissional com experiência em maquiagens para eventos, editoriais e noivas.",
-      instagram: "mari_makeup",
+        "Especialista em epilação com metodo humanizado e cera hidrossolúvel com mais de 10 anos de experiência.",
+      instagram: "vanessagoncalofc",
     },
   ];
 
   // Função para rolagem suave
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      const offsetTop = section.offsetTop;
-      window.scrollTo({
-        top: offsetTop - 80, // Ajuste para compensar a altura do header
-        behavior: "smooth",
-      });
-    }
-  };
+  // const scrollToSection = (sectionId: string) => {
+  //   const section = document.getElementById(sectionId);
+  //   if (section) {
+  //     const offsetTop = section.offsetTop;
+  //     window.scrollTo({
+  //       top: offsetTop - 80, // Ajuste para compensar a altura do header
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // };
 
   return (
     <section id="profissionais" className="py-20 bg-white">
@@ -103,7 +103,7 @@ const Profissionais = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        {/* <div className="mt-16 text-center">
           <p className="text-gray-600 max-w-2xl mx-auto mb-6">
             Nossa equipe está em constante atualização com as últimas tendências
             e técnicas do mercado da beleza para oferecer sempre o melhor
@@ -115,7 +115,7 @@ const Profissionais = () => {
           >
             Conheça Nossos Serviços
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

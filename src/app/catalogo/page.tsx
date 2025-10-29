@@ -33,7 +33,7 @@ const categorias: Categoria[] = [
     titulo: "ESCOVA",
     subtitulo: "Cabelos impecáveis",
     imagem: "/images/catalogo/escova.png",
-    cor: "#561A07",
+    cor: "#903A19",
     corTexto: "#FFFFFF",
     servicos: [
       {
@@ -191,7 +191,7 @@ const categorias: Categoria[] = [
     titulo: "CORTES",
     subtitulo: "Estilo e personalidade",
     imagem: "/images/catalogo/corte.png",
-    cor: "#561A07",
+    cor: "#AF7751",
     corTexto: "#FFFFFF",
     servicos: [
       {
@@ -278,7 +278,7 @@ const categorias: Categoria[] = [
     titulo: "MAQUIAGEM E PENTEADOS",
     subtitulo: "Para momentos especiais",
     imagem: "/images/catalogo/make.png",
-    cor: "#AF7751",
+    cor: "#903A19",
     corTexto: "#FFFFFF",
     servicos: [
       {
@@ -312,37 +312,65 @@ const categorias: Categoria[] = [
       },
     ],
   },
-  //   {
-  //     id: "brows-lashes",
-  //     nome: "Olhos",
-  //     titulo: "SOBRANCELHAS & CÍLIOS",
-  //     subtitulo: "Design completo para realçar seu olhar",
-  //     imagem: "/images/catalogo/lashes.png",
-  //     cor: "#561A07",
-  //     corTexto: "#FFFFFF",
-  //     servicos: [
-  //       { nome: "Design de Sobrancelhas", preco: "R$ 65", destaque: true },
-  //       { nome: "Design + Coloração", preco: "R$ 69" },
-  //       { nome: "Design + Coloração Especial", preco: "R$ 75" },
-  //       { nome: "Coloração de Sobrancelhas Simples", preco: "R$ 55" },
-  //       { nome: "Coloração de Sobrancelhas Especial", preco: "R$ 59" },
-  //       { nome: "Brow Lamination", preco: "R$ 105", destaque: true },
-  //       {
-  //         nome: "Lash Lifting",
-  //         preco: "R$ 135",
-  //         destaque: true,
-  //         descricao:
-  //           "Técnica perfeita para um olhar natural e expressivo. Não utiliza fios artificiais, apenas cria o efeito de cílios alongados, curvados e coloridos.",
-  //         observacao: "Inclui coloração de cílios",
-  //       },
-  //       {
-  //         nome: "Coloração de Cílios",
-  //         preco: "R$ 85",
-  //         descricao:
-  //           "Destaque o olhar com aspecto natural, mesmo sem lash lifting.",
-  //       },
-  //     ],
-  //   },
+  {
+    id: "sobrancelhas",
+    nome: "Olhos",
+    titulo: "SOBRANCELHAS & CÍLIOS",
+    subtitulo: "Design completo para realçar seu olhar",
+    imagem: "/images/catalogo/lashes.png",
+    cor: "#AF7751",
+    corTexto: "#FFFFFF",
+    servicos: [
+      {
+        nome: "Design sobrancelhas",
+        preco: "R$ 70",
+        destaque: false,
+        descricao: "Design simples",
+      },
+      {
+        nome: "Design sobrancelhas",
+        preco: "R$ 80",
+        destaque: false,
+        descricao: "Design com henna",
+      },
+      {
+        nome: "Design sobrancelhas",
+        preco: "R$ 90",
+        destaque: true,
+        descricao: "Design com pigmentação",
+      },
+      {
+        nome: "Dermaplaning",
+        preco: "R$ 150",
+        destaque: false,
+        descricao: "Remoção de pelos da face e celulas mortas",
+      },
+      {
+        nome: "Brow Lamination",
+        preco: "R$ 150",
+        destaque: true,
+        descricao: "Técnica de alinhameno dos fios aumentando o volume",
+      },
+      {
+        nome: "Lash Lifting",
+        preco: "R$ 150",
+        destaque: false,
+        descricao: "Técnica perfeita para um olhar natural e expressivo.",
+      },
+      {
+        nome: "Hydra gloss",
+        preco: "R$ 150",
+        destaque: false,
+        descricao: "Hidratação e revitalização dos lábios",
+      },
+      {
+        nome: "Reconstrução de Sobrancelhas",
+        preco: "R$ 150",
+        destaque: false,
+        descricao: "Reconstrução de sobrancelhas com micro agulhamento",
+      },
+    ],
+  },
   //   {
   //     id: "unhas-gel",
   //     nome: "Unhas",
@@ -367,7 +395,7 @@ const categorias: Categoria[] = [
   //   },
   {
     id: "depilacao",
-    nome: "Rosto",
+    nome: "corporal",
     titulo: "DEPILAÇÃO",
     subtitulo: "Depilação facial e corpo",
     imagem: "/images/catalogo/epilacao.png",
@@ -381,6 +409,8 @@ const categorias: Categoria[] = [
       {
         nome: "Axilas",
         preco: "R$ 35",
+        destaque: true,
+        descricao: "Depilação completa das axilas",
       },
       {
         nome: "Braços",
@@ -397,14 +427,23 @@ const categorias: Categoria[] = [
       {
         nome: "Virilha completa",
         preco: "R$ 70",
+        destaque: true,
+        descricao: "Depilação completa da virilha",
       },
       {
-        nome: "MeiaPerna",
+        nome: "Meia Perna",
         preco: "R$ 50",
       },
       {
         nome: "Perna completa",
         preco: "R$ 100",
+      },
+      {
+        nome: "Combinação de Depilação",
+        preco: "R$ 100",
+        destaque: true,
+        descricao:
+          "Depilação completa das axilas, virilha completa e meia perna",
       },
     ],
   },
@@ -539,7 +578,9 @@ export default function CatalogoPage() {
           {categorias.map((categoria, index) => (
             <div
               key={categoria.id}
-              className="group cursor-pointer"
+              className={`group cursor-pointer ${
+                categoriaAtiva === categoria.id ? "md:col-span-2" : ""
+              }`}
               onClick={() =>
                 setCategoriaAtiva(
                   categoriaAtiva === categoria.id ? null : categoria.id
