@@ -4,9 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ContatoPage() {
+export default function LinktreePage() {
   const [copiedPix, setCopiedPix] = useState(false);
-  const [copiedWifi, setCopiedWifi] = useState(false);
 
   // Configurações do estabelecimento
   const config = {
@@ -17,32 +16,7 @@ export default function ContatoPage() {
     facebookUrl: "https://web.facebook.com/profile.php?id=61581144957772",
     googleMapsUrl: "https://maps.google.com/?q=Escovato+Salão",
     googleReviewUrl: "https://g.page/r/CV7oSqbrRMHcEAI/review",
-    pixKey: "20.698.749/0001-61",
     catalogoUrl: "/catalogo",
-    wifi: {
-      ssid: "Escovato_Clientes",
-      password: "Cliente10",
-    },
-  };
-
-  const handleCopyPix = async () => {
-    try {
-      await navigator.clipboard.writeText(config.pixKey);
-      setCopiedPix(true);
-      setTimeout(() => setCopiedPix(false), 2000);
-    } catch (err) {
-      console.error("Erro ao copiar PIX:", err);
-    }
-  };
-
-  const handleCopyWifi = async () => {
-    try {
-      await navigator.clipboard.writeText(config.wifi.password);
-      setCopiedWifi(true);
-      setTimeout(() => setCopiedWifi(false), 2000);
-    } catch (err) {
-      console.error("Erro ao copiar senha WiFi:", err);
-    }
   };
 
   const handleSaveContact = async () => {
@@ -108,9 +82,6 @@ END:VCARD`;
               className="w-full h-auto"
             />
           </div>
-          {/* <p className="text-[#903A19] text-sm font-medium">
-            Salão de Beleza Premium
-          </p> */}
         </div>
 
         {/* Links Container */}
@@ -406,75 +377,6 @@ END:VCARD`;
               </div>
             </div>
           </a>
-
-          {/* WiFi Grátis */}
-          <div
-            className="bg-white rounded-xl p-4 shadow-sm border border-[#EFDECE]"
-            style={{ animation: "fadeInUp 0.5s ease-out 0.8s both" }}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <svg
-                  className="w-5 h-5 text-[#903A19]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
-                  />
-                </svg>
-                <h3 className="font-semibold text-[#561A07]">WiFi Grátis</h3>
-              </div>
-              <button
-                onClick={handleCopyWifi}
-                className="text-xs font-semibold bg-[#EFDECE] text-[#561A07] px-3 py-1.5 rounded-lg hover:bg-[#903A19] hover:text-white transition-colors"
-              >
-                {copiedWifi ? "✓ Copiado" : "Copiar"}
-              </button>
-            </div>
-            <div className="text-sm space-y-1">
-              <p className="text-[#561A07]">
-                <span className="font-semibold">Rede:</span>{" "}
-                <span className="text-[#903A19]">{config.wifi.ssid}</span>
-              </p>
-              <p className="text-[#561A07]">
-                <span className="font-semibold">Senha:</span>{" "}
-                <span className="text-[#903A19]">{config.wifi.password}</span>
-              </p>
-            </div>
-          </div>
-
-          {/* Chave PIX */}
-          <div
-            className="bg-white rounded-xl p-4 shadow-sm border border-[#EFDECE]"
-            style={{ animation: "fadeInUp 0.5s ease-out 0.9s both" }}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <svg
-                  className="w-5 h-5 text-[#903A19]"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M5.3 21h3.9c.3 0 .5-.1.7-.3l5.8-5.8c.4-.4 1-.4 1.4 0l.9.9c.4.4 1 .4 1.4 0l2.8-2.8c.4-.4.4-1 0-1.4l-.9-.9c-.4-.4-.4-1 0-1.4l5.8-5.8c.2-.2.3-.4.3-.7V3c0-.6-.4-1-1-1h-3.9c-.3 0-.5.1-.7.3L15 8.1c-.4.4-1 .4-1.4 0l-.9-.9c-.4-.4-1-.4-1.4 0L8.5 10c-.4.4-.4 1 0 1.4l.9.9c.4.4.4 1 0 1.4l-5.8 5.8c-.2.2-.3.4-.3.7v3.9c0 .5.4.9 1 .9z" />
-                </svg>
-                <h3 className="font-semibold text-[#561A07]">Chave PIX</h3>
-              </div>
-              <button
-                onClick={handleCopyPix}
-                className="text-xs font-semibold bg-[#EFDECE] text-[#561A07] px-3 py-1.5 rounded-lg hover:bg-[#903A19] hover:text-white transition-colors"
-              >
-                {copiedPix ? "✓" : "Copiar"}
-              </button>
-            </div>
-            <p className="text-sm text-[#903A19] font-medium break-all">
-              {config.pixKey}
-            </p>
-          </div>
         </div>
 
         {/* Footer */}
