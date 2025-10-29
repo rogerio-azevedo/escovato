@@ -17,7 +17,7 @@ export default function ContatoPage() {
     googleMapsUrl: "https://maps.google.com/?q=Escovato+Salão",
     googleReviewUrl: "https://g.page/r/CV7oSqbrRMHcEAI/review", // Substitua pela URL real do Google Reviews
     pixKey: "contato@escovato.com.br", // Substitua pela chave PIX real
-    catalogoUrl: "/servicos", // ou link externo
+    catalogoUrl: "/catalogo",
     wifi: {
       ssid: "Escovato_Clientes",
       password: "Cliente10",
