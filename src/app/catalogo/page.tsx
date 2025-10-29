@@ -121,7 +121,7 @@ const categorias: Categoria[] = [
       },
       {
         nome: "Traga seu produto",
-        preco: "R$ 150",
+        preco: "R$ 180",
         destaque: false,
         observacao: "* sujeito a avaliação do profissional",
       },
@@ -220,11 +220,41 @@ const categorias: Categoria[] = [
     ],
   },
   {
+    id: "unhas",
+    nome: "Unhas",
+    titulo: "MANICURE E PEDICURE",
+    subtitulo: "Mãos e pés impecáveis",
+    imagem: "/images/catalogo/unhas.png",
+    cor: "#AF7751",
+    corTexto: "#FFFFFF",
+    servicos: [
+      {
+        nome: "Manicure + Pedicure",
+        preco: "R$ 79",
+        destaque: true,
+        observacao: "de segunda a quinta-feira (sexta-feira e sábado R$ 85)",
+      },
+      { nome: "Manicure ou Pedicure", preco: "R$ 45" },
+      { nome: "Esmaltação", preco: "R$ 32" },
+      { nome: "Manicure + Pedicure em Gel", preco: "R$ 130", destaque: true },
+      { nome: "Manicure ou Pedicure em Gel", preco: "R$ 70" },
+      { nome: "Esmaltação em Gel", preco: "R$ 42" },
+    ],
+    adicionais: [
+      { nome: "Francesinha", preco: "R$ 7" },
+      //   { nome: "Spa Express (esfoliação e hidratação)", preco: "R$ 25" },
+      //   { nome: "Spa Express Especial (remoção de calos)", preco: "R$ 45" },
+      //   { nome: "Chinelinho", preco: "R$ 10" },
+      //   { nome: "Aplicação de Unha Postiça", preco: "R$ 28" },
+      //   { nome: "Nail Art", preco: "R$ 35" },
+    ],
+  },
+  {
     id: "maquiagem",
     nome: "Maquiagem",
-    titulo: "MAQUIAGEM",
+    titulo: "MAQUIAGEM E PENTEADOS",
     subtitulo: "Para momentos especiais",
-    imagem: "/images/catalogo/penteado.png",
+    imagem: "/images/catalogo/make.png",
     cor: "#AF7751",
     corTexto: "#FFFFFF",
     servicos: [
@@ -246,10 +276,16 @@ const categorias: Categoria[] = [
         observacao: "Inclui cílios, blindagem da pele. Ideal para eventos.",
       },
       {
-        nome: "Qualquer Penteado",
+        nome: "Penteado tradicional",
         preco: "R$ 200",
         destaque: true,
-        observacao: "Inclui escova | babyliss",
+        observacao: "não inclui acessórios",
+      },
+      {
+        nome: "Penteado com acessórios",
+        preco: "R$ 220",
+        destaque: true,
+        observacao: "* sujeito a avaliação do profissional",
       },
     ],
   },
@@ -331,28 +367,6 @@ const categorias: Categoria[] = [
   //       { nome: "Polimento", preco: "R$ 55" },
   //     ],
   //   },
-
-  //   {
-  //     id: "tratamentos",
-  //     nome: "Cabelos",
-  //     titulo: "TRATAMENTOS",
-  //     subtitulo: "Escova redutora ou botox",
-  //     imagem: "/images/catalogo/tratamentos.png",
-  //     cor: "#903A19",
-  //     corTexto: "#FFFFFF",
-  //     servicos: [
-  //       { nome: "Curto (até o queixo)", preco: "R$ 265" },
-  //       { nome: "Médio (até o ombro)", preco: "R$ 285" },
-  //       { nome: "Longo (até a linha do sutiã)", preco: "R$ 305" },
-  //       {
-  //         nome: "Extra Longo (abaixo do sutiã)",
-  //         preco: "R$ 335",
-  //         destaque: true,
-  //       },
-  //     ],
-  //   },
-  //   {
-
   //   {
   //     id: "depilacao",
   //     nome: "Rosto",
