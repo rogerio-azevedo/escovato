@@ -190,6 +190,40 @@ const categorias: Categoria[] = [
       },
     ],
   },
+  {
+    id: "maquiagem",
+    nome: "Maquiagem",
+    titulo: "MAQUIAGEM",
+    subtitulo: "Para momentos especiais",
+    imagem: "/images/catalogo/penteado.png",
+    cor: "#AF7751",
+    corTexto: "#FFFFFF",
+    servicos: [
+      {
+        nome: "Make Up Truque",
+        preco: "R$ 120",
+        destaque: false,
+      },
+      {
+        nome: "Make Up Express",
+        preco: "R$ 180",
+        destaque: false,
+        observacao: "Inclui cílios",
+      },
+      {
+        nome: "Make Up Social",
+        preco: "R$ 230",
+        destaque: true,
+        observacao: "Inclui cílios, blindagem da pele. Ideal para eventos.",
+      },
+      {
+        nome: "Qualquer Penteado",
+        preco: "R$ 200",
+        destaque: true,
+        observacao: "Inclui escova | babyliss",
+      },
+    ],
+  },
   //   {
   //     id: "brows-lashes",
   //     nome: "Olhos",
@@ -289,22 +323,7 @@ const categorias: Categoria[] = [
   //     ],
   //   },
   //   {
-  //     id: "penteados",
-  //     nome: "Cabelos",
-  //     titulo: "PENTEADOS",
-  //     subtitulo: "Para momentos especiais",
-  //     imagem: "/images/catalogo/penteado.png",
-  //     cor: "#AF7751",
-  //     corTexto: "#FFFFFF",
-  //     servicos: [
-  //       {
-  //         nome: "Qualquer Penteado",
-  //         preco: "R$ 105",
-  //         destaque: true,
-  //         observacao: "Inclui escova | Adicional Donuts + R$35",
-  //       },
-  //     ],
-  //   },
+
   //   {
   //     id: "depilacao",
   //     nome: "Rosto",
