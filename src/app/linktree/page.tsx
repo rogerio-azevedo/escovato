@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function LinktreePage() {
-  const [copiedPix, setCopiedPix] = useState(false);
-
   // Configurações do estabelecimento
   const config = {
     nome: "Escovato - Salão de Beleza",
