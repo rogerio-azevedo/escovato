@@ -121,6 +121,41 @@ const categorias: Categoria[] = [
       },
     ],
   },
+  {
+    id: "mechas",
+    nome: "Cabelos",
+    titulo: "MECHAS",
+    subtitulo: "Mechas e luzes",
+    imagem: "/images/catalogo/mechas.png",
+    cor: "#903A19",
+    corTexto: "#FFFFFF",
+    servicos: [
+      {
+        nome: "Morena Iluminada",
+        preco: "R$ 550",
+        destaque: false,
+        observacao: "* sujeito a avaliação do profissional",
+      },
+      {
+        nome: "Loiro Iluminado",
+        preco: "R$ 700",
+        destaque: true,
+        observacao: "* sujeito a avaliação do profissional",
+      },
+      {
+        nome: "Loiro Tradicional",
+        preco: "R$ 750",
+        destaque: false,
+        observacao: "* sujeito a avaliação do profissional",
+      },
+      {
+        nome: "Loiro Total Blond",
+        preco: "R$ 900",
+        destaque: false,
+        observacao: "* sujeito a avaliação do profissional",
+      },
+    ],
+  },
   //   {
   //     id: "brows-lashes",
   //     nome: "Olhos",
