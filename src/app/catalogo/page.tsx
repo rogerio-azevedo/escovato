@@ -29,7 +29,7 @@ interface Categoria {
 const categorias: Categoria[] = [
   {
     id: "dry",
-    nome: "Dry Bar",
+    nome: "Cabelos",
     titulo: "ESCOVA",
     subtitulo: "Cabelos impecáveis",
     imagem: "/images/catalogo/escova.png",
@@ -88,188 +88,208 @@ const categorias: Categoria[] = [
     ],
   },
   {
-    id: "brows-lashes",
-    nome: "Brows & Lashes",
-    titulo: "SOBRANCELHAS & CÍLIOS",
-    subtitulo: "Design completo para realçar seu olhar",
-    imagem: "/images/catalogo/lashes.png",
-    cor: "#561A07",
-    corTexto: "#FFFFFF",
-    servicos: [
-      { nome: "Design de Sobrancelhas", preco: "R$ 65", destaque: true },
-      { nome: "Design + Coloração", preco: "R$ 69" },
-      { nome: "Design + Coloração Especial", preco: "R$ 75" },
-      { nome: "Coloração de Sobrancelhas Simples", preco: "R$ 55" },
-      { nome: "Coloração de Sobrancelhas Especial", preco: "R$ 59" },
-      { nome: "Brow Lamination", preco: "R$ 105", destaque: true },
-      {
-        nome: "Lash Lifting",
-        preco: "R$ 135",
-        destaque: true,
-        descricao:
-          "Técnica perfeita para um olhar natural e expressivo. Não utiliza fios artificiais, apenas cria o efeito de cílios alongados, curvados e coloridos.",
-        observacao: "Inclui coloração de cílios",
-      },
-      {
-        nome: "Coloração de Cílios",
-        preco: "R$ 85",
-        descricao:
-          "Destaque o olhar com aspecto natural, mesmo sem lash lifting.",
-      },
-    ],
-  },
-  {
-    id: "unhas",
-    nome: "Nails",
-    titulo: "UNHAS",
-    subtitulo: "Mãos e pés impecáveis",
-    imagem: "/images/catalogo/unhas.png",
-    cor: "#AF7751",
-    corTexto: "#FFFFFF",
-    servicos: [
-      { nome: "Manicure + Pedicure", preco: "R$ 69", destaque: true },
-      { nome: "Manicure ou Pedicure", preco: "R$ 42" },
-      { nome: "Esmaltação", preco: "R$ 32" },
-      { nome: "Manicure + Pedicure em Gel", preco: "R$ 105", destaque: true },
-      { nome: "Manicure ou Pedicure em Gel", preco: "R$ 60" },
-      { nome: "Esmaltação em Gel", preco: "R$ 42" },
-    ],
-    adicionais: [
-      { nome: "Francesinha", preco: "R$ 7" },
-      { nome: "Spa Express (esfoliação e hidratação)", preco: "R$ 25" },
-      { nome: "Spa Express Especial (remoção de calos)", preco: "R$ 45" },
-      { nome: "Chinelinho", preco: "R$ 10" },
-      { nome: "Aplicação de Unha Postiça", preco: "R$ 28" },
-      { nome: "Nail Art", preco: "R$ 35" },
-    ],
-  },
-  {
-    id: "unhas-gel",
-    nome: "Gel Nails",
-    titulo: "UNHAS EM GEL",
-    subtitulo: "Durabilidade e beleza",
-    imagem: "/images/catalogo/unhas-gel.png",
-    cor: "#903A19",
-    corTexto: "#FFFFFF",
-    servicos: [
-      { nome: "Alongamento em Gel", preco: "R$ 175", destaque: true },
-      { nome: "Manutenção Unhas em Gel", preco: "R$ 159" },
-      { nome: "Banho de Gel", preco: "R$ 159" },
-    ],
-    adicionais: [
-      { nome: "Remoção da Unha em Gel", preco: "R$ 49" },
-      { nome: "Remoção Top Coat de Esmaltação em Gel", preco: "R$ 20" },
-      { nome: "Aplicação em Gel (unidade)", preco: "R$ 25" },
-      { nome: "Blindagem (top coat)", preco: "R$ 25" },
-      { nome: "Encapsulamento", preco: "R$ 49" },
-      { nome: "Polimento", preco: "R$ 55" },
-    ],
-  },
-  {
     id: "coloracao",
-    nome: "Color",
+    nome: "Cabelos",
     titulo: "COLORAÇÃO",
     subtitulo: "Transforme seu visual",
     imagem: "/images/catalogo/coloracao.png",
     cor: "#AF7751",
     corTexto: "#FFFFFF",
     servicos: [
-      { nome: "Curto (até o queixo)", preco: "R$ 175" },
-      { nome: "Médio (até o ombro)", preco: "R$ 209" },
-      { nome: "Longo (até a linha do sutiã)", preco: "R$ 235" },
-      { nome: "Extra Longo (abaixo do sutiã)", preco: "R$ 255" },
-    ],
-  },
-  {
-    id: "tratamentos",
-    nome: "Treatments",
-    titulo: "TRATAMENTOS",
-    subtitulo: "Escova redutora ou botox",
-    imagem: "/images/catalogo/tratamentos.png",
-    cor: "#903A19",
-    corTexto: "#FFFFFF",
-    servicos: [
-      { nome: "Curto (até o queixo)", preco: "R$ 265" },
-      { nome: "Médio (até o ombro)", preco: "R$ 285" },
-      { nome: "Longo (até a linha do sutiã)", preco: "R$ 305" },
       {
-        nome: "Extra Longo (abaixo do sutiã)",
-        preco: "R$ 335",
+        nome: "Retoque de Raiz",
+        preco: "R$ 200",
         destaque: true,
       },
-    ],
-  },
-  {
-    id: "cortes",
-    nome: "Cuts",
-    titulo: "CORTES",
-    subtitulo: "Estilo e personalidade",
-    imagem: "/images/catalogo/corte.png",
-    cor: "#561A07",
-    corTexto: "#FFFFFF",
-    servicos: [
       {
-        nome: "Corte",
-        preco: "R$ 95",
-        destaque: true,
-        observacao: "Inclui escova",
+        nome: "Tonalização",
+        preco: "R$ 200",
+        destaque: false,
+        observacao: "* sujeito a avaliação do profissional",
       },
-      { nome: "Corte Bordado", preco: "R$ 109", observacao: "Inclui escova" },
-      { nome: "Aparar as Pontas", preco: "R$ 65", observacao: "Inclui escova" },
-    ],
-  },
-  {
-    id: "penteados",
-    nome: "Styling",
-    titulo: "PENTEADOS",
-    subtitulo: "Para momentos especiais",
-    imagem: "/images/catalogo/penteado.png",
-    cor: "#AF7751",
-    corTexto: "#FFFFFF",
-    servicos: [
       {
-        nome: "Qualquer Penteado",
-        preco: "R$ 105",
-        destaque: true,
-        observacao: "Inclui escova | Adicional Donuts + R$35",
+        nome: "Matização",
+        preco: "R$ 200",
+        destaque: false,
+        observacao: "* sujeito a avaliação do profissional",
+      },
+      {
+        nome: "Coloração cabelo total",
+        preco: "R$ 250",
+        destaque: false,
+        observacao: "* sujeito a avaliação do profissional",
       },
     ],
   },
-  {
-    id: "depilacao",
-    nome: "Waxing",
-    titulo: "DEPILAÇÃO",
-    subtitulo: "Depilação facial à linha",
-    imagem: "/images/profissionais/mariana.png",
-    cor: "#903A19",
-    corTexto: "#FFFFFF",
-    servicos: [
-      {
-        nome: "Testa, Buço, Queixo ou Nariz",
-        preco: "R$ 22",
-        observacao: "Maçã do rosto e lateral da face",
-      },
-      { nome: "Axilas", preco: "R$ 49" },
-      { nome: "Face Completa", preco: "R$ 75", destaque: true },
-    ],
-  },
-  {
-    id: "extras",
-    nome: "Extras",
-    titulo: "SERVIÇOS EXTRAS",
-    subtitulo: "Completando seu visual",
-    imagem: "/images/profissionais/carlos.png",
-    cor: "#561A07",
-    corTexto: "#FFFFFF",
-    servicos: [
-      { nome: "Retoque de Raiz", preco: "R$ 105" },
-      { nome: "Retoque de Raiz (trazendo coloração)", preco: "R$ 79" },
-      { nome: "Aplicação - Curto (traga seu produto)", preco: "R$ 115" },
-      { nome: "Aplicação - Médio (traga seu produto)", preco: "R$ 125" },
-      { nome: "Aplicação - Longo (traga seu produto)", preco: "R$ 145" },
-      { nome: "Aplicação - Extra Longo (traga seu produto)", preco: "R$ 165" },
-    ],
-  },
+  //   {
+  //     id: "brows-lashes",
+  //     nome: "Olhos",
+  //     titulo: "SOBRANCELHAS & CÍLIOS",
+  //     subtitulo: "Design completo para realçar seu olhar",
+  //     imagem: "/images/catalogo/lashes.png",
+  //     cor: "#561A07",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       { nome: "Design de Sobrancelhas", preco: "R$ 65", destaque: true },
+  //       { nome: "Design + Coloração", preco: "R$ 69" },
+  //       { nome: "Design + Coloração Especial", preco: "R$ 75" },
+  //       { nome: "Coloração de Sobrancelhas Simples", preco: "R$ 55" },
+  //       { nome: "Coloração de Sobrancelhas Especial", preco: "R$ 59" },
+  //       { nome: "Brow Lamination", preco: "R$ 105", destaque: true },
+  //       {
+  //         nome: "Lash Lifting",
+  //         preco: "R$ 135",
+  //         destaque: true,
+  //         descricao:
+  //           "Técnica perfeita para um olhar natural e expressivo. Não utiliza fios artificiais, apenas cria o efeito de cílios alongados, curvados e coloridos.",
+  //         observacao: "Inclui coloração de cílios",
+  //       },
+  //       {
+  //         nome: "Coloração de Cílios",
+  //         preco: "R$ 85",
+  //         descricao:
+  //           "Destaque o olhar com aspecto natural, mesmo sem lash lifting.",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "unhas",
+  //     nome: "Unhas",
+  //     titulo: "UNHAS",
+  //     subtitulo: "Mãos e pés impecáveis",
+  //     imagem: "/images/catalogo/unhas.png",
+  //     cor: "#AF7751",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       { nome: "Manicure + Pedicure", preco: "R$ 69", destaque: true },
+  //       { nome: "Manicure ou Pedicure", preco: "R$ 42" },
+  //       { nome: "Esmaltação", preco: "R$ 32" },
+  //       { nome: "Manicure + Pedicure em Gel", preco: "R$ 105", destaque: true },
+  //       { nome: "Manicure ou Pedicure em Gel", preco: "R$ 60" },
+  //       { nome: "Esmaltação em Gel", preco: "R$ 42" },
+  //     ],
+  //     adicionais: [
+  //       { nome: "Francesinha", preco: "R$ 7" },
+  //       { nome: "Spa Express (esfoliação e hidratação)", preco: "R$ 25" },
+  //       { nome: "Spa Express Especial (remoção de calos)", preco: "R$ 45" },
+  //       { nome: "Chinelinho", preco: "R$ 10" },
+  //       { nome: "Aplicação de Unha Postiça", preco: "R$ 28" },
+  //       { nome: "Nail Art", preco: "R$ 35" },
+  //     ],
+  //   },
+  //   {
+  //     id: "unhas-gel",
+  //     nome: "Unhas",
+  //     titulo: "UNHAS EM GEL",
+  //     subtitulo: "Durabilidade e beleza",
+  //     imagem: "/images/catalogo/unhas-gel.png",
+  //     cor: "#903A19",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       { nome: "Alongamento em Gel", preco: "R$ 175", destaque: true },
+  //       { nome: "Manutenção Unhas em Gel", preco: "R$ 159" },
+  //       { nome: "Banho de Gel", preco: "R$ 159" },
+  //     ],
+  //     adicionais: [
+  //       { nome: "Remoção da Unha em Gel", preco: "R$ 49" },
+  //       { nome: "Remoção Top Coat de Esmaltação em Gel", preco: "R$ 20" },
+  //       { nome: "Aplicação em Gel (unidade)", preco: "R$ 25" },
+  //       { nome: "Blindagem (top coat)", preco: "R$ 25" },
+  //       { nome: "Encapsulamento", preco: "R$ 49" },
+  //       { nome: "Polimento", preco: "R$ 55" },
+  //     ],
+  //   },
+
+  //   {
+  //     id: "tratamentos",
+  //     nome: "Cabelos",
+  //     titulo: "TRATAMENTOS",
+  //     subtitulo: "Escova redutora ou botox",
+  //     imagem: "/images/catalogo/tratamentos.png",
+  //     cor: "#903A19",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       { nome: "Curto (até o queixo)", preco: "R$ 265" },
+  //       { nome: "Médio (até o ombro)", preco: "R$ 285" },
+  //       { nome: "Longo (até a linha do sutiã)", preco: "R$ 305" },
+  //       {
+  //         nome: "Extra Longo (abaixo do sutiã)",
+  //         preco: "R$ 335",
+  //         destaque: true,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "cortes",
+  //     nome: "Cabelos",
+  //     titulo: "CORTES",
+  //     subtitulo: "Estilo e personalidade",
+  //     imagem: "/images/catalogo/corte.png",
+  //     cor: "#561A07",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       {
+  //         nome: "Corte",
+  //         preco: "R$ 95",
+  //         destaque: true,
+  //         observacao: "Inclui escova",
+  //       },
+  //       { nome: "Corte Bordado", preco: "R$ 109", observacao: "Inclui escova" },
+  //       { nome: "Aparar as Pontas", preco: "R$ 65", observacao: "Inclui escova" },
+  //     ],
+  //   },
+  //   {
+  //     id: "penteados",
+  //     nome: "Cabelos",
+  //     titulo: "PENTEADOS",
+  //     subtitulo: "Para momentos especiais",
+  //     imagem: "/images/catalogo/penteado.png",
+  //     cor: "#AF7751",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       {
+  //         nome: "Qualquer Penteado",
+  //         preco: "R$ 105",
+  //         destaque: true,
+  //         observacao: "Inclui escova | Adicional Donuts + R$35",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: "depilacao",
+  //     nome: "Rosto",
+  //     titulo: "DEPILAÇÃO",
+  //     subtitulo: "Depilação facial à linha",
+  //     imagem: "/images/profissionais/mariana.png",
+  //     cor: "#903A19",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       {
+  //         nome: "Testa, Buço, Queixo ou Nariz",
+  //         preco: "R$ 22",
+  //         observacao: "Maçã do rosto e lateral da face",
+  //       },
+  //       { nome: "Axilas", preco: "R$ 49" },
+  //       { nome: "Face Completa", preco: "R$ 75", destaque: true },
+  //     ],
+  //   },
+  //   {
+  //     id: "extras",
+  //     nome: "Diversos",
+  //     titulo: "SERVIÇOS EXTRAS",
+  //     subtitulo: "Completando seu visual",
+  //     imagem: "/images/profissionais/carlos.png",
+  //     cor: "#561A07",
+  //     corTexto: "#FFFFFF",
+  //     servicos: [
+  //       { nome: "Retoque de Raiz", preco: "R$ 105" },
+  //       { nome: "Retoque de Raiz (trazendo coloração)", preco: "R$ 79" },
+  //       { nome: "Aplicação - Curto (traga seu produto)", preco: "R$ 115" },
+  //       { nome: "Aplicação - Médio (traga seu produto)", preco: "R$ 125" },
+  //       { nome: "Aplicação - Longo (traga seu produto)", preco: "R$ 145" },
+  //       { nome: "Aplicação - Extra Longo (traga seu produto)", preco: "R$ 165" },
+  //     ],
+  //   },
 ];
 
 export default function CatalogoPage() {
@@ -412,7 +432,7 @@ export default function CatalogoPage() {
               }}
             >
               {/* Card Principal */}
-              <div className="relative h-[240px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_60px_rgba(86,26,7,0.3)] group-hover:scale-[1.02]">
+              <div className="relative h-[220px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_60px_rgba(86,26,7,0.3)] group-hover:scale-[1.02]">
                 {/* Imagem de Fundo */}
                 <Image
                   src={categoria.imagem}
@@ -597,7 +617,7 @@ export default function CatalogoPage() {
 
                   {/* Pacotes */}
                   {categoria.pacotes && categoria.pacotes.length > 0 && (
-                    <div className="pt-4 border-t border-[#EFDECE]/40">
+                    <div className="pt-4 border-t border-[#EFDECE]/40 mt-5">
                       <h4 className="text-[#561A07] font-bold text-base mb-3 flex items-center gap-1.5">
                         <span className="text-sm">📦</span>
                         <span>Pacotes</span>
