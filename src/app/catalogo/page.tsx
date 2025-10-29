@@ -56,7 +56,7 @@ const categorias: Categoria[] = [
       },
     ],
     adicionais: [
-      { nome: "Chapinha", preco: "R$ 19" },
+      { nome: "Chapinha", preco: "R$ 29" },
       { nome: "Serviços em Mega Hair", preco: "R$ 30" },
       { nome: "Grampos", preco: "R$ 8" },
       { nome: "Bob (unidade)", preco: "R$ 10" },
@@ -82,6 +82,29 @@ const categorias: Categoria[] = [
       {
         nome: "30 escovas lisas",
         preco: "R$ 2.160",
+        destaque: true,
+        observacao: "Inclui 03 hidratações",
+      },
+      {
+        nome: "05 escovas modeladas",
+        preco: "R$ 485",
+        destaque: false,
+      },
+      {
+        nome: "10 escovas modeladas",
+        preco: "R$ 940",
+        destaque: false,
+        observacao: "Inclui 01 hidratação",
+      },
+      {
+        nome: "20 escovas modeladas",
+        preco: "R$ 1.820",
+        destaque: false,
+        observacao: "Inclui 02 hidratações",
+      },
+      {
+        nome: "30 escovas modeladas",
+        preco: "R$ 2.640",
         destaque: true,
         observacao: "Inclui 03 hidratações",
       },
@@ -321,31 +344,6 @@ const categorias: Categoria[] = [
   //     ],
   //   },
   //   {
-  //     id: "unhas",
-  //     nome: "Unhas",
-  //     titulo: "UNHAS",
-  //     subtitulo: "Mãos e pés impecáveis",
-  //     imagem: "/images/catalogo/unhas.png",
-  //     cor: "#AF7751",
-  //     corTexto: "#FFFFFF",
-  //     servicos: [
-  //       { nome: "Manicure + Pedicure", preco: "R$ 69", destaque: true },
-  //       { nome: "Manicure ou Pedicure", preco: "R$ 42" },
-  //       { nome: "Esmaltação", preco: "R$ 32" },
-  //       { nome: "Manicure + Pedicure em Gel", preco: "R$ 105", destaque: true },
-  //       { nome: "Manicure ou Pedicure em Gel", preco: "R$ 60" },
-  //       { nome: "Esmaltação em Gel", preco: "R$ 42" },
-  //     ],
-  //     adicionais: [
-  //       { nome: "Francesinha", preco: "R$ 7" },
-  //       { nome: "Spa Express (esfoliação e hidratação)", preco: "R$ 25" },
-  //       { nome: "Spa Express Especial (remoção de calos)", preco: "R$ 45" },
-  //       { nome: "Chinelinho", preco: "R$ 10" },
-  //       { nome: "Aplicação de Unha Postiça", preco: "R$ 28" },
-  //       { nome: "Nail Art", preco: "R$ 35" },
-  //     ],
-  //   },
-  //   {
   //     id: "unhas-gel",
   //     nome: "Unhas",
   //     titulo: "UNHAS EM GEL",
@@ -367,41 +365,49 @@ const categorias: Categoria[] = [
   //       { nome: "Polimento", preco: "R$ 55" },
   //     ],
   //   },
-  //   {
-  //     id: "depilacao",
-  //     nome: "Rosto",
-  //     titulo: "DEPILAÇÃO",
-  //     subtitulo: "Depilação facial à linha",
-  //     imagem: "/images/profissionais/mariana.png",
-  //     cor: "#903A19",
-  //     corTexto: "#FFFFFF",
-  //     servicos: [
-  //       {
-  //         nome: "Testa, Buço, Queixo ou Nariz",
-  //         preco: "R$ 22",
-  //         observacao: "Maçã do rosto e lateral da face",
-  //       },
-  //       { nome: "Axilas", preco: "R$ 49" },
-  //       { nome: "Face Completa", preco: "R$ 75", destaque: true },
-  //     ],
-  //   },
-  //   {
-  //     id: "extras",
-  //     nome: "Diversos",
-  //     titulo: "SERVIÇOS EXTRAS",
-  //     subtitulo: "Completando seu visual",
-  //     imagem: "/images/profissionais/carlos.png",
-  //     cor: "#561A07",
-  //     corTexto: "#FFFFFF",
-  //     servicos: [
-  //       { nome: "Retoque de Raiz", preco: "R$ 105" },
-  //       { nome: "Retoque de Raiz (trazendo coloração)", preco: "R$ 79" },
-  //       { nome: "Aplicação - Curto (traga seu produto)", preco: "R$ 115" },
-  //       { nome: "Aplicação - Médio (traga seu produto)", preco: "R$ 125" },
-  //       { nome: "Aplicação - Longo (traga seu produto)", preco: "R$ 145" },
-  //       { nome: "Aplicação - Extra Longo (traga seu produto)", preco: "R$ 165" },
-  //     ],
-  //   },
+  {
+    id: "depilacao",
+    nome: "Rosto",
+    titulo: "DEPILAÇÃO",
+    subtitulo: "Depilação facial e corpo",
+    imagem: "/images/catalogo/epilacao.png",
+    cor: "#903A19",
+    corTexto: "#FFFFFF",
+    servicos: [
+      {
+        nome: "Buço",
+        preco: "R$ 35",
+      },
+      {
+        nome: "Axilas",
+        preco: "R$ 35",
+      },
+      {
+        nome: "Braços",
+        preco: "R$ 50",
+      },
+      {
+        nome: "Barriga",
+        preco: "R$ 35",
+      },
+      {
+        nome: "Virilha simples",
+        preco: "R$ 50",
+      },
+      {
+        nome: "Virilha completa",
+        preco: "R$ 70",
+      },
+      {
+        nome: "MeiaPerna",
+        preco: "R$ 50",
+      },
+      {
+        nome: "Perna completa",
+        preco: "R$ 100",
+      },
+    ],
+  },
 ];
 
 export default function CatalogoPage() {
@@ -624,7 +630,7 @@ export default function CatalogoPage() {
                     {categoria.servicos.map((servico, idx) => (
                       <div
                         key={idx}
-                        className={`p-3.5 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${
+                        className={`p-3 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${
                           servico.destaque
                             ? "bg-gradient-to-r from-[#561A07] to-[#903A19] text-white shadow-md"
                             : "bg-[#FCF3E6] hover:bg-[#EFDECE]"
@@ -738,7 +744,7 @@ export default function CatalogoPage() {
                         {categoria.pacotes.map((pacote, idx) => (
                           <div
                             key={idx}
-                            className={`p-3.5 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${
+                            className={`p-3 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${
                               pacote.destaque
                                 ? "bg-gradient-to-r from-[#561A07] to-[#903A19] text-white shadow-md"
                                 : "bg-[#FCF3E6] hover:bg-[#EFDECE]"
