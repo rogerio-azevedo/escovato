@@ -15,8 +15,8 @@ export default function ContatoPage() {
     email: "contato@escovato.com.br",
     instagram: "escovato.oficial",
     facebookUrl: "https://web.facebook.com/profile.php?id=61581144957772",
-    googleMapsUrl: "https://maps.google.com/?q=Escovato+Salão",
-    googleReviewUrl: "https://g.page/r/CV7oSqbrRMHcEAI/review",
+    googleMapsUrl: "https://maps.app.goo.gl/PwMgLNY4uszrZp9eA",
+    googleReviewUrl: "https://g.page/r/CV7oSqbrRMHcEAE/review",
     pixKey: "20.698.749/0001-61",
     catalogoUrl: "/catalogo",
     wifi: {
