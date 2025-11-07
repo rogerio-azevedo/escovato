@@ -259,9 +259,8 @@ const categorias: Categoria[] = [
       },
       { nome: "Manicure ou Pedicure", preco: "R$ 45" },
       { nome: "Esmaltação", preco: "R$ 32" },
-      { nome: "Manicure + Pedicure em Gel", preco: "R$ 130", destaque: true },
-      { nome: "Manicure ou Pedicure em Gel", preco: "R$ 70" },
-      { nome: "Esmaltação em Gel", preco: "R$ 42" },
+      { nome: "Manicure + Pedicure em Gel", preco: "R$ 250", destaque: true },
+      { nome: "Manicure ou Pedicure em Gel", preco: "R$ 130" },
     ],
     adicionais: [
       { nome: "Francesinha", preco: "R$ 7" },
