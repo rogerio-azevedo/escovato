@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { criarVale, listarVales, validarCPF } from '@/lib/vales';
-import type { CreateValeInput, ValeFilters } from '@/types/vale';
+import type { CreateValeInput, ValeFilters, ValeStatus } from '@/types/vale';
 
 // GET - Listar vales
 export async function GET(request: NextRequest) {
@@ -14,8 +14,9 @@ export async function GET(request: NextRequest) {
 
   try {
     const searchParams = request.nextUrl.searchParams;
+    const statusParam = searchParams.get('status');
     const filters: ValeFilters = {
-      status: searchParams.get('status') as any,
+      status: statusParam ? (statusParam as ValeStatus) : undefined,
       search: searchParams.get('search') || undefined,
     };
 
@@ -55,7 +56,7 @@ export async function POST(request: NextRequest) {
       if (isNaN(validade.getTime())) {
         throw new Error('Data inválida');
       }
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Data de validade inválida' },
         { status: 400 }

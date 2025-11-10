@@ -46,7 +46,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const data: any = {};
+    const data: Record<string, string | number | Date> = {};
 
     if (body.nome_completo) data.nome_completo = body.nome_completo;
     if (body.cpf) {

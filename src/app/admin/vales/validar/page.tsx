@@ -1,15 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import type { ValeValidacao } from '@/types/vale';
-import { formatarCPF, formatarValor } from '@/lib/vales';
+import { formatarValor } from '@/lib/vales';
 import QRScanner from '@/components/admin/QRScanner';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 
-export default function ValidarValePage() {
+function ValidarValeContent() {
   const searchParams = useSearchParams();
   const codigoUrl = searchParams.get('code');
 
@@ -84,7 +84,7 @@ export default function ValidarValePage() {
 
     try {
       const response = await fetch(
-        `/api/admin/vales/${validacao.vale.codigo}/validar`,
+        `/api/admin/vales/${validacao.vale.id}/validar`,
         {
           method: 'POST',
         }
@@ -108,10 +108,10 @@ export default function ValidarValePage() {
         setCodigo('');
         setCpf('');
       }, 2000);
-    } catch (error: any) {
+    } catch (error) {
       setToast({
         show: true,
-        message: error.message || 'Erro ao processar vale',
+        message: (error as Error).message || 'Erro ao processar vale',
         type: 'error',
       });
     } finally {
@@ -335,7 +335,7 @@ export default function ValidarValePage() {
                         <div className="flex justify-between">
                           <span className="text-gray-600">Código:</span>
                           <span className="font-mono text-sm text-gray-800">
-                            {validacao.vale.codigo}
+                            {validacao.vale.codigo_hash}
                           </span>
                         </div>
                       </div>
@@ -394,6 +394,21 @@ export default function ValidarValePage() {
         duration={3000}
       />
     </div>
+  );
+}
+
+export default function ValidarValePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Carregando...</p>
+        </div>
+      </div>
+    }>
+      <ValidarValeContent />
+    </Suspense>
   );
 }
 

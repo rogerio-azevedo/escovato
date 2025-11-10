@@ -45,6 +45,7 @@ export default function ValeDetalhesPage({
     if (valeId) {
       carregarVale();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valeId]);
 
   const carregarVale = async () => {

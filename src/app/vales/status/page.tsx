@@ -30,6 +30,7 @@ export default function ValeStatusPage() {
     }
 
     validarVale();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codigo]);
 
   const validarVale = async () => {

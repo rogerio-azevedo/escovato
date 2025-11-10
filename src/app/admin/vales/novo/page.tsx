@@ -1,31 +1,31 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { validarCPF, formatarCPF } from '@/lib/vales';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { validarCPF } from "@/lib/vales";
 
 export default function NovoValePage() {
   const router = useRouter();
   const [carregando, setCarregando] = useState(false);
-  const [erro, setErro] = useState('');
+  const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState(false);
 
   // Calcular data padrão inicial (12 meses a partir de hoje)
   const getDataPadraoInicial = () => {
     const data = new Date();
     data.setFullYear(data.getFullYear() + 1);
-    return data.toISOString().split('T')[0];
+    return data.toISOString().split("T")[0];
   };
 
   const [formData, setFormData] = useState({
-    nome_completo: '',
-    cpf: '',
-    descricao: '',
-    valor: '',
-    mensagem: '',
-    de: 'Escovato Salão de Beleza',
-    para: '',
+    nome_completo: "",
+    cpf: "",
+    descricao: "",
+    valor: "",
+    mensagem: "",
+    de: "Escovato Salão de Beleza",
+    para: "",
     validade: getDataPadraoInicial(),
   });
 
@@ -34,13 +34,13 @@ export default function NovoValePage() {
   ) => {
     const { name, value } = e.target;
 
-    if (name === 'cpf') {
+    if (name === "cpf") {
       // Formatar CPF enquanto digita
-      const cpfNumeros = value.replace(/[^\d]/g, '');
+      const cpfNumeros = value.replace(/[^\d]/g, "");
       const cpfFormatado = cpfNumeros
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
       setFormData({ ...formData, cpf: cpfFormatado });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -49,53 +49,53 @@ export default function NovoValePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErro('');
+    setErro("");
     setSucesso(false);
     setCarregando(true);
 
     // Validações
     // CPF é opcional, mas se fornecido deve ser válido
     if (formData.cpf && !validarCPF(formData.cpf)) {
-      setErro('CPF inválido');
+      setErro("CPF inválido");
       setCarregando(false);
       return;
     }
 
     const valor = parseFloat(formData.valor);
     if (isNaN(valor) || valor <= 0) {
-      setErro('Valor inválido');
+      setErro("Valor inválido");
       setCarregando(false);
       return;
     }
 
     // Validar data de validade
     if (!formData.validade) {
-      setErro('A data de validade é obrigatória');
+      setErro("A data de validade é obrigatória");
       setCarregando(false);
       return;
     }
 
-    const validade = new Date(formData.validade + 'T00:00:00');
+    const validade = new Date(formData.validade + "T00:00:00");
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
 
     if (isNaN(validade.getTime())) {
-      setErro('Data de validade inválida');
+      setErro("Data de validade inválida");
       setCarregando(false);
       return;
     }
 
     if (validade < hoje) {
-      setErro('A data de validade deve ser hoje ou uma data futura');
+      setErro("A data de validade deve ser hoje ou uma data futura");
       setCarregando(false);
       return;
     }
 
     try {
-      const response = await fetch('/api/admin/vales', {
-        method: 'POST',
+      const response = await fetch("/api/admin/vales", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...formData,
@@ -106,15 +106,17 @@ export default function NovoValePage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Erro ao criar vale');
+        throw new Error(data.error || "Erro ao criar vale");
       }
 
       setSucesso(true);
       setTimeout(() => {
         router.push(`/admin/vales/${data.vale.id}`);
       }, 2000);
-    } catch (error: any) {
-      setErro(error.message || 'Erro ao criar vale. Tente novamente.');
+    } catch (error) {
+      setErro(
+        (error as Error).message || "Erro ao criar vale. Tente novamente."
+      );
     } finally {
       setCarregando(false);
     }
@@ -123,7 +125,7 @@ export default function NovoValePage() {
   // Data mínima permitida (hoje)
   const getDataMinima = () => {
     const hoje = new Date();
-    return hoje.toISOString().split('T')[0];
+    return hoje.toISOString().split("T")[0];
   };
 
   return (
@@ -344,7 +346,7 @@ export default function NovoValePage() {
                 disabled={carregando}
                 className="flex-1 bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {carregando ? 'Criando...' : 'Criar Vale Presente'}
+                {carregando ? "Criando..." : "Criar Vale Presente"}
               </button>
 
               <Link
@@ -360,4 +362,3 @@ export default function NovoValePage() {
     </div>
   );
 }
-
