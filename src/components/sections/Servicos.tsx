@@ -1,287 +1,201 @@
 "use client";
 
-import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import SectionTitle from "../SectionTitle";
 
-type Servico = {
+interface CategoriaPreview {
+  id: string;
   nome: string;
+  titulo: string;
   descricao: string;
-  preco: string;
-};
+  imagem: string;
+  cor: string;
+  precoInicial: string;
+}
 
-type ServicosData = {
-  cabelo: Servico[];
-  unhas: Servico[];
-  maquiagem: Servico[];
-  tratamentos: Servico[];
-};
+const categoriasPreview: CategoriaPreview[] = [
+  {
+    id: "dry",
+    nome: "Cabelos",
+    titulo: "Escova",
+    descricao: "Cabelos impecáveis com escova lisa ou modelada",
+    imagem: "/images/catalogo/escova.png",
+    cor: "#903A19",
+    precoInicial: "R$ 79",
+  },
+  {
+    id: "sobrancelhas",
+    nome: "Olhos",
+    titulo: "Sobrancelhas & Cílios",
+    descricao: "Design completo para realçar seu olhar",
+    imagem: "/images/catalogo/lashes.png",
+    cor: "#AF7751",
+    precoInicial: "R$ 70",
+  },
+  {
+    id: "unhas",
+    nome: "Unhas",
+    titulo: "Manicure & Pedicure",
+    descricao: "Mãos e pés sempre impecáveis",
+    imagem: "/images/catalogo/unhas.png",
+    cor: "#903A19",
+    precoInicial: "R$ 79",
+  },
+  {
+    id: "coloracao",
+    nome: "Cabelos",
+    titulo: "Coloração",
+    descricao: "Transforme seu visual com cor",
+    imagem: "/images/catalogo/coloracao.png",
+    cor: "#AF7751",
+    precoInicial: "R$ 220",
+  },
+  {
+    id: "mechas",
+    nome: "Cabelos",
+    titulo: "Mechas & Luzes",
+    descricao: "Iluminação perfeita para seu cabelo",
+    imagem: "/images/catalogo/mechas.png",
+    cor: "#903A19",
+    precoInicial: "R$ 550",
+  },
+  {
+    id: "maquiagem",
+    nome: "Maquiagem",
+    titulo: "Make & Penteados",
+    descricao: "Para momentos especiais",
+    imagem: "/images/catalogo/make.png",
+    cor: "#AF7751",
+    precoInicial: "R$ 120",
+  },
+];
 
-type Categoria = {
-  id: "cabelo" | "unhas" | "maquiagem" | "tratamentos";
-  nome: string;
-  icone: React.ReactNode;
-};
-
-const Servicos = () => {
-  const categorias: Categoria[] = [
-    {
-      id: "cabelo",
-      nome: "Cabelo",
-      icone: (
-        <svg
-          className="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
-          <path d="M13 7h-2v6h6v-2h-4z" />
-        </svg>
-      ),
-    },
-    {
-      id: "unhas",
-      nome: "Unhas",
-      icone: (
-        <svg
-          className="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
-          <path d="M13 7h-2v6h6v-2h-4z" />
-        </svg>
-      ),
-    },
-    {
-      id: "maquiagem",
-      nome: "Maquiagem",
-      icone: (
-        <svg
-          className="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
-          <path d="M13 7h-2v6h6v-2h-4z" />
-        </svg>
-      ),
-    },
-    {
-      id: "tratamentos",
-      nome: "Tratamentos",
-      icone: (
-        <svg
-          className="w-6 h-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
-          <path d="M13 7h-2v6h6v-2h-4z" />
-        </svg>
-      ),
-    },
-  ];
-
-  const servicos: ServicosData = {
-    cabelo: [
-      {
-        nome: "Corte Feminino",
-        descricao:
-          "Corte personalizado de acordo com seu tipo de rosto e estilo",
-        preco: "A partir de R$ 80,00",
-      },
-      {
-        nome: "Coloração",
-        descricao: "Tintura profissional com produtos de alta qualidade",
-        preco: "A partir de R$ 150,00",
-      },
-      {
-        nome: "Mechas/Luzes",
-        descricao: "Técnicas variadas como balayage, ombré, californianas",
-        preco: "A partir de R$ 200,00",
-      },
-      {
-        nome: "Escova",
-        descricao: "Modelagem com escova para todos os tipos de cabelo",
-        preco: "A partir de R$ 60,00",
-      },
-      {
-        nome: "Penteado",
-        descricao: "Penteados para festas, casamentos e eventos especiais",
-        preco: "A partir de R$ 120,00",
-      },
-      {
-        nome: "Hidratação",
-        descricao: "Tratamentos capilares para recuperar a saúde dos fios",
-        preco: "A partir de R$ 90,00",
-      },
-    ],
-    unhas: [
-      {
-        nome: "Manicure",
-        descricao: "Cuidado completo para suas mãos e unhas",
-        preco: "R$ 40,00",
-      },
-      {
-        nome: "Pedicure",
-        descricao: "Tratamento completo para pés e unhas",
-        preco: "R$ 50,00",
-      },
-      {
-        nome: "Esmaltação em Gel",
-        descricao: "Esmalte em gel de longa duração",
-        preco: "R$ 70,00",
-      },
-      {
-        nome: "Unhas de Fibra",
-        descricao: "Alongamento de unhas com fibra de vidro",
-        preco: "R$ 120,00",
-      },
-      {
-        nome: "Unhas de Gel",
-        descricao: "Alongamento ou cobertura com gel",
-        preco: "R$ 150,00",
-      },
-      {
-        nome: "Nail Art",
-        descricao: "Decoração artística para suas unhas",
-        preco: "A partir de R$ 20,00",
-      },
-    ],
-    maquiagem: [
-      {
-        nome: "Maquiagem Social",
-        descricao: "Maquiagem para eventos sociais e ocasiões especiais",
-        preco: "R$ 120,00",
-      },
-      {
-        nome: "Maquiagem para Noivas",
-        descricao: "Maquiagem completa para o dia do seu casamento",
-        preco: "R$ 250,00",
-      },
-      {
-        nome: "Design de Sobrancelhas",
-        descricao: "Modelagem e design personalizado para suas sobrancelhas",
-        preco: "R$ 50,00",
-      },
-      {
-        nome: "Extensão de Cílios",
-        descricao: "Aplicação de cílios fio a fio ou volume russo",
-        preco: "A partir de R$ 180,00",
-      },
-      {
-        nome: "Limpeza de Pele",
-        descricao: "Tratamento completo para limpeza e revitalização da pele",
-        preco: "R$ 120,00",
-      },
-      {
-        nome: "Curso de Auto-Maquiagem",
-        descricao: "Aprenda a se maquiar com técnicas profissionais",
-        preco: "R$ 200,00",
-      },
-    ],
-    tratamentos: [
-      {
-        nome: "Botox Capilar",
-        descricao:
-          "Tratamento para recuperar a fibra capilar e reduzir o frizz",
-        preco: "A partir de R$ 150,00",
-      },
-      {
-        nome: "Cauterização",
-        descricao: "Selamento da cutícula para cabelos danificados",
-        preco: "A partir de R$ 120,00",
-      },
-      {
-        nome: "Reconstrução",
-        descricao: "Tratamento intensivo para cabelos muito danificados",
-        preco: "A partir de R$ 140,00",
-      },
-      {
-        nome: "Hidratação Profunda",
-        descricao:
-          "Tratamento de hidratação intensiva para todos os tipos de cabelo",
-        preco: "A partir de R$ 100,00",
-      },
-      {
-        nome: "Detox Capilar",
-        descricao: "Limpeza profunda do couro cabeludo",
-        preco: "R$ 90,00",
-      },
-      {
-        nome: "Nutrição",
-        descricao: "Reposição de nutrientes essenciais para a saúde dos fios",
-        preco: "A partir de R$ 110,00",
-      },
-    ],
-  };
-
-  const [categoriaAtiva, setCategoriaAtiva] = useState<
-    "cabelo" | "unhas" | "maquiagem" | "tratamentos"
-  >("cabelo");
-
+export default function Servicos() {
   return (
-    <section id="servicos" className="py-20 bg-gray-50">
+    <section
+      id="servicos"
+      className="py-20 bg-gradient-to-br from-[#FCF3E6] via-white to-[#FCF3E6]"
+    >
       <div className="container mx-auto px-4">
         <SectionTitle
           title="Nossos Serviços"
-          subtitle="Conheça os serviços que oferecemos para realçar sua beleza"
+          subtitle="Explore nossa variedade de serviços especializados"
         />
 
-        <div className="flex flex-wrap justify-center mb-12">
-          {categorias.map((categoria) => (
-            <button
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          {categoriasPreview.map((categoria, index) => (
+            <Link
               key={categoria.id}
-              onClick={() => setCategoriaAtiva(categoria.id)}
-              className={`flex items-center px-6 py-3 m-2 rounded-full transition-colors ${
-                categoriaAtiva === categoria.id
-                  ? "bg-orange-700 text-white"
-                  : "bg-white text-gray-700 hover:bg-orange-100"
-              }`}
+              href="/catalogo"
+              className="group"
+              style={{
+                animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
+              }}
             >
-              <span className="mr-2">{categoria.icone}</span>
-              {categoria.nome}
-            </button>
+              <div className="relative h-[320px] rounded-3xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.03]">
+                {/* Imagem de Fundo */}
+                <Image
+                  src={categoria.imagem}
+                  alt={categoria.titulo}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+
+                {/* Overlay Gradiente */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{
+                    background: `linear-gradient(135deg, ${categoria.cor}dd 0%, ${categoria.cor}99 50%, ${categoria.cor}cc 100%)`,
+                  }}
+                />
+
+                {/* Conteúdo */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-semibold mb-3">
+                      {categoria.nome}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-3xl font-bold text-white mb-2 tracking-tight">
+                      {categoria.titulo}
+                    </h3>
+                    <p className="text-white/90 text-sm mb-4 leading-relaxed">
+                      {categoria.descricao}
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-white/80 text-xs">
+                          A partir de
+                        </span>
+                        <p className="text-2xl font-bold text-white">
+                          {categoria.precoInicial}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-white">
+                        <span className="text-sm font-medium">Ver mais</span>
+                        <svg
+                          className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {servicos[categoriaAtiva].map((servico, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105"
-            >
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                {servico.nome}
-              </h3>
-              <p className="text-gray-600 mb-4">{servico.descricao}</p>
-              <p className="text-orange-700 font-bold">{servico.preco}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-            Todos os nossos serviços são realizados por profissionais
-            qualificados e com produtos de alta qualidade. Agende seu horário e
-            venha se cuidar conosco!
-          </p>
-          <a
-            href="https://wa.me/5565998135353"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-orange-700 hover:bg-orange-800 text-white font-medium py-3 px-6 rounded-full transition-colors"
+        {/* Botão Ver Catálogo Completo */}
+        <div className="text-center mt-12">
+          <Link
+            href="/catalogo"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-orange-700 hover:from-orange-800 hover:to-primary text-white font-bold py-4 px-8 rounded-full transition-all shadow-lg hover:shadow-xl hover:scale-105"
           >
-            Agendar Horário
-          </a>
+            <span>Ver Catálogo Completo</span>
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
-};
-
-export default Servicos;
+}

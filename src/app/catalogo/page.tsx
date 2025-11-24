@@ -217,7 +217,7 @@ const categorias: Categoria[] = [
     id: "tratamentos",
     nome: "Cabelos",
     titulo: "TRATAMENTOS",
-    subtitulo: "Escova redutora ou botox",
+    subtitulo: "Hidratação, reconstrução e terapias",
     imagem: "/images/catalogo/tratamentos.png",
     cor: "#903A19",
     corTexto: "#FFFFFF",
