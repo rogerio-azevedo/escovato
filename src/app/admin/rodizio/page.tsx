@@ -19,6 +19,15 @@ export default function RodizioPage() {
     Profissional[]
   >([]);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [modalRemover, setModalRemover] = useState<{
+    aberto: boolean;
+    profissionalId: string;
+    nome: string;
+  }>({
+    aberto: false,
+    profissionalId: "",
+    nome: "",
+  });
 
   // Detectar tamanho da tela
   useEffect(() => {
@@ -246,21 +255,33 @@ export default function RodizioPage() {
     }
   }
 
-  async function removerProfissional(
-    rodizioProfissionalId: string,
-    nome: string
-  ) {
-    if (!confirm(`Remover ${nome} da fila?`)) return;
+  function abrirModalRemover(rodizioProfissionalId: string, nome: string) {
+    setModalRemover({
+      aberto: true,
+      profissionalId: rodizioProfissionalId,
+      nome,
+    });
+  }
 
+  function fecharModalRemover() {
+    setModalRemover({
+      aberto: false,
+      profissionalId: "",
+      nome: "",
+    });
+  }
+
+  async function confirmarRemoverProfissional() {
     try {
       const response = await fetch(
-        `/api/rodizios/profissionais/${rodizioProfissionalId}`,
+        `/api/rodizios/profissionais/${modalRemover.profissionalId}`,
         { method: "DELETE" }
       );
 
       if (!response.ok) throw new Error("Erro ao remover profissional");
 
-      showToast(`${nome} removido da fila`, "success");
+      showToast(`${modalRemover.nome} removido da fila`, "success");
+      fecharModalRemover();
       carregarRodizio();
     } catch (error) {
       console.error("Erro:", error);
@@ -300,7 +321,7 @@ export default function RodizioPage() {
           {isDesktop && (
             <button
               onClick={() => abrirModalAdicionar(fila.especialidade_id)}
-              className="w-8 h-8 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-xl font-bold transition shrink-0 ml-2 shadow-md"
+              className="w-8 h-8 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center transition shrink-0 shadow-md text-2xl font-bold leading-none"
               style={{ color: fila.especialidade_cor }}
               title="Adicionar profissional"
             >
@@ -404,7 +425,7 @@ export default function RodizioPage() {
                     </div>
                     <button
                       onClick={() =>
-                        removerProfissional(prof.id, prof.profissional.nome)
+                        abrirModalRemover(prof.id, prof.profissional.nome)
                       }
                       className="text-red-600 hover:text-red-700 text-sm shrink-0 ml-1"
                     >
@@ -436,7 +457,7 @@ export default function RodizioPage() {
                           }}
                           className="px-1.5 py-1 border rounded text-xs shrink-0"
                         >
-                          <option value="">Status...</option>
+                          <option value="">Status</option>
                           <option value="almoco">🍽️ Almoço</option>
                           <option value="indisponivel">⏸️ Indisponível</option>
                         </select>
@@ -519,11 +540,6 @@ export default function RodizioPage() {
 
         {/* Botões/Tabs de Especialidades */}
         <div className="px-4">
-          {isDesktop && (
-            <p className="text-xs text-gray-600 mb-2">
-              Clique nas especialidades para mostrar/esconder colunas
-            </p>
-          )}
           <div className="overflow-x-auto">
             <div className="flex gap-2 pb-3 min-w-max">
               {filas.map((fila) => {
@@ -633,6 +649,37 @@ export default function RodizioPage() {
                   ))}
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Confirmação - Remover Profissional */}
+      {modalRemover.aberto && (
+        <div className="fixed inset-0 bg-black/10 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Remover Profissional
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Tem certeza que deseja remover{" "}
+                <strong>{modalRemover.nome}</strong> da fila?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={fecharModalRemover}
+                  className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={confirmarRemoverProfissional}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition"
+                >
+                  Remover
+                </button>
+              </div>
             </div>
           </div>
         </div>
