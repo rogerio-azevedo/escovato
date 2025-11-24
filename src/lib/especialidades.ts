@@ -139,3 +139,4 @@ export async function especialidadeTemProfissionais(id: string): Promise<boolean
   }
 }
 
+

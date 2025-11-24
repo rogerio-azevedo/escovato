@@ -41,3 +41,4 @@ export interface ProfissionalEspecialidade {
   especialidade_id: string;
   created_at: Date;
 }
+

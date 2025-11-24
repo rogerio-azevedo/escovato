@@ -51,11 +51,12 @@ function AdminLayoutContent({
   }
 
   const menuItems = [
+    { href: '/admin', label: '🏠 Início', roles: ['admin', 'recepcionista'] },
     { href: '/admin/rodizio', label: '🔄 Rodízio', roles: ['admin', 'recepcionista'] },
+    { href: '/admin/vales', label: '🎁 Vales', roles: ['admin', 'recepcionista'] },
     { href: '/admin/profissionais', label: '👤 Profissionais', roles: ['admin'] },
     { href: '/admin/especialidades', label: '⭐ Especialidades', roles: ['admin'] },
     { href: '/admin/usuarios', label: '👥 Usuários', roles: ['admin'] },
-    { href: '/admin/vales', label: '🎁 Vales', roles: ['admin', 'recepcionista'] },
   ];
 
   const userRole = session?.user?.role || 'recepcionista';
@@ -86,19 +87,25 @@ function AdminLayoutContent({
 
           {/* Menu de Navegação */}
           <nav className="flex gap-2 overflow-x-auto pb-2">
-            {filteredMenu.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${
-                  pathname.startsWith(item.href)
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {filteredMenu.map((item) => {
+              const isActive = item.href === '/admin' 
+                ? pathname === '/admin'
+                : pathname.startsWith(item.href);
+              
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${
+                    isActive
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       </header>

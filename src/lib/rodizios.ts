@@ -92,7 +92,7 @@ export async function getFilasRodizio(rodizioId: string): Promise<FilaEspecialid
     const filas: FilaEspecialidade[] = [];
 
     for (const esp of especialidadesResult.rows) {
-      // Buscar profissionais aguardando
+      // Buscar profissionais aguardando (incluindo almoço e indisponível)
       const aguardandoResult = await sql`
         SELECT 
           rp.*,
@@ -108,8 +108,13 @@ export async function getFilasRodizio(rodizioId: string): Promise<FilaEspecialid
         INNER JOIN usuarios_admin u ON rp.adicionado_por = u.id
         WHERE rp.rodizio_id = ${rodizioId} 
         AND rp.especialidade_id = ${esp.id}
-        AND rp.status = 'aguardando'
-        ORDER BY rp.posicao ASC
+        AND rp.status IN ('aguardando', 'almoco', 'indisponivel')
+        ORDER BY 
+          CASE 
+            WHEN rp.status = 'aguardando' THEN 0
+            ELSE 1
+          END,
+          rp.posicao ASC
       `;
 
       // Buscar profissionais atendendo
@@ -155,6 +160,17 @@ export async function adicionarProfissionalAoRodizio(
 ): Promise<RodizioProfissional> {
   try {
     const { especialidade_id, profissional_id, adicionado_por } = data;
+
+    // Verificar se o profissional possui esta especialidade
+    const temEspecialidade = await sql`
+      SELECT id FROM profissionais_especialidades
+      WHERE profissional_id = ${profissional_id}
+      AND especialidade_id = ${especialidade_id}
+    `;
+
+    if (temEspecialidade.rows.length === 0) {
+      throw new Error('Este profissional não possui esta especialidade');
+    }
 
     // Verificar se profissional já está nesta fila
     const jaExiste = await sql`
@@ -249,6 +265,27 @@ export async function atualizarStatusProfissional(
         WHERE rodizio_id = ${rodizioId} 
         AND especialidade_id = ${especialidadeId}
         AND status = 'aguardando'
+      `;
+
+      const novaPosicao = parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
+
+      await sql`
+        UPDATE rodizios_profissionais
+        SET posicao = ${novaPosicao}
+        WHERE id = ${rodizioProfissionalId}
+      `;
+    }
+
+    // Se está mudando para almoço ou indisponível, mover para o final da fila
+    if ((status === 'almoco' || status === 'indisponivel') && statusAnterior === 'aguardando') {
+      const rodizioId = atual.rows[0].rodizio_id;
+      const especialidadeId = atual.rows[0].especialidade_id;
+
+      const ultimaPosicaoResult = await sql`
+        SELECT COALESCE(MAX(posicao), 0) as ultima_posicao
+        FROM rodizios_profissionais
+        WHERE rodizio_id = ${rodizioId} 
+        AND especialidade_id = ${especialidadeId}
       `;
 
       const novaPosicao = parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
@@ -522,4 +559,5 @@ function mapRowToDetalhado(row: any): RodizioProfissionalDetalhado {
     },
   };
 }
+
 

@@ -20,3 +20,4 @@ export interface UpdateEspecialidadeInput {
   cor?: string;
   ativo?: boolean;
 }
+

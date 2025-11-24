@@ -40,7 +40,8 @@ export async function POST(
   } catch (error: any) {
     console.error('Erro ao adicionar profissional ao rodízio:', error);
 
-    if (error?.message?.includes('já está nesta fila')) {
+    if (error?.message?.includes('já está nesta fila') || 
+        error?.message?.includes('não possui esta especialidade')) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 

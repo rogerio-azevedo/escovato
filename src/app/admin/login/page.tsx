@@ -29,7 +29,7 @@ export default function LoginPage() {
         setCarregando(false);
       } else {
         // Login bem-sucedido - força refresh da página para atualizar sessão
-        window.location.href = "/admin/rodizio";
+        window.location.href = "/admin";
       }
     } catch {
       setErro("Erro ao fazer login. Tente novamente.");
@@ -57,7 +57,7 @@ export default function LoginPage() {
             Área Administrativa
           </h1>
           <p className="text-center text-gray-600 mb-8">
-            Sistema de Gerenciamento de Vales Presente
+            Sistema de Gerenciamento Escovato
           </p>
 
           {/* Formulário */}
