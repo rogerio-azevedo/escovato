@@ -26,12 +26,13 @@ export default function LoginPage() {
 
       if (result?.error) {
         setErro("Email ou senha inválidos");
+        setCarregando(false);
       } else {
-        router.push("/admin/vales");
+        // Login bem-sucedido - força refresh da página para atualizar sessão
+        window.location.href = "/admin/rodizio";
       }
     } catch {
       setErro("Erro ao fazer login. Tente novamente.");
-    } finally {
       setCarregando(false);
     }
   };

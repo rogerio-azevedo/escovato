@@ -18,31 +18,60 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const result = await sql`
+          // Tentar autenticar como admin/recepcionista primeiro
+          const resultAdmin = await sql`
             SELECT * FROM usuarios_admin 
             WHERE email = ${credentials.email}
           `;
 
-          const usuario = result.rows[0] as UsuarioComSenha | undefined;
+          if (resultAdmin.rows.length > 0) {
+            const usuario = resultAdmin.rows[0] as UsuarioComSenha;
 
-          if (!usuario) {
-            return null;
+            const senhaValida = await bcrypt.compare(
+              credentials.password,
+              usuario.senha_hash
+            );
+
+            if (!senhaValida) {
+              return null;
+            }
+
+            return {
+              id: usuario.id,
+              email: usuario.email,
+              name: usuario.nome,
+              role: usuario.role || 'recepcionista',
+            };
           }
 
-          const senhaValida = await bcrypt.compare(
-            credentials.password,
-            usuario.senha_hash
-          );
+          // Se não for admin, tentar autenticar como profissional
+          const resultProf = await sql`
+            SELECT * FROM profissionais 
+            WHERE email = ${credentials.email} AND ativo = true
+          `;
 
-          if (!senhaValida) {
-            return null;
+          if (resultProf.rows.length > 0) {
+            const profissional = resultProf.rows[0];
+
+            const senhaValida = await bcrypt.compare(
+              credentials.password,
+              profissional.senha_hash
+            );
+
+            if (!senhaValida) {
+              return null;
+            }
+
+            return {
+              id: profissional.id,
+              email: profissional.email,
+              name: profissional.nome,
+              role: 'profissional',
+            };
           }
 
-          return {
-            id: usuario.id,
-            email: usuario.email,
-            name: usuario.nome,
-          };
+          // Nenhum usuário encontrado
+          return null;
         } catch (error) {
           console.error("Erro na autenticação:", error);
           return null;
@@ -57,12 +86,14 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.role = (user as any).role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as { id: string }).id = token.id as string;
+        (session.user as { id: string; role: string }).id = token.id as string;
+        (session.user as { id: string; role: string }).role = token.role as string;
       }
       return session;
     },
