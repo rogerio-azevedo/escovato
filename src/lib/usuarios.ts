@@ -1,6 +1,8 @@
-import { sql } from './db';
-import bcrypt from 'bcryptjs';
-import type { Usuario } from '@/types/auth';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { sql } from "./db";
+import bcrypt from "bcryptjs";
+import type { Usuario } from "@/types/auth";
 
 // Listar todos os usuários
 export async function getUsuarios(): Promise<Usuario[]> {
@@ -13,7 +15,7 @@ export async function getUsuarios(): Promise<Usuario[]> {
 
     return result.rows as Usuario[];
   } catch (error) {
-    console.error('Erro ao buscar usuários:', error);
+    console.error("Erro ao buscar usuários:", error);
     throw error;
   }
 }
@@ -27,9 +29,9 @@ export async function getUsuarioById(id: string): Promise<Usuario | null> {
       WHERE id = ${id}
     `;
 
-    return result.rows[0] as Usuario || null;
+    return (result.rows[0] as Usuario) || null;
   } catch (error) {
-    console.error('Erro ao buscar usuário:', error);
+    console.error("Erro ao buscar usuário:", error);
     throw error;
   }
 }
@@ -39,7 +41,7 @@ export async function createUsuario(
   email: string,
   senha: string,
   nome: string,
-  role: 'admin' | 'recepcionista'
+  role: "admin" | "recepcionista"
 ): Promise<Usuario> {
   try {
     const senha_hash = await bcrypt.hash(senha, 10);
@@ -52,7 +54,7 @@ export async function createUsuario(
 
     return result.rows[0] as Usuario;
   } catch (error) {
-    console.error('Erro ao criar usuário:', error);
+    console.error("Erro ao criar usuário:", error);
     throw error;
   }
 }
@@ -63,7 +65,7 @@ export async function updateUsuario(
   data: {
     email?: string;
     nome?: string;
-    role?: 'admin' | 'recepcionista';
+    role?: "admin" | "recepcionista";
     senha?: string;
   }
 ): Promise<Usuario | null> {
@@ -93,22 +95,22 @@ export async function updateUsuario(
     }
 
     if (updates.length === 0) {
-      throw new Error('Nenhum campo para atualizar');
+      throw new Error("Nenhum campo para atualizar");
     }
 
     values.push(id);
 
     const query = `
       UPDATE usuarios_admin 
-      SET ${updates.join(', ')} 
+      SET ${updates.join(", ")} 
       WHERE id = $${paramIndex}
       RETURNING id, email, nome, role, created_at
     `;
 
     const result = await sql.query(query, values);
-    return result.rows[0] as Usuario || null;
+    return (result.rows[0] as Usuario) || null;
   } catch (error) {
-    console.error('Erro ao atualizar usuário:', error);
+    console.error("Erro ao atualizar usuário:", error);
     throw error;
   }
 }
@@ -124,13 +126,16 @@ export async function deleteUsuario(id: string): Promise<boolean> {
 
     return result.rows.length > 0;
   } catch (error) {
-    console.error('Erro ao deletar usuário:', error);
+    console.error("Erro ao deletar usuário:", error);
     throw error;
   }
 }
 
 // Verificar se email já existe
-export async function emailJaExiste(email: string, excludeId?: string): Promise<boolean> {
+export async function emailJaExiste(
+  email: string,
+  excludeId?: string
+): Promise<boolean> {
   try {
     const query = excludeId
       ? sql`SELECT id FROM usuarios_admin WHERE email = ${email} AND id != ${excludeId}`
@@ -139,9 +144,7 @@ export async function emailJaExiste(email: string, excludeId?: string): Promise<
     const result = await query;
     return result.rows.length > 0;
   } catch (error) {
-    console.error('Erro ao verificar email:', error);
+    console.error("Erro ao verificar email:", error);
     throw error;
   }
 }
-
-

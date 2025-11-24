@@ -1,30 +1,35 @@
-'use client';
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import type { FilaEspecialidade, RodizioProfissionalDetalhado } from '@/types/rodizio';
+import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import type {
+  FilaEspecialidade,
+  RodizioProfissionalDetalhado,
+} from "@/types/rodizio";
 
 export default function ProfissionalDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [rodizioId, setRodizioId] = useState<string>('');
-  const [minhasFilas, setMinhasFilas] = useState<{
-    especialidade: string;
-    cor: string;
-    status: string;
-    rodizioProfissionalId: string;
-    posicao: number;
-  }[]>([]);
+  const [minhasFilas, setMinhasFilas] = useState<
+    {
+      especialidade: string;
+      cor: string;
+      status: string;
+      rodizioProfissionalId: string;
+      posicao: number;
+    }[]
+  >([]);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/profissional/login');
+    if (status === "unauthenticated") {
+      router.push("/profissional/login");
       return;
     }
 
-    if (status === 'authenticated') {
+    if (status === "authenticated") {
       carregarMinhasFilas();
       const interval = setInterval(carregarMinhasFilas, 10000); // Auto-refresh
       return () => clearInterval(interval);
@@ -33,11 +38,10 @@ export default function ProfissionalDashboard() {
 
   async function carregarMinhasFilas() {
     try {
-      const response = await fetch('/api/rodizios/hoje');
-      if (!response.ok) throw new Error('Erro ao carregar rodízio');
+      const response = await fetch("/api/rodizios/hoje");
+      if (!response.ok) throw new Error("Erro ao carregar rodízio");
 
       const data = await response.json();
-      setRodizioId(data.rodizio.id);
 
       // Filtrar apenas as filas onde o profissional logado está
       const minhasFilasData: typeof minhasFilas = [];
@@ -49,7 +53,7 @@ export default function ProfissionalDashboard() {
         ];
 
         todosProfs.forEach((prof: RodizioProfissionalDetalhado) => {
-          if (prof.profissional.email === session?.user?.email) {
+          if (prof.profissional.id === session?.user?.id) {
             minhasFilasData.push({
               especialidade: fila.especialidade_nome,
               cor: fila.especialidade_cor,
@@ -63,88 +67,91 @@ export default function ProfissionalDashboard() {
 
       setMinhasFilas(minhasFilasData);
     } catch (error) {
-      console.error('Erro:', error);
+      console.error("Erro:", error);
     } finally {
       setLoading(false);
     }
   }
 
   async function concluirAtendimento(rodizioProfissionalId: string) {
-    if (!confirm('Confirmar conclusão do atendimento?')) return;
+    if (!confirm("Confirmar conclusão do atendimento?")) return;
 
     try {
       const response = await fetch(
         `/api/rodizios/profissionais/${rodizioProfissionalId}/status`,
         {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: 'aguardando' }),
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "aguardando" }),
         }
       );
 
-      if (!response.ok) throw new Error('Erro ao atualizar status');
+      if (!response.ok) throw new Error("Erro ao atualizar status");
 
       carregarMinhasFilas();
     } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao concluir atendimento');
+      console.error("Erro:", error);
+      alert("Erro ao concluir atendimento");
     }
   }
 
-  async function mudarStatus(rodizioProfissionalId: string, novoStatus: string) {
+  async function mudarStatus(
+    rodizioProfissionalId: string,
+    novoStatus: string
+  ) {
     try {
       const response = await fetch(
         `/api/rodizios/profissionais/${rodizioProfissionalId}/status`,
         {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: novoStatus }),
         }
       );
 
-      if (!response.ok) throw new Error('Erro ao atualizar status');
+      if (!response.ok) throw new Error("Erro ao atualizar status");
 
       carregarMinhasFilas();
     } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao atualizar status');
+      console.error("Erro:", error);
+      alert("Erro ao atualizar status");
     }
   }
 
   function getStatusIcon(status: string) {
     const icons: Record<string, string> = {
-      aguardando: '🕐',
-      atendendo: '💇',
-      almoco: '🍽️',
-      indisponivel: '🚫',
-      finalizado: '✅',
+      aguardando: "🕐",
+      atendendo: "💇",
+      almoco: "🍽️",
+      indisponivel: "🚫",
+      finalizado: "✅",
     };
-    return icons[status] || '❓';
+    return icons[status] || "❓";
   }
 
   function getStatusLabel(status: string) {
     const labels: Record<string, string> = {
-      aguardando: 'Aguardando',
-      atendendo: 'Atendendo',
-      almoco: 'Almoço',
-      indisponivel: 'Indisponível',
-      finalizado: 'Finalizado',
+      aguardando: "Aguardando",
+      atendendo: "Atendendo",
+      almoco: "Almoço",
+      indisponivel: "Indisponível",
+      finalizado: "Finalizado",
     };
     return labels[status] || status;
   }
 
   function getStatusColor(status: string) {
     const colors: Record<string, string> = {
-      aguardando: 'bg-blue-100 text-blue-700 border-blue-300',
-      atendendo: 'bg-green-100 text-green-700 border-green-300',
-      almoco: 'bg-orange-100 text-orange-700 border-orange-300',
-      indisponivel: 'bg-gray-100 text-gray-700 border-gray-300',
-      finalizado: 'bg-purple-100 text-purple-700 border-purple-300',
+      aguardando: "bg-blue-100 text-blue-700 border-blue-300",
+      atendendo: "bg-green-100 text-green-700 border-green-300",
+      almoco: "bg-orange-100 text-orange-700 border-orange-300",
+      indisponivel: "bg-gray-100 text-gray-700 border-gray-300",
+      finalizado: "bg-purple-100 text-purple-700 border-purple-300",
     };
-    return colors[status] || 'bg-gray-100 text-gray-700 border-gray-300';
+    return colors[status] || "bg-gray-100 text-gray-700 border-gray-300";
   }
 
-  if (status === 'loading' || loading) {
+  if (status === "loading" || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <p className="text-gray-500">Carregando...</p>
@@ -165,7 +172,7 @@ export default function ProfissionalDashboard() {
               </p>
             </div>
             <button
-              onClick={() => signOut({ callbackUrl: '/profissional/login' })}
+              onClick={() => signOut({ callbackUrl: "/profissional/login" })}
               className="text-sm text-gray-600 hover:text-gray-900 font-medium"
             >
               Sair
@@ -178,10 +185,11 @@ export default function ProfissionalDashboard() {
       <div className="px-4 py-6">
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
           <p className="text-center text-gray-600">
-            📅 {new Date().toLocaleDateString('pt-BR', {
-              weekday: 'long',
-              day: 'numeric',
-              month: 'long',
+            📅{" "}
+            {new Date().toLocaleDateString("pt-BR", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
             })}
           </p>
         </div>
@@ -202,7 +210,9 @@ export default function ProfissionalDashboard() {
               <div
                 key={index}
                 className={`bg-white rounded-2xl shadow-md p-6 border-l-4 ${
-                  fila.status === 'atendendo' ? 'border-green-500' : 'border-gray-300'
+                  fila.status === "atendendo"
+                    ? "border-green-500"
+                    : "border-gray-300"
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -217,7 +227,7 @@ export default function ProfissionalDashboard() {
                       <h3 className="text-lg font-semibold text-gray-900">
                         {fila.especialidade}
                       </h3>
-                      {fila.status === 'aguardando' && (
+                      {fila.status === "aguardando" && (
                         <p className="text-sm text-gray-600">
                           Posição na fila: {fila.posicao}
                         </p>
@@ -234,26 +244,30 @@ export default function ProfissionalDashboard() {
                 </div>
 
                 {/* Ações */}
-                {fila.status === 'atendendo' && (
+                {fila.status === "atendendo" && (
                   <button
-                    onClick={() => concluirAtendimento(fila.rodizioProfissionalId)}
+                    onClick={() =>
+                      concluirAtendimento(fila.rodizioProfissionalId)
+                    }
                     className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition"
                   >
                     ✓ Concluir Atendimento
                   </button>
                 )}
 
-                {fila.status === 'aguardando' && (
+                {fila.status === "aguardando" && (
                   <div className="space-y-2">
                     <button
-                      onClick={() => mudarStatus(fila.rodizioProfissionalId, 'almoco')}
+                      onClick={() =>
+                        mudarStatus(fila.rodizioProfissionalId, "almoco")
+                      }
                       className="w-full bg-orange-100 text-orange-700 py-3 rounded-xl font-semibold hover:bg-orange-200 transition"
                     >
                       🍽️ Ir para Almoço
                     </button>
                     <button
                       onClick={() =>
-                        mudarStatus(fila.rodizioProfissionalId, 'indisponivel')
+                        mudarStatus(fila.rodizioProfissionalId, "indisponivel")
                       }
                       className="w-full bg-gray-100 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-200 transition"
                     >
@@ -262,9 +276,12 @@ export default function ProfissionalDashboard() {
                   </div>
                 )}
 
-                {(fila.status === 'almoco' || fila.status === 'indisponivel') && (
+                {(fila.status === "almoco" ||
+                  fila.status === "indisponivel") && (
                   <button
-                    onClick={() => mudarStatus(fila.rodizioProfissionalId, 'aguardando')}
+                    onClick={() =>
+                      mudarStatus(fila.rodizioProfissionalId, "aguardando")
+                    }
                     className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
                   >
                     🔄 Voltar para Fila
@@ -278,5 +295,3 @@ export default function ProfissionalDashboard() {
     </div>
   );
 }
-
-

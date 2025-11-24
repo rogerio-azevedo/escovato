@@ -1,9 +1,10 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import type { Usuario } from '@/types/auth';
-import { showToast } from '@/components/Toast';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import type { Usuario } from "@/types/auth";
+import { showToast } from "@/components/Toast";
 
 export default function UsuariosPage() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
@@ -16,15 +17,15 @@ export default function UsuariosPage() {
   async function carregarUsuarios() {
     try {
       setLoading(true);
-      const response = await fetch('/api/admin/usuarios');
+      const response = await fetch("/api/admin/usuarios");
 
-      if (!response.ok) throw new Error('Erro ao carregar usuários');
+      if (!response.ok) throw new Error("Erro ao carregar usuários");
 
       const data = await response.json();
       setUsuarios(data);
     } catch (error) {
-      console.error('Erro:', error);
-      showToast('Erro ao carregar usuários', 'error');
+      console.error("Erro:", error);
+      showToast("Erro ao carregar usuários", "error");
     } finally {
       setLoading(false);
     }
@@ -37,32 +38,35 @@ export default function UsuariosPage() {
 
     try {
       const response = await fetch(`/api/admin/usuarios/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao deletar');
+        throw new Error(error.error || "Erro ao deletar");
       }
 
-      showToast('Usuário deletado com sucesso!', 'success');
+      showToast("Usuário deletado com sucesso!", "success");
       carregarUsuarios();
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao deletar usuário', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao deletar usuário", "error");
     }
   }
 
   function getRoleBadge(role: string) {
     const styles = {
-      admin: 'bg-purple-100 text-purple-700',
-      recepcionista: 'bg-blue-100 text-blue-700',
+      admin: "bg-purple-100 text-purple-700",
+      recepcionista: "bg-blue-100 text-blue-700",
     };
     const labels = {
-      admin: 'Administrador',
-      recepcionista: 'Recepcionista',
+      admin: "Administrador",
+      recepcionista: "Recepcionista",
     };
-    return { style: styles[role as keyof typeof styles], label: labels[role as keyof typeof labels] };
+    return {
+      style: styles[role as keyof typeof styles],
+      label: labels[role as keyof typeof labels],
+    };
   }
 
   return (
@@ -133,7 +137,9 @@ export default function UsuariosPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{usuario.email}</div>
+                        <div className="text-sm text-gray-900">
+                          {usuario.email}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
@@ -143,7 +149,9 @@ export default function UsuariosPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(usuario.created_at).toLocaleDateString('pt-BR')}
+                        {new Date(usuario.created_at).toLocaleDateString(
+                          "pt-BR"
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link
@@ -170,5 +178,3 @@ export default function UsuariosPage() {
     </div>
   );
 }
-
-

@@ -1,16 +1,16 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import type { Especialidade } from '@/types/especialidade';
-import { showToast } from '@/components/Toast';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import type { Especialidade } from "@/types/especialidade";
+import { showToast } from "@/components/Toast";
 
 export default function EspecialidadesPage() {
-  const router = useRouter();
   const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filtro, setFiltro] = useState<'todas' | 'ativas'>('ativas');
+  const [filtro, setFiltro] = useState<"todas" | "ativas">("ativas");
 
   useEffect(() => {
     carregarEspecialidades();
@@ -19,16 +19,16 @@ export default function EspecialidadesPage() {
   async function carregarEspecialidades() {
     try {
       setLoading(true);
-      const url = `/api/admin/especialidades?ativas=${filtro === 'ativas'}`;
+      const url = `/api/admin/especialidades?ativas=${filtro === "ativas"}`;
       const response = await fetch(url);
 
-      if (!response.ok) throw new Error('Erro ao carregar especialidades');
+      if (!response.ok) throw new Error("Erro ao carregar especialidades");
 
       const data = await response.json();
       setEspecialidades(data);
     } catch (error) {
-      console.error('Erro:', error);
-      showToast('Erro ao carregar especialidades', 'error');
+      console.error("Erro:", error);
+      showToast("Erro ao carregar especialidades", "error");
     } finally {
       setLoading(false);
     }
@@ -41,19 +41,19 @@ export default function EspecialidadesPage() {
 
     try {
       const response = await fetch(`/api/admin/especialidades/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao deletar');
+        throw new Error(error.error || "Erro ao deletar");
       }
 
-      showToast('Especialidade desativada com sucesso!', 'success');
+      showToast("Especialidade desativada com sucesso!", "success");
       carregarEspecialidades();
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao deletar especialidade', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao deletar especialidade", "error");
     }
   }
 
@@ -80,21 +80,21 @@ export default function EspecialidadesPage() {
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
           <div className="flex gap-2">
             <button
-              onClick={() => setFiltro('ativas')}
+              onClick={() => setFiltro("ativas")}
               className={`px-4 py-2 rounded-lg transition ${
-                filtro === 'ativas'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                filtro === "ativas"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Ativas
             </button>
             <button
-              onClick={() => setFiltro('todas')}
+              onClick={() => setFiltro("todas")}
               className={`px-4 py-2 rounded-lg transition ${
-                filtro === 'todas'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                filtro === "todas"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Todas
@@ -165,5 +165,3 @@ export default function EspecialidadesPage() {
     </div>
   );
 }
-
-

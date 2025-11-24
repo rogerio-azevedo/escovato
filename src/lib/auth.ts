@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -40,7 +42,7 @@ export const authOptions: NextAuthOptions = {
               id: usuario.id,
               email: usuario.email,
               name: usuario.nome,
-              role: usuario.role || 'recepcionista',
+              role: usuario.role || "recepcionista",
             };
           }
 
@@ -66,7 +68,7 @@ export const authOptions: NextAuthOptions = {
               id: profissional.id,
               email: profissional.email,
               name: profissional.nome,
-              role: 'profissional',
+              role: "profissional",
             };
           }
 
@@ -93,7 +95,8 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (session.user) {
         (session.user as { id: string; role: string }).id = token.id as string;
-        (session.user as { id: string; role: string }).role = token.role as string;
+        (session.user as { id: string; role: string }).role =
+          token.role as string;
       }
       return session;
     },

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-export type ToastType = 'success' | 'error' | 'info' | 'warning';
+export type ToastType = "success" | "error" | "info" | "warning";
 
 interface ToastProps {
   message: string;
@@ -12,12 +12,13 @@ interface ToastProps {
 }
 
 export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isLeaving, setIsLeaving] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isLeaving, setIsLeaving] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLeaving(true);
+      setIsVisible(false);
       setTimeout(onClose, 300); // Tempo da animação de saída
     }, duration);
 
@@ -25,17 +26,17 @@ export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
   }, [duration, onClose]);
 
   const icons = {
-    success: '✓',
-    error: '✕',
-    info: 'ℹ',
-    warning: '⚠',
+    success: "✓",
+    error: "✕",
+    info: "ℹ",
+    warning: "⚠",
   };
 
   const bgColors = {
-    success: 'bg-green-500',
-    error: 'bg-red-500',
-    info: 'bg-blue-500',
-    warning: 'bg-yellow-500',
+    success: "bg-green-500",
+    error: "bg-red-500",
+    info: "bg-blue-500",
+    warning: "bg-yellow-500",
   };
 
   if (!isVisible) return null;
@@ -45,7 +46,7 @@ export function Toast({ message, type, duration = 3000, onClose }: ToastProps) {
       className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white ${
         bgColors[type]
       } transition-all duration-300 ${
-        isLeaving ? 'opacity-0 translate-x-full' : 'opacity-100 translate-x-0'
+        isLeaving ? "opacity-0 translate-x-full" : "opacity-100 translate-x-0"
       }`}
     >
       <div className="text-xl font-bold">{icons[type]}</div>
@@ -73,7 +74,7 @@ interface ToastItem {
 let toastCounter = 0;
 const toastListeners: Array<(toast: ToastItem) => void> = [];
 
-export function showToast(message: string, type: ToastType = 'info') {
+export function showToast(message: string, type: ToastType = "info") {
   const toast: ToastItem = {
     id: toastCounter++,
     message,

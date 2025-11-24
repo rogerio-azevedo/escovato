@@ -1,14 +1,23 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import Link from 'next/link';
-import type { Especialidade } from '@/types/especialidade';
-import { showToast } from '@/components/Toast';
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import type { Especialidade } from "@/types/especialidade";
+import { showToast } from "@/components/Toast";
 
 const CORES_PADRAO = [
-  '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e',
-  '#f59e0b', '#10b981', '#06b6d4', '#3b82f6',
+  "#6366f1",
+  "#8b5cf6",
+  "#ec4899",
+  "#f43f5e",
+  "#f59e0b",
+  "#10b981",
+  "#06b6d4",
+  "#3b82f6",
 ];
 
 export default function EditarEspecialidadePage() {
@@ -16,11 +25,10 @@ export default function EditarEspecialidadePage() {
   const params = useParams();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [especialidade, setEspecialidade] = useState<Especialidade | null>(null);
   const [formData, setFormData] = useState({
-    nome: '',
-    descricao: '',
-    cor: '#6366f1',
+    nome: "",
+    descricao: "",
+    cor: "#6366f1",
     ativo: true,
   });
 
@@ -32,20 +40,19 @@ export default function EditarEspecialidadePage() {
     try {
       const response = await fetch(`/api/admin/especialidades/${params.id}`);
 
-      if (!response.ok) throw new Error('Erro ao carregar especialidade');
+      if (!response.ok) throw new Error("Erro ao carregar especialidade");
 
       const data: Especialidade = await response.json();
-      setEspecialidade(data);
       setFormData({
         nome: data.nome,
-        descricao: data.descricao || '',
+        descricao: data.descricao || "",
         cor: data.cor,
         ativo: data.ativo,
       });
     } catch (error) {
-      console.error('Erro:', error);
-      showToast('Erro ao carregar especialidade', 'error');
-      router.push('/admin/especialidades');
+      console.error("Erro:", error);
+      showToast("Erro ao carregar especialidade", "error");
+      router.push("/admin/especialidades");
     } finally {
       setLoading(false);
     }
@@ -55,7 +62,7 @@ export default function EditarEspecialidadePage() {
     e.preventDefault();
 
     if (!formData.nome.trim()) {
-      showToast('Nome é obrigatório', 'error');
+      showToast("Nome é obrigatório", "error");
       return;
     }
 
@@ -63,21 +70,21 @@ export default function EditarEspecialidadePage() {
       setSaving(true);
 
       const response = await fetch(`/api/admin/especialidades/${params.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao atualizar especialidade');
+        throw new Error(error.error || "Erro ao atualizar especialidade");
       }
 
-      showToast('Especialidade atualizada com sucesso!', 'success');
-      router.push('/admin/especialidades');
+      showToast("Especialidade atualizada com sucesso!", "success");
+      router.push("/admin/especialidades");
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao atualizar especialidade', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao atualizar especialidade", "error");
       setSaving(false);
     }
   }
@@ -158,8 +165,8 @@ export default function EditarEspecialidadePage() {
                     onClick={() => setFormData({ ...formData, cor })}
                     className={`w-10 h-10 rounded-lg transition ${
                       formData.cor === cor
-                        ? 'ring-2 ring-offset-2 ring-indigo-500'
-                        : ''
+                        ? "ring-2 ring-offset-2 ring-indigo-500"
+                        : ""
                     }`}
                     style={{ backgroundColor: cor }}
                   />
@@ -200,14 +207,16 @@ export default function EditarEspecialidadePage() {
                   className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-xl"
                   style={{ backgroundColor: formData.cor }}
                 >
-                  {formData.nome.charAt(0) || '?'}
+                  {formData.nome.charAt(0) || "?"}
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    {formData.nome || 'Nome da Especialidade'}
+                    {formData.nome || "Nome da Especialidade"}
                   </p>
                   {formData.descricao && (
-                    <p className="text-sm text-gray-600">{formData.descricao}</p>
+                    <p className="text-sm text-gray-600">
+                      {formData.descricao}
+                    </p>
                   )}
                 </div>
               </div>
@@ -226,7 +235,7 @@ export default function EditarEspecialidadePage() {
                 disabled={saving}
                 className="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium disabled:opacity-50"
               >
-                {saving ? 'Salvando...' : 'Salvar Alterações'}
+                {saving ? "Salvando..." : "Salvar Alterações"}
               </button>
             </div>
           </form>
@@ -235,5 +244,3 @@ export default function EditarEspecialidadePage() {
     </div>
   );
 }
-
-

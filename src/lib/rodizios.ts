@@ -1,4 +1,6 @@
-import { sql } from './db';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { sql } from "./db";
 import type {
   Rodizio,
   RodizioProfissional,
@@ -8,17 +10,16 @@ import type {
   UpdatePosicaoInput,
   FilaEspecialidade,
   RodizioLog,
-  ProfissionalStatus,
   UsuarioTipo,
   AcaoRodizio,
-} from '@/types/rodizio';
+} from "@/types/rodizio";
 
 // ===== RODÍZIO =====
 
 // Buscar ou criar rodízio do dia
 export async function getRodizioHoje(usuarioId: string): Promise<Rodizio> {
   try {
-    const hoje = new Date().toISOString().split('T')[0];
+    const hoje = new Date().toISOString().split("T")[0];
 
     // Tentar buscar rodízio existente
     const resultBusca = await sql`
@@ -39,14 +40,14 @@ export async function getRodizioHoje(usuarioId: string): Promise<Rodizio> {
     const rodizio = resultCriacao.rows[0] as Rodizio;
 
     // Registrar log
-    await registrarLog(rodizio.id, usuarioId, 'admin', 'adicionar', {
-      acao: 'rodizio_aberto',
+    await registrarLog(rodizio.id, usuarioId, "admin", "adicionar", {
+      acao: "rodizio_aberto",
       data: hoje,
     });
 
     return rodizio;
   } catch (error) {
-    console.error('Erro ao buscar/criar rodízio:', error);
+    console.error("Erro ao buscar/criar rodízio:", error);
     throw error;
   }
 }
@@ -58,9 +59,9 @@ export async function getRodizioById(id: string): Promise<Rodizio | null> {
       SELECT * FROM rodizios WHERE id = ${id}
     `;
 
-    return result.rows[0] as Rodizio || null;
+    return (result.rows[0] as Rodizio) || null;
   } catch (error) {
-    console.error('Erro ao buscar rodízio:', error);
+    console.error("Erro ao buscar rodízio:", error);
     throw error;
   }
 }
@@ -74,7 +75,7 @@ export async function fecharRodizio(rodizioId: string): Promise<void> {
       WHERE id = ${rodizioId}
     `;
   } catch (error) {
-    console.error('Erro ao fechar rodízio:', error);
+    console.error("Erro ao fechar rodízio:", error);
     throw error;
   }
 }
@@ -82,7 +83,9 @@ export async function fecharRodizio(rodizioId: string): Promise<void> {
 // ===== PROFISSIONAIS NO RODÍZIO =====
 
 // Buscar filas por especialidade de um rodízio
-export async function getFilasRodizio(rodizioId: string): Promise<FilaEspecialidade[]> {
+export async function getFilasRodizio(
+  rodizioId: string
+): Promise<FilaEspecialidade[]> {
   try {
     // Buscar todas as especialidades ativas
     const especialidadesResult = await sql`
@@ -148,7 +151,7 @@ export async function getFilasRodizio(rodizioId: string): Promise<FilaEspecialid
 
     return filas;
   } catch (error) {
-    console.error('Erro ao buscar filas do rodízio:', error);
+    console.error("Erro ao buscar filas do rodízio:", error);
     throw error;
   }
 }
@@ -169,7 +172,7 @@ export async function adicionarProfissionalAoRodizio(
     `;
 
     if (temEspecialidade.rows.length === 0) {
-      throw new Error('Este profissional não possui esta especialidade');
+      throw new Error("Este profissional não possui esta especialidade");
     }
 
     // Verificar se profissional já está nesta fila
@@ -181,7 +184,7 @@ export async function adicionarProfissionalAoRodizio(
     `;
 
     if (jaExiste.rows.length > 0) {
-      throw new Error('Profissional já está nesta fila');
+      throw new Error("Profissional já está nesta fila");
     }
 
     // Buscar última posição
@@ -191,7 +194,8 @@ export async function adicionarProfissionalAoRodizio(
       WHERE rodizio_id = ${rodizioId} AND especialidade_id = ${especialidade_id}
     `;
 
-    const novaPosicao = parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
+    const novaPosicao =
+      parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
 
     // Inserir profissional
     const result = await sql`
@@ -205,7 +209,7 @@ export async function adicionarProfissionalAoRodizio(
     const rodizioProfissional = result.rows[0] as RodizioProfissional;
 
     // Registrar log
-    await registrarLog(rodizioId, adicionado_por, 'admin', 'adicionar', {
+    await registrarLog(rodizioId, adicionado_por, "admin", "adicionar", {
       profissional_id,
       especialidade_id,
       posicao: novaPosicao,
@@ -213,7 +217,7 @@ export async function adicionarProfissionalAoRodizio(
 
     return rodizioProfissional;
   } catch (error) {
-    console.error('Erro ao adicionar profissional ao rodízio:', error);
+    console.error("Erro ao adicionar profissional ao rodízio:", error);
     throw error;
   }
 }
@@ -238,7 +242,7 @@ export async function atualizarStatusProfissional(
     const statusAnterior = atual.rows[0].status;
 
     // Se está mudando para "atendendo", registrar início do atendimento
-    if (status === 'atendendo' && statusAnterior !== 'atendendo') {
+    if (status === "atendendo" && statusAnterior !== "atendendo") {
       await sql`
         INSERT INTO rodizios_atendimentos (rodizio_profissional_id, inicio_atendimento)
         VALUES (${rodizioProfissionalId}, CURRENT_TIMESTAMP)
@@ -246,7 +250,7 @@ export async function atualizarStatusProfissional(
     }
 
     // Se está finalizando atendimento (voltando para aguardando)
-    if (status === 'aguardando' && statusAnterior === 'atendendo') {
+    if (status === "aguardando" && statusAnterior === "atendendo") {
       // Finalizar atendimento atual
       await sql`
         UPDATE rodizios_atendimentos
@@ -267,7 +271,8 @@ export async function atualizarStatusProfissional(
         AND status = 'aguardando'
       `;
 
-      const novaPosicao = parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
+      const novaPosicao =
+        parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
 
       await sql`
         UPDATE rodizios_profissionais
@@ -277,7 +282,10 @@ export async function atualizarStatusProfissional(
     }
 
     // Se está mudando para almoço ou indisponível, mover para o final da fila
-    if ((status === 'almoco' || status === 'indisponivel') && statusAnterior === 'aguardando') {
+    if (
+      (status === "almoco" || status === "indisponivel") &&
+      statusAnterior === "aguardando"
+    ) {
       const rodizioId = atual.rows[0].rodizio_id;
       const especialidadeId = atual.rows[0].especialidade_id;
 
@@ -288,7 +296,8 @@ export async function atualizarStatusProfissional(
         AND especialidade_id = ${especialidadeId}
       `;
 
-      const novaPosicao = parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
+      const novaPosicao =
+        parseInt(ultimaPosicaoResult.rows[0].ultima_posicao) + 1;
 
       await sql`
         UPDATE rodizios_profissionais
@@ -311,8 +320,8 @@ export async function atualizarStatusProfissional(
     await registrarLog(
       rodizioProfissional.rodizio_id,
       usuario_id,
-      'admin',
-      'status_mudou',
+      "admin",
+      "status_mudou",
       {
         rodizio_profissional_id: rodizioProfissionalId,
         status_anterior: statusAnterior,
@@ -322,7 +331,7 @@ export async function atualizarStatusProfissional(
 
     return rodizioProfissional;
   } catch (error) {
-    console.error('Erro ao atualizar status:', error);
+    console.error("Erro ao atualizar status:", error);
     throw error;
   }
 }
@@ -344,7 +353,11 @@ export async function atualizarPosicaoProfissional(
       return false;
     }
 
-    const { rodizio_id, especialidade_id, posicao: posicao_antiga } = atual.rows[0];
+    const {
+      rodizio_id,
+      especialidade_id,
+      posicao: posicao_antiga,
+    } = atual.rows[0];
 
     if (posicao_antiga === nova_posicao) {
       return true; // Sem mudança
@@ -381,7 +394,7 @@ export async function atualizarPosicaoProfissional(
     `;
 
     // Registrar log
-    await registrarLog(rodizio_id, usuario_id, 'admin', 'mover', {
+    await registrarLog(rodizio_id, usuario_id, "admin", "mover", {
       rodizio_profissional_id: rodizioProfissionalId,
       posicao_antiga,
       posicao_nova: nova_posicao,
@@ -389,7 +402,7 @@ export async function atualizarPosicaoProfissional(
 
     return true;
   } catch (error) {
-    console.error('Erro ao atualizar posição:', error);
+    console.error("Erro ao atualizar posição:", error);
     throw error;
   }
 }
@@ -409,7 +422,8 @@ export async function removerProfissionalDoRodizio(
       return false;
     }
 
-    const { rodizio_id, especialidade_id, posicao, profissional_id } = atual.rows[0];
+    const { rodizio_id, especialidade_id, posicao, profissional_id } =
+      atual.rows[0];
 
     // Remover profissional
     await sql`
@@ -426,7 +440,7 @@ export async function removerProfissionalDoRodizio(
     `;
 
     // Registrar log
-    await registrarLog(rodizio_id, usuarioId, 'admin', 'remover', {
+    await registrarLog(rodizio_id, usuarioId, "admin", "remover", {
       profissional_id,
       especialidade_id,
       posicao,
@@ -434,7 +448,7 @@ export async function removerProfissionalDoRodizio(
 
     return true;
   } catch (error) {
-    console.error('Erro ao remover profissional:', error);
+    console.error("Erro ao remover profissional:", error);
     throw error;
   }
 }
@@ -455,7 +469,7 @@ export async function profissionalEstaAtendendo(
 
     return parseInt(result.rows[0].count) > 0;
   } catch (error) {
-    console.error('Erro ao verificar se profissional está atendendo:', error);
+    console.error("Erro ao verificar se profissional está atendendo:", error);
     throw error;
   }
 }
@@ -483,7 +497,7 @@ export async function getProfissionaisDisponiveis(
 
     return result.rows;
   } catch (error) {
-    console.error('Erro ao buscar profissionais disponíveis:', error);
+    console.error("Erro ao buscar profissionais disponíveis:", error);
     throw error;
   }
 }
@@ -501,10 +515,12 @@ export async function registrarLog(
   try {
     await sql`
       INSERT INTO rodizios_logs (rodizio_id, usuario_id, usuario_tipo, acao, detalhes)
-      VALUES (${rodizioId}, ${usuarioId}, ${usuarioTipo}, ${acao}, ${JSON.stringify(detalhes)})
+      VALUES (${rodizioId}, ${usuarioId}, ${usuarioTipo}, ${acao}, ${JSON.stringify(
+      detalhes
+    )})
     `;
   } catch (error) {
-    console.error('Erro ao registrar log:', error);
+    console.error("Erro ao registrar log:", error);
     // Não lançar erro para não interromper o fluxo principal
   }
 }
@@ -524,7 +540,7 @@ export async function getLogsRodizio(
 
     return result.rows as RodizioLog[];
   } catch (error) {
-    console.error('Erro ao buscar logs:', error);
+    console.error("Erro ao buscar logs:", error);
     throw error;
   }
 }
@@ -559,5 +575,3 @@ function mapRowToDetalhado(row: any): RodizioProfissionalDetalhado {
     },
   };
 }
-
-

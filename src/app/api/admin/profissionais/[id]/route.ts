@@ -1,11 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import {
   getProfissionalById,
   updateProfissional,
   deleteProfissional,
-} from '@/lib/profissionais';
+} from "@/lib/profissionais";
 
 // GET - Buscar profissional por ID
 export async function GET(
@@ -16,7 +18,7 @@ export async function GET(
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
 
     const { id } = await params;
@@ -24,16 +26,16 @@ export async function GET(
 
     if (!profissional) {
       return NextResponse.json(
-        { error: 'Profissional não encontrado' },
+        { error: "Profissional não encontrado" },
         { status: 404 }
       );
     }
 
     return NextResponse.json(profissional);
   } catch (error) {
-    console.error('Erro ao buscar profissional:', error);
+    console.error("Erro ao buscar profissional:", error);
     return NextResponse.json(
-      { error: 'Erro ao buscar profissional' },
+      { error: "Erro ao buscar profissional" },
       { status: 500 }
     );
   }
@@ -48,12 +50,12 @@ export async function PUT(
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
 
     // Apenas admin pode atualizar profissionais
-    if (session.user.role !== 'admin') {
-      return NextResponse.json({ error: 'Sem permissão' }, { status: 403 });
+    if (session.user.role !== "admin") {
+      return NextResponse.json({ error: "Sem permissão" }, { status: 403 });
     }
 
     const { id } = await params;
@@ -71,25 +73,25 @@ export async function PUT(
 
     if (!profissional) {
       return NextResponse.json(
-        { error: 'Profissional não encontrado' },
+        { error: "Profissional não encontrado" },
         { status: 404 }
       );
     }
 
     return NextResponse.json(profissional);
   } catch (error: any) {
-    console.error('Erro ao atualizar profissional:', error);
+    console.error("Erro ao atualizar profissional:", error);
 
     // Verificar se é erro de duplicação
-    if (error?.message?.includes('duplicate') || error?.code === '23505') {
+    if (error?.message?.includes("duplicate") || error?.code === "23505") {
       return NextResponse.json(
-        { error: 'CPF ou email já cadastrado' },
+        { error: "CPF ou email já cadastrado" },
         { status: 400 }
       );
     }
 
     return NextResponse.json(
-      { error: 'Erro ao atualizar profissional' },
+      { error: "Erro ao atualizar profissional" },
       { status: 500 }
     );
   }
@@ -104,12 +106,12 @@ export async function DELETE(
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
 
     // Apenas admin pode deletar profissionais
-    if (session.user.role !== 'admin') {
-      return NextResponse.json({ error: 'Sem permissão' }, { status: 403 });
+    if (session.user.role !== "admin") {
+      return NextResponse.json({ error: "Sem permissão" }, { status: 403 });
     }
 
     const { id } = await params;
@@ -117,18 +119,17 @@ export async function DELETE(
 
     if (!sucesso) {
       return NextResponse.json(
-        { error: 'Profissional não encontrado' },
+        { error: "Profissional não encontrado" },
         { status: 404 }
       );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Erro ao deletar profissional:', error);
+    console.error("Erro ao deletar profissional:", error);
     return NextResponse.json(
-      { error: 'Erro ao deletar profissional' },
+      { error: "Erro ao deletar profissional" },
       { status: 500 }
     );
   }
 }
-

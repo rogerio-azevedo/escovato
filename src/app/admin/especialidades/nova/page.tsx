@@ -1,57 +1,58 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { showToast } from '@/components/Toast';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { showToast } from "@/components/Toast";
 
 const CORES_PADRAO = [
-  '#6366f1', // Indigo
-  '#8b5cf6', // Purple
-  '#ec4899', // Pink
-  '#f43f5e', // Rose
-  '#f59e0b', // Amber
-  '#10b981', // Emerald
-  '#06b6d4', // Cyan
-  '#3b82f6', // Blue
+  "#6366f1", // Indigo
+  "#8b5cf6", // Purple
+  "#ec4899", // Pink
+  "#f43f5e", // Rose
+  "#f59e0b", // Amber
+  "#10b981", // Emerald
+  "#06b6d4", // Cyan
+  "#3b82f6", // Blue
 ];
 
 export default function NovaEspecialidadePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    nome: '',
-    descricao: '',
-    cor: '#6366f1',
+    nome: "",
+    descricao: "",
+    cor: "#6366f1",
   });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (!formData.nome.trim()) {
-      showToast('Nome é obrigatório', 'error');
+      showToast("Nome é obrigatório", "error");
       return;
     }
 
     try {
       setLoading(true);
 
-      const response = await fetch('/api/admin/especialidades', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/admin/especialidades", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao criar especialidade');
+        throw new Error(error.error || "Erro ao criar especialidade");
       }
 
-      showToast('Especialidade criada com sucesso!', 'success');
-      router.push('/admin/especialidades');
+      showToast("Especialidade criada com sucesso!", "success");
+      router.push("/admin/especialidades");
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao criar especialidade', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao criar especialidade", "error");
       setLoading(false);
     }
   }
@@ -120,8 +121,8 @@ export default function NovaEspecialidadePage() {
                     onClick={() => setFormData({ ...formData, cor })}
                     className={`w-10 h-10 rounded-lg transition ${
                       formData.cor === cor
-                        ? 'ring-2 ring-offset-2 ring-indigo-500'
-                        : ''
+                        ? "ring-2 ring-offset-2 ring-indigo-500"
+                        : ""
                     }`}
                     style={{ backgroundColor: cor }}
                   />
@@ -145,14 +146,16 @@ export default function NovaEspecialidadePage() {
                   className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-xl"
                   style={{ backgroundColor: formData.cor }}
                 >
-                  {formData.nome.charAt(0) || '?'}
+                  {formData.nome.charAt(0) || "?"}
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    {formData.nome || 'Nome da Especialidade'}
+                    {formData.nome || "Nome da Especialidade"}
                   </p>
                   {formData.descricao && (
-                    <p className="text-sm text-gray-600">{formData.descricao}</p>
+                    <p className="text-sm text-gray-600">
+                      {formData.descricao}
+                    </p>
                   )}
                 </div>
               </div>
@@ -171,7 +174,7 @@ export default function NovaEspecialidadePage() {
                 disabled={loading}
                 className="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium disabled:opacity-50"
               >
-                {loading ? 'Criando...' : 'Criar Especialidade'}
+                {loading ? "Criando..." : "Criar Especialidade"}
               </button>
             </div>
           </form>
@@ -180,4 +183,3 @@ export default function NovaEspecialidadePage() {
     </div>
   );
 }
-

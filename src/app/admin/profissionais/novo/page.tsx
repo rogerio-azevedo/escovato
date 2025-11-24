@@ -1,21 +1,23 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import type { Especialidade } from '@/types/especialidade';
-import { showToast } from '@/components/Toast';
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import type { Especialidade } from "@/types/especialidade";
+import { showToast } from "@/components/Toast";
 
 export default function NovoProfissionalPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
   const [formData, setFormData] = useState({
-    nome: '',
-    telefone: '',
-    cpf: '',
-    email: '',
-    senha: '',
+    nome: "",
+    telefone: "",
+    cpf: "",
+    email: "",
+    senha: "",
     especialidades_ids: [] as string[],
   });
 
@@ -25,29 +27,29 @@ export default function NovoProfissionalPage() {
 
   async function carregarEspecialidades() {
     try {
-      const response = await fetch('/api/admin/especialidades?ativas=true');
+      const response = await fetch("/api/admin/especialidades?ativas=true");
       if (response.ok) {
         const data = await response.json();
         setEspecialidades(data);
       }
     } catch (error) {
-      console.error('Erro ao carregar especialidades:', error);
+      console.error("Erro ao carregar especialidades:", error);
     }
   }
 
   function formatCPF(value: string) {
     return value
-      .replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   }
 
   function formatTelefone(value: string) {
     return value
-      .replace(/\D/g, '')
-      .replace(/(\d{2})(\d)/, '($1) $2')
-      .replace(/(\d{5})(\d{4})$/, '$1-$2');
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{5})(\d{4})$/, "$1-$2");
   }
 
   function toggleEspecialidade(id: string) {
@@ -67,35 +69,40 @@ export default function NovoProfissionalPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!formData.nome.trim() || !formData.cpf || !formData.email || !formData.senha) {
-      showToast('Todos os campos obrigatórios devem ser preenchidos', 'error');
+    if (
+      !formData.nome.trim() ||
+      !formData.cpf ||
+      !formData.email ||
+      !formData.senha
+    ) {
+      showToast("Todos os campos obrigatórios devem ser preenchidos", "error");
       return;
     }
 
     if (formData.especialidades_ids.length === 0) {
-      showToast('Selecione ao menos uma especialidade', 'error');
+      showToast("Selecione ao menos uma especialidade", "error");
       return;
     }
 
     try {
       setLoading(true);
 
-      const response = await fetch('/api/admin/profissionais', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/admin/profissionais", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao criar profissional');
+        throw new Error(error.error || "Erro ao criar profissional");
       }
 
-      showToast('Profissional criado com sucesso!', 'success');
-      router.push('/admin/profissionais');
+      showToast("Profissional criado com sucesso!", "success");
+      router.push("/admin/profissionais");
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao criar profissional', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao criar profissional", "error");
       setLoading(false);
     }
   }
@@ -221,7 +228,7 @@ export default function NovoProfissionalPage() {
               </label>
               {especialidades.length === 0 ? (
                 <p className="text-gray-500 text-sm">
-                  Nenhuma especialidade cadastrada.{' '}
+                  Nenhuma especialidade cadastrada.{" "}
                   <Link
                     href="/admin/especialidades/nova"
                     className="text-indigo-600 hover:underline"
@@ -236,8 +243,8 @@ export default function NovoProfissionalPage() {
                       key={esp.id}
                       className={`flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer transition ${
                         formData.especialidades_ids.includes(esp.id)
-                          ? 'border-indigo-500 bg-indigo-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? "border-indigo-500 bg-indigo-50"
+                          : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
                       <input
@@ -274,7 +281,7 @@ export default function NovoProfissionalPage() {
                 disabled={loading}
                 className="admin-button-primary flex-1 disabled:opacity-50"
               >
-                {loading ? 'Criando...' : 'Criar Profissional'}
+                {loading ? "Criando..." : "Criar Profissional"}
               </button>
             </div>
           </form>
@@ -283,4 +290,3 @@ export default function NovoProfissionalPage() {
     </div>
   );
 }
-

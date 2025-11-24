@@ -14,7 +14,7 @@ import {
 } from "@/lib/pdf-generator";
 import StatusBadge from "@/components/admin/StatusBadge";
 import Modal from "@/components/Modal";
-import Toast from "@/components/Toast";
+import { Toast } from "@/components/Toast";
 
 export default function ValeDetalhesPage({
   params,
@@ -439,13 +439,14 @@ export default function ValeDetalhesPage({
       />
 
       {/* Toast de Notificação */}
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.show}
-        onClose={() => setToast({ ...toast, show: false })}
-        duration={3000}
-      />
+      {toast.show && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ ...toast, show: false })}
+          duration={3000}
+        />
+      )}
     </div>
   );
 }

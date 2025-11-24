@@ -1,14 +1,18 @@
-import { sql } from './db';
-import bcrypt from 'bcryptjs';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { sql } from "./db";
+import bcrypt from "bcryptjs";
 import type {
   Profissional,
   ProfissionalComEspecialidades,
   CreateProfissionalInput,
   UpdateProfissionalInput,
-} from '@/types/profissional';
+} from "@/types/profissional";
 
 // Listar todos os profissionais
-export async function getProfissionais(apenasAtivos = false): Promise<Profissional[]> {
+export async function getProfissionais(
+  apenasAtivos = false
+): Promise<Profissional[]> {
   try {
     const query = apenasAtivos
       ? sql`SELECT id, nome, telefone, cpf, email, ativo, created_at, updated_at 
@@ -19,13 +23,15 @@ export async function getProfissionais(apenasAtivos = false): Promise<Profission
     const result = await query;
     return result.rows as Profissional[];
   } catch (error) {
-    console.error('Erro ao buscar profissionais:', error);
+    console.error("Erro ao buscar profissionais:", error);
     throw error;
   }
 }
 
 // Buscar profissional por ID com especialidades
-export async function getProfissionalById(id: string): Promise<ProfissionalComEspecialidades | null> {
+export async function getProfissionalById(
+  id: string
+): Promise<ProfissionalComEspecialidades | null> {
   try {
     const profissionalResult = await sql`
       SELECT id, nome, telefone, cpf, email, ativo, created_at, updated_at 
@@ -53,7 +59,7 @@ export async function getProfissionalById(id: string): Promise<ProfissionalComEs
       especialidades: especialidadesResult.rows,
     } as ProfissionalComEspecialidades;
   } catch (error) {
-    console.error('Erro ao buscar profissional:', error);
+    console.error("Erro ao buscar profissional:", error);
     throw error;
   }
 }
@@ -67,7 +73,7 @@ export async function getProfissionalByEmail(email: string) {
 
     return result.rows[0] || null;
   } catch (error) {
-    console.error('Erro ao buscar profissional por email:', error);
+    console.error("Erro ao buscar profissional por email:", error);
     throw error;
   }
 }
@@ -98,7 +104,7 @@ export async function createProfissional(
 
     return profissional;
   } catch (error) {
-    console.error('Erro ao criar profissional:', error);
+    console.error("Erro ao criar profissional:", error);
     throw error;
   }
 }
@@ -142,7 +148,7 @@ export async function updateProfissional(
     }
 
     if (updates.length === 0) {
-      throw new Error('Nenhum campo para atualizar');
+      throw new Error("Nenhum campo para atualizar");
     }
 
     updates.push(`updated_at = CURRENT_TIMESTAMP`);
@@ -150,15 +156,15 @@ export async function updateProfissional(
 
     const query = `
       UPDATE profissionais 
-      SET ${updates.join(', ')} 
+      SET ${updates.join(", ")} 
       WHERE id = $${paramIndex}
       RETURNING id, nome, telefone, cpf, email, ativo, created_at, updated_at
     `;
 
     const result = await sql.query(query, values);
-    return result.rows[0] as Profissional || null;
+    return (result.rows[0] as Profissional) || null;
   } catch (error) {
-    console.error('Erro ao atualizar profissional:', error);
+    console.error("Erro ao atualizar profissional:", error);
     throw error;
   }
 }
@@ -175,7 +181,7 @@ export async function deleteProfissional(id: string): Promise<boolean> {
 
     return result.rows.length > 0;
   } catch (error) {
-    console.error('Erro ao deletar profissional:', error);
+    console.error("Erro ao deletar profissional:", error);
     throw error;
   }
 }
@@ -196,7 +202,7 @@ export async function associarEspecialidades(
     if (especialidadesIds.length > 0) {
       const values = especialidadesIds
         .map((espId) => `('${profissionalId}', '${espId}')`)
-        .join(', ');
+        .join(", ");
 
       await sql.query(`
         INSERT INTO profissionais_especialidades (profissional_id, especialidade_id)
@@ -204,7 +210,7 @@ export async function associarEspecialidades(
       `);
     }
   } catch (error) {
-    console.error('Erro ao associar especialidades:', error);
+    console.error("Erro ao associar especialidades:", error);
     throw error;
   }
 }
@@ -224,7 +230,7 @@ export async function removerEspecialidade(
 
     return result.rows.length > 0;
   } catch (error) {
-    console.error('Erro ao remover especialidade:', error);
+    console.error("Erro ao remover especialidade:", error);
     throw error;
   }
 }
@@ -254,9 +260,7 @@ export async function getProfissionaisByEspecialidade(
     const result = await query;
     return result.rows as Profissional[];
   } catch (error) {
-    console.error('Erro ao buscar profissionais por especialidade:', error);
+    console.error("Erro ao buscar profissionais por especialidade:", error);
     throw error;
   }
 }
-
-

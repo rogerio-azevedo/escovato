@@ -1,23 +1,25 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import Link from 'next/link';
-import type { Usuario } from '@/types/auth';
-import { showToast } from '@/components/Toast';
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import type { Usuario } from "@/types/auth";
+import { showToast } from "@/components/Toast";
 
 export default function EditarUsuarioPage() {
   const router = useRouter();
   const params = useParams();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    senha: '',
-    confirmarSenha: '',
-    role: 'recepcionista' as 'admin' | 'recepcionista',
+    nome: "",
+    email: "",
+    senha: "",
+    confirmarSenha: "",
+    role: "recepcionista" as "admin" | "recepcionista",
   });
 
   useEffect(() => {
@@ -28,21 +30,20 @@ export default function EditarUsuarioPage() {
     try {
       const response = await fetch(`/api/admin/usuarios/${params.id}`);
 
-      if (!response.ok) throw new Error('Erro ao carregar usuário');
+      if (!response.ok) throw new Error("Erro ao carregar usuário");
 
       const data: Usuario = await response.json();
-      setUsuario(data);
       setFormData({
         nome: data.nome,
         email: data.email,
-        senha: '',
-        confirmarSenha: '',
-        role: data.role as 'admin' | 'recepcionista',
+        senha: "",
+        confirmarSenha: "",
+        role: data.role as "admin" | "recepcionista",
       });
     } catch (error) {
-      console.error('Erro:', error);
-      showToast('Erro ao carregar usuário', 'error');
-      router.push('/admin/usuarios');
+      console.error("Erro:", error);
+      showToast("Erro ao carregar usuário", "error");
+      router.push("/admin/usuarios");
     } finally {
       setLoading(false);
     }
@@ -52,17 +53,17 @@ export default function EditarUsuarioPage() {
     e.preventDefault();
 
     if (!formData.nome || !formData.email) {
-      showToast('Nome e email são obrigatórios', 'error');
+      showToast("Nome e email são obrigatórios", "error");
       return;
     }
 
     if (formData.senha && formData.senha !== formData.confirmarSenha) {
-      showToast('As senhas não coincidem', 'error');
+      showToast("As senhas não coincidem", "error");
       return;
     }
 
     if (formData.senha && formData.senha.length < 6) {
-      showToast('A senha deve ter no mínimo 6 caracteres', 'error');
+      showToast("A senha deve ter no mínimo 6 caracteres", "error");
       return;
     }
 
@@ -81,21 +82,21 @@ export default function EditarUsuarioPage() {
       }
 
       const response = await fetch(`/api/admin/usuarios/${params.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateData),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao atualizar usuário');
+        throw new Error(error.error || "Erro ao atualizar usuário");
       }
 
-      showToast('Usuário atualizado com sucesso!', 'success');
-      router.push('/admin/usuarios');
+      showToast("Usuário atualizado com sucesso!", "success");
+      router.push("/admin/usuarios");
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao atualizar usuário', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao atualizar usuário", "error");
       setSaving(false);
     }
   }
@@ -211,17 +212,19 @@ export default function EditarUsuarioPage() {
                     type="radio"
                     name="role"
                     value="recepcionista"
-                    checked={formData.role === 'recepcionista'}
+                    checked={formData.role === "recepcionista"}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        role: e.target.value as 'recepcionista',
+                        role: e.target.value as "recepcionista",
                       })
                     }
                     className="mt-1 w-4 h-4 text-indigo-600"
                   />
                   <div className="ml-3">
-                    <div className="font-medium text-gray-900">Recepcionista</div>
+                    <div className="font-medium text-gray-900">
+                      Recepcionista
+                    </div>
                     <p className="text-sm text-gray-600">
                       Pode gerenciar rodízio e vales. Não pode criar/editar
                       profissionais, especialidades ou usuários.
@@ -234,11 +237,11 @@ export default function EditarUsuarioPage() {
                     type="radio"
                     name="role"
                     value="admin"
-                    checked={formData.role === 'admin'}
+                    checked={formData.role === "admin"}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        role: e.target.value as 'admin',
+                        role: e.target.value as "admin",
                       })
                     }
                     className="mt-1 w-4 h-4 text-indigo-600"
@@ -269,7 +272,7 @@ export default function EditarUsuarioPage() {
                 disabled={saving}
                 className="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium disabled:opacity-50"
               >
-                {saving ? 'Salvando...' : 'Salvar Alterações'}
+                {saving ? "Salvando..." : "Salvar Alterações"}
               </button>
             </div>
           </form>
@@ -278,5 +281,3 @@ export default function EditarUsuarioPage() {
     </div>
   );
 }
-
-

@@ -1,12 +1,16 @@
-import { sql } from './db';
-import type { 
-  Especialidade, 
-  CreateEspecialidadeInput, 
-  UpdateEspecialidadeInput 
-} from '@/types/especialidade';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { sql } from "./db";
+import type {
+  Especialidade,
+  CreateEspecialidadeInput,
+  UpdateEspecialidadeInput,
+} from "@/types/especialidade";
 
 // Listar todas as especialidades
-export async function getEspecialidades(apenasAtivas = false): Promise<Especialidade[]> {
+export async function getEspecialidades(
+  apenasAtivas = false
+): Promise<Especialidade[]> {
   try {
     const query = apenasAtivas
       ? sql`SELECT * FROM especialidades WHERE ativo = true ORDER BY nome ASC`
@@ -15,21 +19,23 @@ export async function getEspecialidades(apenasAtivas = false): Promise<Especiali
     const result = await query;
     return result.rows as Especialidade[];
   } catch (error) {
-    console.error('Erro ao buscar especialidades:', error);
+    console.error("Erro ao buscar especialidades:", error);
     throw error;
   }
 }
 
 // Buscar especialidade por ID
-export async function getEspecialidadeById(id: string): Promise<Especialidade | null> {
+export async function getEspecialidadeById(
+  id: string
+): Promise<Especialidade | null> {
   try {
     const result = await sql`
       SELECT * FROM especialidades WHERE id = ${id}
     `;
 
-    return result.rows[0] as Especialidade || null;
+    return (result.rows[0] as Especialidade) || null;
   } catch (error) {
-    console.error('Erro ao buscar especialidade:', error);
+    console.error("Erro ao buscar especialidade:", error);
     throw error;
   }
 }
@@ -49,7 +55,7 @@ export async function createEspecialidade(
 
     return result.rows[0] as Especialidade;
   } catch (error) {
-    console.error('Erro ao criar especialidade:', error);
+    console.error("Erro ao criar especialidade:", error);
     throw error;
   }
 }
@@ -85,7 +91,7 @@ export async function updateEspecialidade(
     }
 
     if (updates.length === 0) {
-      throw new Error('Nenhum campo para atualizar');
+      throw new Error("Nenhum campo para atualizar");
     }
 
     updates.push(`updated_at = CURRENT_TIMESTAMP`);
@@ -93,15 +99,15 @@ export async function updateEspecialidade(
 
     const query = `
       UPDATE especialidades 
-      SET ${updates.join(', ')} 
+      SET ${updates.join(", ")} 
       WHERE id = $${paramIndex}
       RETURNING *
     `;
 
     const result = await sql.query(query, values);
-    return result.rows[0] as Especialidade || null;
+    return (result.rows[0] as Especialidade) || null;
   } catch (error) {
-    console.error('Erro ao atualizar especialidade:', error);
+    console.error("Erro ao atualizar especialidade:", error);
     throw error;
   }
 }
@@ -118,13 +124,15 @@ export async function deleteEspecialidade(id: string): Promise<boolean> {
 
     return result.rows.length > 0;
   } catch (error) {
-    console.error('Erro ao deletar especialidade:', error);
+    console.error("Erro ao deletar especialidade:", error);
     throw error;
   }
 }
 
 // Verificar se especialidade tem profissionais associados
-export async function especialidadeTemProfissionais(id: string): Promise<boolean> {
+export async function especialidadeTemProfissionais(
+  id: string
+): Promise<boolean> {
   try {
     const result = await sql`
       SELECT COUNT(*) as count 
@@ -134,9 +142,7 @@ export async function especialidadeTemProfissionais(id: string): Promise<boolean
 
     return parseInt(result.rows[0].count) > 0;
   } catch (error) {
-    console.error('Erro ao verificar profissionais da especialidade:', error);
+    console.error("Erro ao verificar profissionais da especialidade:", error);
     throw error;
   }
 }
-
-

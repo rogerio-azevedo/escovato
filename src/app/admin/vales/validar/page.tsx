@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import type { ValeValidacao } from '@/types/vale';
-import { formatarValor } from '@/lib/vales';
-import QRScanner from '@/components/admin/QRScanner';
-import Modal from '@/components/Modal';
-import Toast from '@/components/Toast';
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import type { ValeValidacao } from "@/types/vale";
+import { formatarValor } from "@/lib/vales";
+import QRScanner from "@/components/admin/QRScanner";
+import Modal from "@/components/Modal";
+import { Toast } from "@/components/Toast";
 
 function ValidarValeContent() {
   const searchParams = useSearchParams();
-  const codigoUrl = searchParams.get('code');
+  const codigoUrl = searchParams.get("code");
 
-  const [metodo, setMetodo] = useState<'codigo' | 'cpf' | 'qrcode'>('codigo');
-  const [codigo, setCodigo] = useState(codigoUrl || '');
-  const [cpf, setCpf] = useState('');
+  const [metodo, setMetodo] = useState<"codigo" | "cpf" | "qrcode">("codigo");
+  const [codigo, setCodigo] = useState(codigoUrl || "");
+  const [cpf, setCpf] = useState("");
   const [validacao, setValidacao] = useState<ValeValidacao | null>(null);
   const [carregando, setCarregando] = useState(false);
   const [processando, setProcessando] = useState(false);
@@ -23,8 +23,8 @@ function ValidarValeContent() {
   const [toast, setToast] = useState<{
     show: boolean;
     message: string;
-    type: 'success' | 'error';
-  }>({ show: false, message: '', type: 'success' });
+    type: "success" | "error";
+  }>({ show: false, message: "", type: "success" });
 
   const validarVale = async (codigoParaValidar: string) => {
     setCarregando(true);
@@ -36,10 +36,10 @@ function ValidarValeContent() {
 
       setValidacao(data);
     } catch (error) {
-      console.error('Erro ao validar vale:', error);
+      console.error("Erro ao validar vale:", error);
       setValidacao({
         valido: false,
-        mensagem: 'Erro ao validar vale. Tente novamente.',
+        mensagem: "Erro ao validar vale. Tente novamente.",
       });
     } finally {
       setCarregando(false);
@@ -52,7 +52,7 @@ function ValidarValeContent() {
 
     try {
       const response = await fetch(
-        `/api/admin/vales?search=${cpf.replace(/[^\d]/g, '')}`
+        `/api/admin/vales?search=${cpf.replace(/[^\d]/g, "")}`
       );
       const data = await response.json();
 
@@ -62,14 +62,14 @@ function ValidarValeContent() {
       } else {
         setValidacao({
           valido: false,
-          mensagem: 'Nenhum vale encontrado para este CPF',
+          mensagem: "Nenhum vale encontrado para este CPF",
         });
       }
     } catch (error) {
-      console.error('Erro ao buscar vale:', error);
+      console.error("Erro ao buscar vale:", error);
       setValidacao({
         valido: false,
-        mensagem: 'Erro ao buscar vale. Tente novamente.',
+        mensagem: "Erro ao buscar vale. Tente novamente.",
       });
     } finally {
       setCarregando(false);
@@ -86,33 +86,33 @@ function ValidarValeContent() {
       const response = await fetch(
         `/api/admin/vales/${validacao.vale.id}/validar`,
         {
-          method: 'POST',
+          method: "POST",
         }
       );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Erro ao marcar vale como usado');
+        throw new Error(data.error || "Erro ao marcar vale como usado");
       }
 
       setToast({
         show: true,
-        message: 'Vale utilizado com sucesso!',
-        type: 'success',
+        message: "Vale utilizado com sucesso!",
+        type: "success",
       });
-      
+
       // Limpar após 2 segundos
       setTimeout(() => {
         setValidacao(null);
-        setCodigo('');
-        setCpf('');
+        setCodigo("");
+        setCpf("");
       }, 2000);
     } catch (error) {
       setToast({
         show: true,
-        message: (error as Error).message || 'Erro ao processar vale',
-        type: 'error',
+        message: (error as Error).message || "Erro ao processar vale",
+        type: "error",
       });
     } finally {
       setProcessando(false);
@@ -123,7 +123,7 @@ function ValidarValeContent() {
     // Extrair código do QR (pode ser URL ou código direto)
     const urlMatch = data.match(/code=([A-Z0-9-]+)/);
     const codigoExtraido = urlMatch ? urlMatch[1] : data;
-    
+
     setCodigo(codigoExtraido);
     validarVale(codigoExtraido);
   };
@@ -166,31 +166,31 @@ function ValidarValeContent() {
           {/* Seletor de Método */}
           <div className="flex gap-2 mb-8">
             <button
-              onClick={() => setMetodo('codigo')}
+              onClick={() => setMetodo("codigo")}
               className={`flex-1 py-3 rounded-lg font-semibold transition ${
-                metodo === 'codigo'
-                  ? 'bg-amber-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                metodo === "codigo"
+                  ? "bg-amber-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Código Manual
             </button>
             <button
-              onClick={() => setMetodo('cpf')}
+              onClick={() => setMetodo("cpf")}
               className={`flex-1 py-3 rounded-lg font-semibold transition ${
-                metodo === 'cpf'
-                  ? 'bg-amber-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                metodo === "cpf"
+                  ? "bg-amber-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Buscar por CPF
             </button>
             <button
-              onClick={() => setMetodo('qrcode')}
+              onClick={() => setMetodo("qrcode")}
               className={`flex-1 py-3 rounded-lg font-semibold transition ${
-                metodo === 'qrcode'
-                  ? 'bg-amber-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                metodo === "qrcode"
+                  ? "bg-amber-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Escanear QR Code
@@ -198,7 +198,7 @@ function ValidarValeContent() {
           </div>
 
           {/* Método: Código Manual */}
-          {metodo === 'codigo' && (
+          {metodo === "codigo" && (
             <form onSubmit={handleSubmitCodigo} className="space-y-4">
               <div>
                 <label
@@ -223,13 +223,13 @@ function ValidarValeContent() {
                 disabled={carregando || !codigo.trim()}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {carregando ? 'Validando...' : 'Validar Vale'}
+                {carregando ? "Validando..." : "Validar Vale"}
               </button>
             </form>
           )}
 
           {/* Método: CPF */}
-          {metodo === 'cpf' && (
+          {metodo === "cpf" && (
             <form onSubmit={handleSubmitCPF} className="space-y-4">
               <div>
                 <label
@@ -243,11 +243,11 @@ function ValidarValeContent() {
                   id="cpf"
                   value={cpf}
                   onChange={(e) => {
-                    const valor = e.target.value.replace(/[^\d]/g, '');
+                    const valor = e.target.value.replace(/[^\d]/g, "");
                     const cpfFormatado = valor
-                      .replace(/(\d{3})(\d)/, '$1.$2')
-                      .replace(/(\d{3})(\d)/, '$1.$2')
-                      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                      .replace(/(\d{3})(\d)/, "$1.$2")
+                      .replace(/(\d{3})(\d)/, "$1.$2")
+                      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
                     setCpf(cpfFormatado);
                   }}
                   maxLength={14}
@@ -262,13 +262,13 @@ function ValidarValeContent() {
                 disabled={carregando || !cpf.trim()}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {carregando ? 'Buscando...' : 'Buscar Vale'}
+                {carregando ? "Buscando..." : "Buscar Vale"}
               </button>
             </form>
           )}
 
           {/* Método: QR Code */}
-          {metodo === 'qrcode' && (
+          {metodo === "qrcode" && (
             <QRScanner
               onScan={handleQRScan}
               onError={(error) => {
@@ -328,7 +328,7 @@ function ValidarValeContent() {
                           <span className="font-semibold text-gray-800">
                             {new Date(
                               validacao.vale.validade
-                            ).toLocaleDateString('pt-BR')}
+                            ).toLocaleDateString("pt-BR")}
                           </span>
                         </div>
 
@@ -357,8 +357,8 @@ function ValidarValeContent() {
                     Vale Inválido
                   </h3>
                   <p className="text-red-700">{validacao.mensagem}</p>
-                  
-                  {validacao.motivo === 'usado' && validacao.vale && (
+
+                  {validacao.motivo === "usado" && validacao.vale && (
                     <div className="mt-4 p-4 bg-red-100 rounded-lg">
                       <p className="text-sm text-red-800">
                         Este vale já foi utilizado anteriormente
@@ -378,7 +378,11 @@ function ValidarValeContent() {
         onClose={() => setModalAberto(false)}
         onConfirm={marcarComoUsado}
         title="Confirmar Uso do Vale"
-        message={`Confirma o uso deste vale de ${validacao?.vale ? formatarValor(validacao.vale.valor) : ''} por ${validacao?.vale?.para || 'este cliente'}? Esta ação não pode ser desfeita.`}
+        message={`Confirma o uso deste vale de ${
+          validacao?.vale ? formatarValor(validacao.vale.valor) : ""
+        } por ${
+          validacao?.vale?.para || "este cliente"
+        }? Esta ação não pode ser desfeita.`}
         confirmText="Sim, confirmar uso"
         cancelText="Cancelar"
         confirmColor="green"
@@ -386,29 +390,31 @@ function ValidarValeContent() {
       />
 
       {/* Toast de Notificação */}
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.show}
-        onClose={() => setToast({ ...toast, show: false })}
-        duration={3000}
-      />
+      {toast.show && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ ...toast, show: false })}
+          duration={3000}
+        />
+      )}
     </div>
   );
 }
 
 export default function ValidarValePage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando...</p>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Carregando...</p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <ValidarValeContent />
     </Suspense>
   );
 }
-

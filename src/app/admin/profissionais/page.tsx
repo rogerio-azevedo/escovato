@@ -1,16 +1,18 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import type { ProfissionalComEspecialidades } from '@/types/profissional';
-import { showToast } from '@/components/Toast';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import type { ProfissionalComEspecialidades } from "@/types/profissional";
+import { showToast } from "@/components/Toast";
 
 export default function ProfissionaisPage() {
-  const router = useRouter();
-  const [profissionais, setProfissionais] = useState<ProfissionalComEspecialidades[]>([]);
+  const [profissionais, setProfissionais] = useState<
+    ProfissionalComEspecialidades[]
+  >([]);
   const [loading, setLoading] = useState(true);
-  const [filtro, setFiltro] = useState<'todos' | 'ativos'>('ativos');
+  const [filtro, setFiltro] = useState<"todos" | "ativos">("ativos");
 
   useEffect(() => {
     carregarProfissionais();
@@ -19,13 +21,13 @@ export default function ProfissionaisPage() {
   async function carregarProfissionais() {
     try {
       setLoading(true);
-      const url = `/api/admin/profissionais?ativos=${filtro === 'ativos'}`;
+      const url = `/api/admin/profissionais?ativos=${filtro === "ativos"}`;
       const response = await fetch(url);
 
-      if (!response.ok) throw new Error('Erro ao carregar profissionais');
+      if (!response.ok) throw new Error("Erro ao carregar profissionais");
 
       const profissionaisData = await response.json();
-      
+
       // Carregar especialidades de cada profissional
       const profissionaisComEspecialidades = await Promise.all(
         profissionaisData.map(async (prof: any) => {
@@ -39,8 +41,8 @@ export default function ProfissionaisPage() {
 
       setProfissionais(profissionaisComEspecialidades);
     } catch (error) {
-      console.error('Erro:', error);
-      showToast('Erro ao carregar profissionais', 'error');
+      console.error("Erro:", error);
+      showToast("Erro ao carregar profissionais", "error");
     } finally {
       setLoading(false);
     }
@@ -53,19 +55,19 @@ export default function ProfissionaisPage() {
 
     try {
       const response = await fetch(`/api/admin/profissionais/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao deletar');
+        throw new Error(error.error || "Erro ao deletar");
       }
 
-      showToast('Profissional desativado com sucesso!', 'success');
+      showToast("Profissional desativado com sucesso!", "success");
       carregarProfissionais();
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao deletar profissional', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao deletar profissional", "error");
     }
   }
 
@@ -92,21 +94,21 @@ export default function ProfissionaisPage() {
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
           <div className="flex gap-2">
             <button
-              onClick={() => setFiltro('ativos')}
+              onClick={() => setFiltro("ativos")}
               className={`px-4 py-2 rounded-lg transition ${
-                filtro === 'ativos'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                filtro === "ativos"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Ativos
             </button>
             <button
-              onClick={() => setFiltro('todos')}
+              onClick={() => setFiltro("todos")}
               className={`px-4 py-2 rounded-lg transition ${
-                filtro === 'todos'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                filtro === "todos"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Todos
@@ -133,7 +135,11 @@ export default function ProfissionaisPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                      {prof.nome.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                      {prof.nome
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .substring(0, 2)}
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
@@ -149,15 +155,9 @@ export default function ProfissionaisPage() {
                 </div>
 
                 <div className="space-y-2 mb-4">
-                  <p className="text-sm text-gray-600">
-                    📱 {prof.telefone}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    📧 {prof.email}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    🆔 {prof.cpf}
-                  </p>
+                  <p className="text-sm text-gray-600">📱 {prof.telefone}</p>
+                  <p className="text-sm text-gray-600">📧 {prof.email}</p>
+                  <p className="text-sm text-gray-600">🆔 {prof.cpf}</p>
                 </div>
 
                 {/* Especialidades */}
@@ -204,5 +204,3 @@ export default function ProfissionaisPage() {
     </div>
   );
 }
-
-

@@ -1,45 +1,46 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { showToast } from '@/components/Toast';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { showToast } from "@/components/Toast";
 
 export default function NovoUsuarioPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    senha: '',
-    confirmarSenha: '',
-    role: 'recepcionista' as 'admin' | 'recepcionista',
+    nome: "",
+    email: "",
+    senha: "",
+    confirmarSenha: "",
+    role: "recepcionista" as "admin" | "recepcionista",
   });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (!formData.nome || !formData.email || !formData.senha) {
-      showToast('Todos os campos são obrigatórios', 'error');
+      showToast("Todos os campos são obrigatórios", "error");
       return;
     }
 
     if (formData.senha !== formData.confirmarSenha) {
-      showToast('As senhas não coincidem', 'error');
+      showToast("As senhas não coincidem", "error");
       return;
     }
 
     if (formData.senha.length < 6) {
-      showToast('A senha deve ter no mínimo 6 caracteres', 'error');
+      showToast("A senha deve ter no mínimo 6 caracteres", "error");
       return;
     }
 
     try {
       setLoading(true);
 
-      const response = await fetch('/api/admin/usuarios', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/admin/usuarios", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nome: formData.nome,
           email: formData.email,
@@ -50,14 +51,14 @@ export default function NovoUsuarioPage() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao criar usuário');
+        throw new Error(error.error || "Erro ao criar usuário");
       }
 
-      showToast('Usuário criado com sucesso!', 'success');
-      router.push('/admin/usuarios');
+      showToast("Usuário criado com sucesso!", "success");
+      router.push("/admin/usuarios");
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao criar usuário', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao criar usuário", "error");
       setLoading(false);
     }
   }
@@ -165,17 +166,19 @@ export default function NovoUsuarioPage() {
                     type="radio"
                     name="role"
                     value="recepcionista"
-                    checked={formData.role === 'recepcionista'}
+                    checked={formData.role === "recepcionista"}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        role: e.target.value as 'recepcionista',
+                        role: e.target.value as "recepcionista",
                       })
                     }
                     className="mt-1 w-4 h-4 text-indigo-600"
                   />
                   <div className="ml-3">
-                    <div className="font-medium text-gray-900">Recepcionista</div>
+                    <div className="font-medium text-gray-900">
+                      Recepcionista
+                    </div>
                     <p className="text-sm text-gray-600">
                       Pode gerenciar rodízio e vales. Não pode criar/editar
                       profissionais, especialidades ou usuários.
@@ -188,11 +191,11 @@ export default function NovoUsuarioPage() {
                     type="radio"
                     name="role"
                     value="admin"
-                    checked={formData.role === 'admin'}
+                    checked={formData.role === "admin"}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        role: e.target.value as 'admin',
+                        role: e.target.value as "admin",
                       })
                     }
                     className="mt-1 w-4 h-4 text-indigo-600"
@@ -223,7 +226,7 @@ export default function NovoUsuarioPage() {
                 disabled={loading}
                 className="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium disabled:opacity-50"
               >
-                {loading ? 'Criando...' : 'Criar Usuário'}
+                {loading ? "Criando..." : "Criar Usuário"}
               </button>
             </div>
           </form>
@@ -232,5 +235,3 @@ export default function NovoUsuarioPage() {
     </div>
   );
 }
-
-

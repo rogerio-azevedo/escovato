@@ -1,25 +1,26 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import Link from 'next/link';
-import type { ProfissionalComEspecialidades } from '@/types/profissional';
-import type { Especialidade } from '@/types/especialidade';
-import { showToast } from '@/components/Toast';
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import type { ProfissionalComEspecialidades } from "@/types/profissional";
+import type { Especialidade } from "@/types/especialidade";
+import { showToast } from "@/components/Toast";
 
 export default function EditarProfissionalPage() {
   const router = useRouter();
   const params = useParams();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [profissional, setProfissional] = useState<ProfissionalComEspecialidades | null>(null);
   const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
   const [formData, setFormData] = useState({
-    nome: '',
-    telefone: '',
-    cpf: '',
-    email: '',
-    senha: '',
+    nome: "",
+    telefone: "",
+    cpf: "",
+    email: "",
+    senha: "",
     ativo: true,
     especialidades_ids: [] as string[],
   });
@@ -32,30 +33,29 @@ export default function EditarProfissionalPage() {
     try {
       // Carregar profissional
       const respProf = await fetch(`/api/admin/profissionais/${params.id}`);
-      if (!respProf.ok) throw new Error('Erro ao carregar profissional');
+      if (!respProf.ok) throw new Error("Erro ao carregar profissional");
       const profData: ProfissionalComEspecialidades = await respProf.json();
 
       // Carregar especialidades disponíveis
-      const respEsp = await fetch('/api/admin/especialidades?ativas=true');
+      const respEsp = await fetch("/api/admin/especialidades?ativas=true");
       if (respEsp.ok) {
         const espData = await respEsp.json();
         setEspecialidades(espData);
       }
 
-      setProfissional(profData);
       setFormData({
         nome: profData.nome,
         telefone: profData.telefone,
         cpf: profData.cpf,
         email: profData.email,
-        senha: '',
+        senha: "",
         ativo: profData.ativo,
         especialidades_ids: profData.especialidades.map((e) => e.id),
       });
     } catch (error) {
-      console.error('Erro:', error);
-      showToast('Erro ao carregar profissional', 'error');
-      router.push('/admin/profissionais');
+      console.error("Erro:", error);
+      showToast("Erro ao carregar profissional", "error");
+      router.push("/admin/profissionais");
     } finally {
       setLoading(false);
     }
@@ -63,17 +63,17 @@ export default function EditarProfissionalPage() {
 
   function formatCPF(value: string) {
     return value
-      .replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   }
 
   function formatTelefone(value: string) {
     return value
-      .replace(/\D/g, '')
-      .replace(/(\d{2})(\d)/, '($1) $2')
-      .replace(/(\d{5})(\d{4})$/, '$1-$2');
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{5})(\d{4})$/, "$1-$2");
   }
 
   function toggleEspecialidade(id: string) {
@@ -94,12 +94,12 @@ export default function EditarProfissionalPage() {
     e.preventDefault();
 
     if (!formData.nome.trim() || !formData.cpf || !formData.email) {
-      showToast('Campos obrigatórios devem ser preenchidos', 'error');
+      showToast("Campos obrigatórios devem ser preenchidos", "error");
       return;
     }
 
     if (formData.especialidades_ids.length === 0) {
-      showToast('Selecione ao menos uma especialidade', 'error');
+      showToast("Selecione ao menos uma especialidade", "error");
       return;
     }
 
@@ -121,35 +121,37 @@ export default function EditarProfissionalPage() {
       }
 
       const response = await fetch(`/api/admin/profissionais/${params.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateData),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Erro ao atualizar profissional');
+        throw new Error(error.error || "Erro ao atualizar profissional");
       }
 
       // Atualizar especialidades
       const respEsp = await fetch(
         `/api/admin/profissionais/${params.id}/especialidades`,
         {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ especialidades_ids: formData.especialidades_ids }),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            especialidades_ids: formData.especialidades_ids,
+          }),
         }
       );
 
       if (!respEsp.ok) {
-        throw new Error('Erro ao atualizar especialidades');
+        throw new Error("Erro ao atualizar especialidades");
       }
 
-      showToast('Profissional atualizado com sucesso!', 'success');
-      router.push('/admin/profissionais');
+      showToast("Profissional atualizado com sucesso!", "success");
+      router.push("/admin/profissionais");
     } catch (error: any) {
-      console.error('Erro:', error);
-      showToast(error.message || 'Erro ao atualizar profissional', 'error');
+      console.error("Erro:", error);
+      showToast(error.message || "Erro ao atualizar profissional", "error");
       setSaving(false);
     }
   }
@@ -286,8 +288,8 @@ export default function EditarProfissionalPage() {
                     key={esp.id}
                     className={`flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer transition ${
                       formData.especialidades_ids.includes(esp.id)
-                        ? 'border-indigo-500 bg-indigo-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? "border-indigo-500 bg-indigo-50"
+                        : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
                     <input
@@ -302,7 +304,9 @@ export default function EditarProfissionalPage() {
                     >
                       {esp.nome.charAt(0)}
                     </div>
-                    <span className="font-medium text-gray-900">{esp.nome}</span>
+                    <span className="font-medium text-gray-900">
+                      {esp.nome}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -338,7 +342,7 @@ export default function EditarProfissionalPage() {
                 disabled={saving}
                 className="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-medium disabled:opacity-50"
               >
-                {saving ? 'Salvando...' : 'Salvar Alterações'}
+                {saving ? "Salvando..." : "Salvar Alterações"}
               </button>
             </div>
           </form>
@@ -347,5 +351,3 @@ export default function EditarProfissionalPage() {
     </div>
   );
 }
-
-

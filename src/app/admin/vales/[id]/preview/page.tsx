@@ -8,7 +8,7 @@ import Image from "next/image";
 import QRCode from "qrcode";
 import type { Vale } from "@/types/vale";
 import { formatarValor } from "@/lib/vales";
-import Toast from "@/components/Toast";
+import { Toast } from "@/components/Toast";
 
 export default function ValePreviewPage({
   params,
@@ -164,13 +164,14 @@ export default function ValePreviewPage({
       </div>
 
       {/* Toast de Notificação */}
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.show}
-        onClose={() => setToast({ ...toast, show: false })}
-        duration={3000}
-      />
+      {toast.show && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ ...toast, show: false })}
+          duration={3000}
+        />
+      )}
     </div>
   );
 }
