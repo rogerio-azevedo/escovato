@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { Vale, ValeStatus } from '@/types/vale';
 import ValeCard from '@/components/admin/ValeCard';
@@ -10,7 +9,6 @@ import ValeFilters from '@/components/admin/ValeFilters';
 
 export default function ValesPage() {
   const { data: session, status } = useSession();
-  const router = useRouter();
   const [vales, setVales] = useState<Vale[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
@@ -39,12 +37,10 @@ export default function ValesPage() {
   };
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/admin/login');
-    } else if (status === 'authenticated') {
+    if (status === 'authenticated') {
       carregarVales();
     }
-  }, [status, router]);
+  }, [status]);
 
   const handleFilterChange = (statusFiltro?: ValeStatus, busca?: string) => {
     carregarVales(statusFiltro, busca);

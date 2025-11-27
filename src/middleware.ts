@@ -4,8 +4,13 @@ export default withAuth({
   callbacks: {
     authorized: ({ token }) => !!token,
   },
+  pages: {
+    signIn: "/admin/login",
+  },
 });
 
 export const config = {
-  matcher: ["/admin/vales/:path*"],
+  matcher: [
+    "/admin/((?!login).*)",
+  ],
 };
