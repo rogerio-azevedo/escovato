@@ -431,7 +431,7 @@ const categorias: Categoria[] = [
       },
       {
         nome: "Meia Perna",
-        preco: "R$ 50",
+        preco: "R$ 70",
       },
       {
         nome: "Perna completa",
@@ -439,7 +439,7 @@ const categorias: Categoria[] = [
       },
       {
         nome: "Combinação de Depilação",
-        preco: "R$ 100",
+        preco: "R$ 150",
         destaque: true,
         descricao:
           "Depilação completa das axilas, virilha completa e meia perna",
