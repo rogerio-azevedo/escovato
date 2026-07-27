@@ -80,6 +80,14 @@ const profissionais = [
       "Cabeleireira e Manicure com técnicas atuais e atendimento cuidadoso.",
     instagram: "https://www.instagram.com/merehair.53/",
   },
+  {
+    nome: "Marina Alves",
+    cargo: "Especialista em Micro Pigmentação de lábios e sobrancelhas",
+    foto: "/images/profissionais/marina.PNG",
+    descricao:
+      "Micropigmentação de lábios e sobrancelhas com resultado natural e harmonioso.",
+    instagram: "https://www.instagram.com/marinaalves.beauty/",
+  },
 ];
 
 const getInstagramHandle = (instagram: string) => {
