@@ -25,7 +25,7 @@ const profissionais = [
   },
   {
     nome: "Chiley Silva",
-    cargo: "Cabeleireira Colorista",
+    cargo: "Cabeleireira",
     foto: "/images/profissionais/chiley.jpeg",
     descricao:
       "Especialista em coloração e loiros, com técnicas que realçam a beleza natural dos fios.",
@@ -34,7 +34,7 @@ const profissionais = [
   },
   {
     nome: "Leandro França",
-    cargo: "Cabeleireiro e Escovista",
+    cargo: "Cabeleireiro",
     foto: "/images/profissionais/leandro.jpeg",
     descricao:
       "Tratamentos capilares e escovas impecáveis, com fios alinhados, brilhantes e sem frizz.",
@@ -66,7 +66,7 @@ const profissionais = [
   },
   {
     nome: "Monique Neves",
-    cargo: "Manicure - Especialista em Alongamento e Esmaltação em Gel",
+    cargo: "Manicure",
     foto: "/images/profissionais/monique.jpeg",
     descricao:
       "Alongamento de unhas e esmaltação em gel com acabamento duradouro e elegante.",
@@ -82,7 +82,7 @@ const profissionais = [
   },
   {
     nome: "Marina Alves",
-    cargo: "Especialista em Micro Pigmentação de lábios e sobrancelhas",
+    cargo: "Micropigmentação",
     foto: "/images/profissionais/marina.PNG",
     descricao:
       "Micropigmentação de lábios e sobrancelhas com resultado natural e harmonioso.",
