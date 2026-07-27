@@ -12,6 +12,8 @@
     "@next/third-parties": "^16.1.1",
     "@vercel/postgres": "^0.10.0",
     "bcryptjs": "^3.0.3",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.3",
     "jsqr": "^1.4.0",
