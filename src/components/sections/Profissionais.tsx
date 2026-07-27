@@ -3,7 +3,7 @@
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import SectionTitle from "../SectionTitle";
 
 const profissionais = [
@@ -76,16 +76,22 @@ const Profissionais = () => {
     () =>
       Autoplay({
         delay: 4000,
-        stopOnInteraction: true,
+        playOnInit: true,
+        stopOnInteraction: false,
         stopOnMouseEnter: true,
       }),
     [],
   );
 
-  const [emblaRef] = useEmblaCarousel(
+  const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", duration: 25, dragThreshold: 5 },
     [autoplayPlugin],
   );
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    autoplayPlugin.play();
+  }, [emblaApi, autoplayPlugin]);
 
   return (
     <section id="profissionais" className="py-20 bg-white">
@@ -96,17 +102,17 @@ const Profissionais = () => {
         />
 
         <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
-          <div className="flex touch-pan-y -ml-8">
+          <div className="flex touch-pan-y -ml-8 items-stretch">
             {profissionais.map((profissional) => {
               const handle = getInstagramHandle(profissional.instagram);
 
               return (
                 <div
                   key={profissional.nome}
-                  className="min-w-0 shrink-0 grow-0 basis-full pl-8 md:basis-1/2 lg:basis-1/4"
+                  className="min-w-0 shrink-0 grow-0 basis-full pl-8 md:basis-1/2 lg:basis-1/4 flex"
                 >
-                  <div className="bg-gray-50 rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-xl">
-                    <div className="relative h-80">
+                  <div className="flex h-full w-full flex-col bg-gray-50 rounded-lg overflow-hidden shadow-lg transition-shadow hover:shadow-xl">
+                    <div className="relative h-80 shrink-0">
                       <Image
                         src={profissional.foto}
                         alt={`Foto de ${profissional.nome}`}
@@ -116,14 +122,14 @@ const Profissionais = () => {
                         style={{ objectFit: "cover" }}
                       />
                     </div>
-                    <div className="p-6">
+                    <div className="flex flex-1 flex-col p-6">
                       <h3 className="text-xl font-bold text-gray-800 mb-1">
                         {profissional.nome}
                       </h3>
                       <p className="text-orange-700 font-medium mb-3">
                         {profissional.cargo}
                       </p>
-                      <p className="text-gray-700 mb-4">
+                      <p className="text-gray-700 mb-4 flex-1">
                         {profissional.descricao}
                       </p>
                       <a
