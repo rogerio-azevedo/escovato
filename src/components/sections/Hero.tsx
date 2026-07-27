@@ -61,9 +61,8 @@ const Hero = () => {
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
         >
           <div className="absolute inset-0 bg-black/40 z-10" />
           <Image
@@ -114,11 +113,10 @@ const Hero = () => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentSlide
-                ? "bg-orange-700"
-                : "bg-white/50 hover:bg-white/80"
-            }`}
+            className={`w-3 h-3 rounded-full transition-colors ${index === currentSlide
+              ? "bg-orange-700"
+              : "bg-white/50 hover:bg-white/80"
+              }`}
             aria-label={`Ir para slide ${index + 1}`}
           />
         ))}
@@ -126,9 +124,8 @@ const Hero = () => {
 
       {/* Indicador de scroll no canto direito */}
       <div
-        className={`fixed right-8 bottom-16 z-40 transition-all duration-500 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
+        className={`fixed right-8 bottom-16 z-40 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
       >
         <button
           onClick={scrollToNextSection}

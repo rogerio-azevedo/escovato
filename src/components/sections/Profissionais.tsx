@@ -16,6 +16,14 @@ const profissionais = [
     instagram: "https://www.instagram.com/fiosdajuul/",
   },
   {
+    nome: "Edna Reis",
+    cargo: "Cabeleireira",
+    foto: "/images/profissionais/edna.jpeg",
+    descricao:
+      "Especialista em cortes, tratamentos e cuidados capilares com atendimento personalizado.",
+    instagram: "https://www.instagram.com/ednacabelos/",
+  },
+  {
     nome: "Chiley Silva",
     cargo: "Cabeleireira Colorista",
     foto: "/images/profissionais/chiley.jpeg",
@@ -55,6 +63,14 @@ const profissionais = [
     descricao:
       "Manicure e pedicure com acabamento impecável e foco na saúde das unhas.",
     instagram: "https://www.instagram.com/emanuelaamorimc/",
+  },
+  {
+    nome: "Monique Neves",
+    cargo: "Manicure - Especialista em Alongamento e Esmaltação em Gel",
+    foto: "/images/profissionais/monique.jpeg",
+    descricao:
+      "Alongamento de unhas e esmaltação em gel com acabamento duradouro e elegante.",
+    instagram: "https://www.instagram.com/monique.silva38/",
   },
   {
     nome: "Mere Silva",
