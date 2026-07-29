@@ -20,7 +20,7 @@ const profissionais = [
     cargo: "Cabeleireira",
     foto: "/images/profissionais/edna.jpeg",
     descricao:
-      "Especialista em cortes, tratamentos e cuidados capilares com atendimento personalizado.",
+      "Tratamentos, cortes, alisamento e cuidados capilares com atendimento personalizado.",
     instagram: "https://www.instagram.com/ednacabelos/",
   },
   {
@@ -28,7 +28,7 @@ const profissionais = [
     cargo: "Cabeleireira",
     foto: "/images/profissionais/chiley.jpeg",
     descricao:
-      "Especialista em coloração e loiros, com técnicas que realçam a beleza natural dos fios.",
+      "Especialista em coloração e loiros, cortes e cuidados capilares com técnicas que realçam a beleza natural dos fios.",
     instagram:
       "https://www.instagram.com/chileysilva_loiros?igsh=Z2EydWdiMm5qYmNj",
   },
@@ -45,7 +45,7 @@ const profissionais = [
     cargo: "Maquiadora",
     foto: "/images/profissionais/carol.jpg",
     descricao:
-      "Maquiagens sociais e para eventos, valorizando os traços naturais de cada cliente.",
+      "Maquiagens sociais e penteadospara eventos, valorizando os traços naturais de cada cliente.",
     instagram: "https://www.instagram.com/carolleitebeauty_/",
   },
   {
@@ -61,7 +61,7 @@ const profissionais = [
     cargo: "Manicure",
     foto: "/images/profissionais/manu.jpg",
     descricao:
-      "Manicure e pedicure com acabamento impecável e foco na saúde das unhas.",
+      "Manicure e pedicure tradicional e em gel com acabamento impecável e foco na saúde das unhas.",
     instagram: "https://www.instagram.com/emanuelaamorimc/",
   },
   {
