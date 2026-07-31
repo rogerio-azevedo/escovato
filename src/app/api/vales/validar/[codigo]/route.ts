@@ -27,7 +27,7 @@ export async function GET(
       mensagem: validacao.mensagem,
       vale: {
         codigo: validacao.vale?.codigo_hash,
-        valor: validacao.vale?.valor,
+        valor: Number(validacao.vale?.valor),
         descricao: validacao.vale?.descricao,
         validade: validacao.vale?.validade,
         para: validacao.vale?.para,
