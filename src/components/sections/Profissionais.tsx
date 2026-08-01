@@ -16,14 +16,6 @@ const profissionais = [
     instagram: "https://www.instagram.com/fiosdajuul/",
   },
   {
-    nome: "Edna Reis",
-    cargo: "Cabeleireira",
-    foto: "/images/profissionais/edna.jpeg",
-    descricao:
-      "Tratamentos, cortes, alisamento e cuidados capilares com atendimento personalizado.",
-    instagram: "https://www.instagram.com/ednacabelos/",
-  },
-  {
     nome: "Chiley Silva",
     cargo: "Cabeleireira",
     foto: "/images/profissionais/chiley.jpeg",
@@ -39,6 +31,14 @@ const profissionais = [
     descricao:
       "Tratamentos capilares e escovas impecáveis, com fios alinhados, brilhantes e sem frizz.",
     instagram: "https://www.instagram.com/euleandrofranca/",
+  },
+  {
+    nome: "Edna Reis",
+    cargo: "Cabeleireira",
+    foto: "/images/profissionais/edna.png",
+    descricao:
+      "Tratamentos, cortes, alisamento e cuidados capilares com atendimento personalizado.",
+    instagram: "https://www.instagram.com/ednacabelos/",
   },
   {
     nome: "Carol Leite",
