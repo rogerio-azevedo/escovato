@@ -35,7 +35,7 @@ const profissionais = [
   {
     nome: "Edna Reis",
     cargo: "Cabeleireira",
-    foto: "/images/profissionais/edna.png",
+    foto: "/images/profissionais/edna.jpg",
     descricao:
       "Tratamentos, cortes, alisamento e cuidados capilares com atendimento personalizado.",
     instagram: "https://www.instagram.com/ednacabelos/",
