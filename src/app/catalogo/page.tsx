@@ -4,9 +4,15 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 // Tipos
+interface FaixaPreco {
+  rotulo: string;
+  preco: string;
+}
+
 interface Servico {
   nome: string;
   preco?: string;
+  precos?: FaixaPreco[];
   descricao?: string;
   observacao?: string;
   destaque?: boolean;
@@ -26,6 +32,47 @@ interface Categoria {
 }
 
 // Dados dos serviços com visual impactante
+function PrecoServico({
+  servico,
+  destaque = false,
+  compacto = false,
+}: {
+  servico: Servico;
+  destaque?: boolean;
+  compacto?: boolean;
+}) {
+  const valorClass = compacto
+    ? "text-sm font-bold text-[#903A19]"
+    : `text-xl font-bold ${destaque ? "text-white" : "text-[#561A07]"}`;
+  const rotuloClass = `text-[10px] leading-none ${destaque ? "text-white/75" : "text-[#AF7751]"
+    }`;
+
+  if (servico.precos && servico.precos.length > 0) {
+    return (
+      <div className="text-right flex-shrink-0 space-y-1.5">
+        {servico.precos.map((faixa) => (
+          <div key={faixa.rotulo}>
+            <p className={`${rotuloClass} mb-0.5`}>{faixa.rotulo}</p>
+            <span className={valorClass}>{faixa.preco}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (!servico.preco) return null;
+
+  if (compacto) {
+    return <span className={valorClass}>{servico.preco}</span>;
+  }
+
+  return (
+    <div className="text-right flex-shrink-0">
+      <span className={valorClass}>{servico.preco}</span>
+    </div>
+  );
+}
+
 const categorias: Categoria[] = [
   {
     id: "dry",
@@ -253,17 +300,22 @@ const categorias: Categoria[] = [
     servicos: [
       {
         nome: "Manicure + Pedicure",
-        preco: "R$ 79",
+        precos: [
+          { rotulo: "Seg a Qua", preco: "R$ 89" },
+          { rotulo: "Qui a Sáb", preco: "R$ 99" },
+        ],
         destaque: true,
-        observacao: "de segunda a quinta-feira (sexta-feira e sábado R$ 85)",
       },
-      { nome: "Manicure ou Pedicure", preco: "R$ 45" },
+      { nome: "Manicure ou Pedicure", preco: "R$ 50" },
       { nome: "Esmaltação", preco: "R$ 32" },
       { nome: "Manicure + Pedicure em Gel", preco: "R$ 250", destaque: true },
       { nome: "Manicure ou Pedicure em Gel", preco: "R$ 130" },
+      { nome: "Alongamento", preco: "R$ 250" },
+      { nome: "Banho em gel", preco: "R$ 190" },
+      { nome: "Esmaltação em gel", preco: "R$ 170" },
     ],
     adicionais: [
-      { nome: "Francesinha", preco: "R$ 7" },
+      { nome: "Francesinha", preco: "R$ 5" },
       //   { nome: "Spa Express (esfoliação e hidratação)", preco: "R$ 25" },
       //   { nome: "Spa Express Especial (remoção de calos)", preco: "R$ 45" },
       //   { nome: "Chinelinho", preco: "R$ 10" },
@@ -298,16 +350,15 @@ const categorias: Categoria[] = [
         observacao: "Inclui cílios, blindagem da pele. Ideal para eventos.",
       },
       {
-        nome: "Penteado tradicional",
-        preco: "R$ 200",
-        destaque: true,
-        observacao: "não inclui acessórios",
+        nome: "Penteado sem lavagem",
+        preco: "R$ 150",
+        observacao: "Para quem chega com o cabelo lavado e seco",
       },
       {
-        nome: "Penteado com acessórios",
-        preco: "R$ 220",
+        nome: "Penteado com lavagem",
+        preco: "R$ 200",
         destaque: true,
-        observacao: "* sujeito a avaliação do profissional",
+        observacao: "Lavagem inclusa",
       },
     ],
   },
@@ -402,48 +453,38 @@ const categorias: Categoria[] = [
     corTexto: "#FFFFFF",
     servicos: [
       {
-        nome: "Buço",
-        preco: "R$ 35",
-      },
-      {
-        nome: "Axilas",
-        preco: "R$ 35",
-        destaque: true,
-        descricao: "Depilação completa das axilas",
-      },
-      {
-        nome: "Braços",
-        preco: "R$ 50",
-      },
-      {
-        nome: "Barriga",
-        preco: "R$ 35",
-      },
-      {
-        nome: "Virilha simples",
-        preco: "R$ 50",
-      },
-      {
-        nome: "Virilha completa",
-        preco: "R$ 70",
-        destaque: true,
-        descricao: "Depilação completa da virilha",
-      },
-      {
-        nome: "Meia Perna",
-        preco: "R$ 70",
-      },
-      {
-        nome: "Perna completa",
-        preco: "R$ 100",
-      },
-      {
-        nome: "Combinação de Depilação",
+        nome: "Combo",
         preco: "R$ 150",
         destaque: true,
-        descricao:
-          "Depilação completa das axilas, virilha completa e meia perna",
+        descricao: "Virilha completa, axilas e meia perna",
       },
+      { nome: "Axilas", preco: "R$ 35", destaque: true },
+      { nome: "Barba", preco: "R$ 40" },
+      { nome: "Buço", preco: "R$ 35" },
+      { nome: "Barriga", preco: "R$ 49" },
+      { nome: "Braço", preco: "R$ 85" },
+      {
+        nome: "Coxa",
+        preco: "R$ 30",
+        descricao: "Posterior / interna",
+      },
+      { nome: "Narinas", preco: "R$ 20" },
+      { nome: "Face completa", preco: "R$ 100" },
+      { nome: "Glúteos", preco: "R$ 65" },
+      { nome: "Meia perna", preco: "R$ 70" },
+      { nome: "Perna completa", preco: "R$ 100" },
+      { nome: "Virilha simples", preco: "R$ 65" },
+      {
+        nome: "Virilha completa",
+        preco: "R$ 80",
+        destaque: true,
+      },
+      {
+        nome: "Protocolo premium",
+        preco: "R$ 89",
+        descricao: "Hidratação da pele para epilação",
+      },
+      { nome: "Máscara de porcelana", preco: "R$ 49" },
     ],
   },
 ];
@@ -530,11 +571,10 @@ export default function CatalogoPage() {
             </div>
             <button
               onClick={handleCompartilhar}
-              className={`p-2.5 rounded-xl transition-all relative ${
-                compartilhado
-                  ? "bg-green-500 hover:bg-green-600"
-                  : "bg-white/10 hover:bg-white/20"
-              }`}
+              className={`p-2.5 rounded-xl transition-all relative ${compartilhado
+                ? "bg-green-500 hover:bg-green-600"
+                : "bg-white/10 hover:bg-white/20"
+                }`}
               aria-label="Compartilhar catálogo"
             >
               {compartilhado ? (
@@ -577,9 +617,8 @@ export default function CatalogoPage() {
           {categorias.map((categoria, index) => (
             <div
               key={categoria.id}
-              className={`group cursor-pointer ${
-                categoriaAtiva === categoria.id ? "md:col-span-2" : ""
-              }`}
+              className={`group cursor-pointer ${categoriaAtiva === categoria.id ? "md:col-span-2" : ""
+                }`}
               onClick={() =>
                 setCategoriaAtiva(
                   categoriaAtiva === categoria.id ? null : categoria.id
@@ -637,9 +676,8 @@ export default function CatalogoPage() {
                           : "Ver serviços"}
                       </span>
                       <svg
-                        className={`w-4 h-4 text-white transition-transform duration-300 ${
-                          categoriaAtiva === categoria.id ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 text-white transition-transform duration-300 ${categoriaAtiva === categoria.id ? "rotate-180" : ""
+                          }`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -658,11 +696,10 @@ export default function CatalogoPage() {
 
               {/* Lista de Serviços Expandível */}
               <div
-                className={`transition-all duration-500 overflow-hidden ${
-                  categoriaAtiva === categoria.id
-                    ? "max-h-[2000px] opacity-100 mt-4"
-                    : "max-h-0 opacity-0"
-                }`}
+                className={`transition-all duration-500 overflow-hidden ${categoriaAtiva === categoria.id
+                  ? "max-h-[2000px] opacity-100 mt-4"
+                  : "max-h-0 opacity-0"
+                  }`}
               >
                 <div className="bg-white rounded-3xl p-5 shadow-lg">
                   {/* Serviços Principais */}
@@ -670,11 +707,10 @@ export default function CatalogoPage() {
                     {categoria.servicos.map((servico, idx) => (
                       <div
                         key={idx}
-                        className={`p-3 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${
-                          servico.destaque
-                            ? "bg-gradient-to-r from-[#561A07] to-[#903A19] text-white shadow-md"
-                            : "bg-[#FCF3E6] hover:bg-[#EFDECE]"
-                        }`}
+                        className={`p-3 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${servico.destaque
+                          ? "bg-gradient-to-r from-[#561A07] to-[#903A19] text-white shadow-md"
+                          : "bg-[#FCF3E6] hover:bg-[#EFDECE]"
+                          }`}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleWhatsApp(categoria.nome, servico.nome);
@@ -684,11 +720,10 @@ export default function CatalogoPage() {
                           <div className="flex-1">
                             <div className="flex items-center gap-1.5 mb-0.5">
                               <h4
-                                className={`font-bold text-base ${
-                                  servico.destaque
-                                    ? "text-white"
-                                    : "text-[#561A07]"
-                                }`}
+                                className={`font-bold text-base ${servico.destaque
+                                  ? "text-white"
+                                  : "text-[#561A07]"
+                                  }`}
                               >
                                 {servico.nome}
                               </h4>
@@ -700,40 +735,29 @@ export default function CatalogoPage() {
                             </div>
                             {servico.descricao && (
                               <p
-                                className={`text-xs mb-1.5 leading-relaxed ${
-                                  servico.destaque
-                                    ? "text-white/90"
-                                    : "text-[#903A19]"
-                                }`}
+                                className={`text-xs mb-1.5 leading-relaxed ${servico.destaque
+                                  ? "text-white/90"
+                                  : "text-[#903A19]"
+                                  }`}
                               >
                                 {servico.descricao}
                               </p>
                             )}
                             {servico.observacao && (
                               <p
-                                className={`text-xs italic ${
-                                  servico.destaque
-                                    ? "text-white/75"
-                                    : "text-[#AF7751]"
-                                }`}
+                                className={`text-xs italic ${servico.destaque
+                                  ? "text-white/75"
+                                  : "text-[#AF7751]"
+                                  }`}
                               >
                                 {servico.observacao}
                               </p>
                             )}
                           </div>
-                          {servico.preco && (
-                            <div className="text-right flex-shrink-0">
-                              <span
-                                className={`text-xl font-bold ${
-                                  servico.destaque
-                                    ? "text-white"
-                                    : "text-[#561A07]"
-                                }`}
-                              >
-                                {servico.preco}
-                              </span>
-                            </div>
-                          )}
+                          <PrecoServico
+                            servico={servico}
+                            destaque={servico.destaque}
+                          />
                         </div>
                       </div>
                     ))}
@@ -762,11 +786,7 @@ export default function CatalogoPage() {
                                 </span>
                               )}
                             </div>
-                            {adicional.preco && (
-                              <span className="text-[#903A19] font-bold text-sm">
-                                {adicional.preco}
-                              </span>
-                            )}
+                            <PrecoServico servico={adicional} compacto />
                           </div>
                         ))}
                       </div>
@@ -784,11 +804,10 @@ export default function CatalogoPage() {
                         {categoria.pacotes.map((pacote, idx) => (
                           <div
                             key={idx}
-                            className={`p-3 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${
-                              pacote.destaque
-                                ? "bg-gradient-to-r from-[#561A07] to-[#903A19] text-white shadow-md"
-                                : "bg-[#FCF3E6] hover:bg-[#EFDECE]"
-                            }`}
+                            className={`p-3 rounded-xl transition-all hover:scale-[1.01] cursor-pointer ${pacote.destaque
+                              ? "bg-gradient-to-r from-[#561A07] to-[#903A19] text-white shadow-md"
+                              : "bg-[#FCF3E6] hover:bg-[#EFDECE]"
+                              }`}
                             onClick={(e) => {
                               e.stopPropagation();
                               handleWhatsApp(categoria.nome, pacote.nome);
@@ -798,11 +817,10 @@ export default function CatalogoPage() {
                               <div className="flex-1">
                                 <div className="flex items-center gap-1.5 mb-0.5">
                                   <h4
-                                    className={`font-bold text-base ${
-                                      pacote.destaque
-                                        ? "text-white"
-                                        : "text-[#561A07]"
-                                    }`}
+                                    className={`font-bold text-base ${pacote.destaque
+                                      ? "text-white"
+                                      : "text-[#561A07]"
+                                      }`}
                                   >
                                     {pacote.nome}
                                   </h4>
@@ -814,40 +832,29 @@ export default function CatalogoPage() {
                                 </div>
                                 {pacote.descricao && (
                                   <p
-                                    className={`text-xs mb-1.5 leading-relaxed ${
-                                      pacote.destaque
-                                        ? "text-white/90"
-                                        : "text-[#903A19]"
-                                    }`}
+                                    className={`text-xs mb-1.5 leading-relaxed ${pacote.destaque
+                                      ? "text-white/90"
+                                      : "text-[#903A19]"
+                                      }`}
                                   >
                                     {pacote.descricao}
                                   </p>
                                 )}
                                 {pacote.observacao && (
                                   <p
-                                    className={`text-xs italic ${
-                                      pacote.destaque
-                                        ? "text-white/75"
-                                        : "text-[#AF7751]"
-                                    }`}
+                                    className={`text-xs italic ${pacote.destaque
+                                      ? "text-white/75"
+                                      : "text-[#AF7751]"
+                                      }`}
                                   >
                                     {pacote.observacao}
                                   </p>
                                 )}
                               </div>
-                              {pacote.preco && (
-                                <div className="text-right flex-shrink-0">
-                                  <span
-                                    className={`text-xl font-bold ${
-                                      pacote.destaque
-                                        ? "text-white"
-                                        : "text-[#561A07]"
-                                    }`}
-                                  >
-                                    {pacote.preco}
-                                  </span>
-                                </div>
-                              )}
+                              <PrecoServico
+                                servico={pacote}
+                                destaque={pacote.destaque}
+                              />
                             </div>
                           </div>
                         ))}
@@ -864,9 +871,8 @@ export default function CatalogoPage() {
       {/* Botão WhatsApp Flutuante */}
       <button
         onClick={() => handleWhatsApp()}
-        className={`fixed bottom-6 right-6 z-50 bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-green-500/50 active:scale-95 group ${
-          scrollY > 200 ? "scale-100 opacity-100" : "scale-0 opacity-0"
-        }`}
+        className={`fixed bottom-6 right-6 z-50 bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-green-500/50 active:scale-95 group ${scrollY > 200 ? "scale-100 opacity-100" : "scale-0 opacity-0"
+          }`}
         aria-label="Agendar pelo WhatsApp"
       >
         <svg

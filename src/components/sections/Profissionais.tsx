@@ -73,14 +73,6 @@ const profissionais = [
     instagram: "https://www.instagram.com/monique.silva38/",
   },
   {
-    nome: "Mere Silva",
-    cargo: "Manicure",
-    foto: "/images/profissionais/mere.jpg",
-    descricao:
-      "Cabeleireira e Manicure com técnicas atuais e atendimento cuidadoso.",
-    instagram: "https://www.instagram.com/merehair.53/",
-  },
-  {
     nome: "Marina Alves",
     cargo: "Micropigmentação",
     foto: "/images/profissionais/marina.PNG",

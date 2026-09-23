@@ -40,7 +40,7 @@ const categoriasPreview: CategoriaPreview[] = [
     descricao: "Mãos e pés sempre impecáveis",
     imagem: "/images/catalogo/unhas.png",
     cor: "#903A19",
-    precoInicial: "R$ 79",
+    precoInicial: "R$ 89",
   },
   {
     id: "coloracao",
