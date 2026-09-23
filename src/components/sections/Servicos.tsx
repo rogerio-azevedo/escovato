@@ -31,7 +31,7 @@ const categoriasPreview: CategoriaPreview[] = [
     descricao: "Design completo para realçar seu olhar",
     imagem: "/images/catalogo/lashes.png",
     cor: "#AF7751",
-    precoInicial: "R$ 70",
+    precoInicial: "R$ 80",
   },
   {
     id: "unhas",

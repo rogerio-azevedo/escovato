@@ -373,21 +373,15 @@ const categorias: Categoria[] = [
     servicos: [
       {
         nome: "Design sobrancelhas",
-        preco: "R$ 70",
+        preco: "R$ 80",
         destaque: false,
         descricao: "Design simples",
       },
       {
         nome: "Design sobrancelhas",
-        preco: "R$ 80",
-        destaque: false,
-        descricao: "Design com henna",
-      },
-      {
-        nome: "Design sobrancelhas",
         preco: "R$ 90",
         destaque: true,
-        descricao: "Design com pigmentação",
+        descricao: "Henna ou tintura",
       },
       {
         nome: "Dermaplaning",
@@ -457,6 +451,10 @@ const categorias: Categoria[] = [
         preco: "R$ 150",
         destaque: true,
         descricao: "Virilha completa, axilas e meia perna",
+      },
+      {
+        nome: "Combo virilha e axilas",
+        preco: "R$ 95",
       },
       { nome: "Axilas", preco: "R$ 35", destaque: true },
       { nome: "Barba", preco: "R$ 40" },
