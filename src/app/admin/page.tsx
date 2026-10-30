@@ -18,6 +18,14 @@ export default function AdminDashboard() {
 
   const menuCards: MenuCard[] = [
     {
+      href: '/admin/presencas',
+      icon: '🎉',
+      title: 'Presenças · 1 ano',
+      description: 'Acompanhar confirmações e compartilhar o convite de aniversário',
+      color: 'from-[#903A19] to-[#561A07]',
+      roles: ['admin', 'recepcionista'],
+    },
+    {
       href: '/admin/rodizio',
       icon: '🔄',
       title: 'Rodízio',

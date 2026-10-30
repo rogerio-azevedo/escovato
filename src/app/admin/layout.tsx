@@ -54,6 +54,7 @@ function AdminLayoutContent({
     { href: '/admin', label: '🏠 Início', roles: ['admin', 'recepcionista'] },
     { href: '/admin/rodizio', label: '🔄 Rodízio', roles: ['admin', 'recepcionista'] },
     { href: '/admin/vales', label: '🎁 Vales', roles: ['admin', 'recepcionista'] },
+    { href: '/admin/presencas', label: '🎉 Presenças', roles: ['admin', 'recepcionista'] },
     { href: '/admin/profissionais', label: '👤 Profissionais', roles: ['admin'] },
     { href: '/admin/especialidades', label: '⭐ Especialidades', roles: ['admin'] },
     { href: '/admin/usuarios', label: '👥 Usuários', roles: ['admin'] },
