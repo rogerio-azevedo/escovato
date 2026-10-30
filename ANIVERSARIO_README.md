@@ -17,7 +17,7 @@ A migração aditiva está em `migrations/20261029_confirmacoes_presenca.sql`. A
 
 ## Evento
 
-Os dados, o link e o prazo ficam em `src/lib/aniversario.ts`. Este formulário é específico para `escovato-1-ano-2026`. O evento será em **7 de novembro de 2026, às 17h, em Cuiabá**. As confirmações são aceitas até o fim de **6 de novembro**, conforme o convite, e se encerram à meia-noite do início de 7 de novembro no fuso de Cuiabá. Uma futura edição precisa de outro identificador de evento e da atualização de seus dados.
+Os dados, o link e o prazo ficam em `src/lib/aniversario.ts`. Este formulário é específico para `escovato-1-ano-2026`. O evento será em **7 de novembro de 2026, das 17h às 22h, em Cuiabá**. As confirmações são aceitas até o fim de **6 de novembro**, conforme o convite, e se encerram à meia-noite do início de 7 de novembro no fuso de Cuiabá. Uma futura edição precisa de outro identificador de evento e da atualização de seus dados.
 
 ## Verificação e publicação
 

@@ -61,7 +61,7 @@ export default function FormularioPresenca({ encerrado }: { encerrado: boolean }
     return <div className="rounded-2xl border border-[#AF7751]/30 bg-white/80 p-7 text-[#561A07]" role="status" aria-live="polite">
       <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#EFDECE] text-2xl" aria-hidden="true">✓</span>
       <h2 className="font-serif text-3xl">Sua presença está confirmada!</h2>
-      <p className="mt-4 leading-relaxed text-[#561A07]/80">Esperamos você no dia <strong>7 de novembro, às 17h</strong>, para celebrar com a gente.</p>
+      <p className="mt-4 leading-relaxed text-[#561A07]/80">Esperamos você no dia <strong>7 de novembro, das {aniversario.horario}</strong>, para celebrar com a gente.</p>
       <a href={aniversario.mapa} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#903A19] px-6 py-3 font-medium text-white transition hover:bg-[#561A07] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#903A19]">Como chegar ao salão ↗</a>
     </div>;
   }

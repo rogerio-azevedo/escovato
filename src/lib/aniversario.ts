@@ -2,7 +2,7 @@ export const aniversario = {
   evento: "escovato-1-ano-2026",
   titulo: "1 ano de Escovato",
   data: "7 de novembro de 2026",
-  horario: "17h",
+  horario: "17h às 22h",
   inicio: "2026-11-07T17:00:00-04:00",
   encerramento: "2026-11-07T00:00:00-04:00",
   endereco: "Av. Érico Gonçalvez Preza Filho, 362",

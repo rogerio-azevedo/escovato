@@ -69,7 +69,7 @@ export default function PresencasPage() {
   return <div className="mx-auto max-w-6xl px-4 py-8 text-gray-900">
     <Link href="/admin" className="text-sm text-[#903A19] hover:underline">← Voltar ao painel</Link>
     <div className="mb-6 mt-5 flex flex-wrap items-center justify-between gap-4">
-      <div><h1 className="text-3xl font-bold">Presenças · 1 ano</h1><p className="mt-2 text-gray-600">7 de novembro, às 17h · Escovato</p></div>
+      <div><h1 className="text-3xl font-bold">Presenças · 1 ano</h1><p className="mt-2 text-gray-600">7 de novembro, das {aniversario.horario} · Escovato</p></div>
       <button onClick={atualizar} disabled={carregando} className="rounded-lg bg-[#903A19] px-5 py-3 font-medium text-white hover:bg-[#561A07] disabled:opacity-60">{carregando ? "Atualizando…" : "Atualizar lista"}</button>
     </div>
     <div className="mb-6 grid gap-4 md:grid-cols-[1fr_2fr]">
