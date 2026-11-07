@@ -49,9 +49,10 @@ test('rejeita payloads inválidos sem lançar exceções nem aceitar HTML', () =
   }
 });
 
-test('aceita confirmações até o fim de 06/11 no fuso de Cuiabá', () => {
-  assert.equal(evento.inscricoesEncerradas(new Date('2026-11-07T03:59:59Z')), false);
-  assert.equal(evento.inscricoesEncerradas(new Date('2026-11-07T04:00:00Z')), true);
+test('aceita confirmações após o prazo original e até o fim da festa no fuso de Cuiabá', () => {
+  assert.equal(evento.inscricoesEncerradas(new Date('2026-11-07T04:00:00Z')), false);
+  assert.equal(evento.inscricoesEncerradas(new Date('2026-11-08T01:59:59Z')), false);
+  assert.equal(evento.inscricoesEncerradas(new Date('2026-11-08T02:00:00Z')), true);
 });
 
 function rotaPublica({ salvar = async () => {}, encerrado = false } = {}) {
